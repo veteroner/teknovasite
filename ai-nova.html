@@ -82,6 +82,17 @@
         animation: typing 1.5s ease-in-out infinite;
       }
       
+      @keyframes typing {
+        0%, 60%, 100% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+        30% {
+          transform: scale(1.2);
+          opacity: 1;
+        }
+      }
+      
       .chat-container {
         height: calc(100vh - 200px);
         max-height: 600px;
@@ -385,122 +396,122 @@
 
       // AI Nova Yanıt Sistemi
       async function getAIResponse(userMessage) {
-        // Akıllı yanıt sistemimiz
+        console.log('Kullanıcı mesajı:', userMessage);
+        
+        // Akıllı yanıt sistemimiz - daha kapsamlı anahtar kelimeler
         const responses = {
-          'teknova': [
-            'TEKNOVA, Türkiye\'nin öncü yapay zeka şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik alanlarında uzmanız.',
-            'İşletmelerin dijital dönüşümünde AI rehberliği sunuyoruz. Özel AI çözümleri geliştirip, mevcut sistemlerinizi akıllı hale getiriyoruz.',
-            'TEKNOVA olarak, AI\'nın gücünü işletmenizin büyümesi için kullanıyoruz. Stratejiden uygulamaya kadar tam destek sağlıyoruz.'
+          'merhaba|selam|hello|hi|hey': [
+            'Merhaba! Ben AI Nova, TEKNOVA\'nın yapay zeka asistanıyım. Size nasıl yardımcı olabilirim? 🤖',
+            'Selam! TEKNOVA çözümleri, AI projeleri veya teknoloji konularında sorularınızı yanıtlayabilirim.',
+            'Merhaba! Ben AI Nova. TEKNOVA hakkında veya yapay zeka konularında size yardımcı olabilirim.'
           ],
-          'ai': [
-            'Yapay zeka, makinelerin insan benzeri öğrenme ve karar verme yeteneklerini simüle etmesidir. TEKNOVA olarak, AI\'nın potansiyelini işletmeniz için açığa çıkarıyoruz.',
-            'AI çözümlerimiz: Makine öğrenmesi, derin öğrenme, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik. Hangi alanda desteğe ihtiyacınız var?',
-            'Yapay zeka artık gelecek değil, bugün. TEKNOVA ile AI dönüşümünüzü başlatın ve rekabette öne geçin.'
+          'adın|ismin|kim|kimsin|sen|nova': [
+            'Ben AI Nova, TEKNOVA\'nın yapay zeka asistanıyım. Size TEKNOVA çözümleri ve AI konularında yardımcı oluyorum!',
+            'Adım AI Nova! TEKNOVA şirketinin AI asistanıyım. Yapay zeka ve teknoloji konularında size destek sağlıyorum.',
+            'Ben AI Nova, TEKNOVA\'nın dijital asistanıyım. Şirketimiz ve AI çözümlerimiz hakkında sorular sorabilirsiniz.'
           ],
-          'proje': [
+          'nasıl|nasılsın|naber': [
+            'Çok iyiyim, teşekkürler! Size TEKNOVA ve AI konularında nasıl yardımcı olabilirim?',
+            'Harika! TEKNOVA\'nın yapay zeka çözümleri hakkında konuşmaya hazırım.',
+            'İyiyim! TEKNOVA projeleri veya AI teknolojileri hakkında sorularınız var mı?'
+          ],
+          'teknova|şirket|company': [
+            'TEKNOVA, Türkiye\'de yeni kurulan ve yapay zeka araştırmaları yapan bir teknoloji şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme alanlarında çalışıyoruz.',
+            'TEKNOVA olarak yapay zeka teknolojileri ile işletmeleri geleceğe hazırlıyoruz. Yeni bir şirket olarak AR-GE odaklı çalışıyoruz.',
+            'TEKNOVA, AI çözümleri geliştiren genç ve dinamik bir teknoloji şirketidir. İşletmelerin dijital dönüşümünde rehberlik sunuyoruz.'
+          ],
+          'ai|yapay zeka|artificial': [
+            'Yapay zeka, makinelerin insan benzeri öğrenme ve karar verme yeteneklerini simüle etmesidir. TEKNOVA olarak AI\'nın potansiyelini keşfediyoruz.',
+            'AI çözümlerimiz: Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik. Hangi alanda ilgileniyorsunuz?',
+            'Yapay zeka artık hayatımızın her alanında. TEKNOVA ile AI\'nın gücünü işletmeniz için nasıl kullanabileceğinizi keşfedin.'
+          ],
+          'proje|project|başlat': [
             'AI projenizi başlatmak için önce ihtiyaçlarınızı analiz ediyoruz. Sonra en uygun teknolojileri seçip, adım adım uyguluyoruz.',
             'Proje sürecimiz: İhtiyaç analizi → Çözüm tasarımı → Geliştirme → Test → Dağıtım → Sürekli destek. Her adımda yanınızdayız.',
-            'Ücretsiz proje konsültasyonu için iletişim sayfamızdan bize ulaşın. Uzmanlarımız projenizi değerlendirip, en iyi çözümü önerir.'
+            'Ücretsiz proje konsültasyonu için iletişim sayfamızdan bize ulaşabilirsiniz. Uzmanlarımız projenizi değerlendirip önerilerde bulunur.'
           ],
-          'çözüm': [
+          'çözüm|solution|hizmet': [
             'AI çözümlerimiz: Makine öğrenmesi, bilgisayarlı görü, NLP, tahminsel analitik, süreç otomasyonu ve AI güvenliği.',
-            'Her sektöre özel AI çözümleri sunuyoruz. E-ticaret, finans, sağlık, üretim... Hangi alanda çalışıyorsunuz?',
-            'Mevcut sistemlerinizi AI ile güçlendiriyor, operasyonel verimlilik sağlıyoruz. ROI odaklı yaklaşımımızla değer yaratıyoruz.'
+            'Her sektöre özel AI çözümleri sunmayı planlıyoruz. E-ticaret, finans, sağlık, üretim... Hangi alanda çalışıyorsunuz?',
+            'Mevcut sistemlerinizi AI ile güçlendirme konusunda araştırmalar yapıyoruz. ROI odaklı yaklaşımımızla değer yaratmayı hedefliyoruz.'
           ],
-          'fiyat': [
-            'AI proje fiyatları, ihtiyaçlarınıza göre değişkenlik gösterir. Ücretsiz konsültasyonda projenizi analiz edip, detaylı teklif sunuyoruz.',
-            'Esnek fiyatlandırma seçeneklerimiz var: Proje bazlı, aylık abonelik veya pay-per-use modelleri. Size en uygun olanı birlikte belirleriz.',
+          'fiyat|ücret|maliyet|price': [
+            'AI proje fiyatları, ihtiyaçlarınıza göre değişkenlik gösterir. Ücretsiz konsültasyonda projenizi analiz edip, detaylı teklif sunabiliriz.',
+            'Esnek fiyatlandırma seçenekleri planlıyoruz: Proje bazlı, aylık abonelik veya kullanım bazlı modeller. Size en uygun olanı birlikte belirleriz.',
             'Bütçenizi öğrenip, o bütçeye uygun en iyi AI çözümünü tasarlayabiliriz. İletişime geçin, konuşalım.'
           ],
-          'iletişim': [
+          'iletişim|contact|ulaş': [
             'Bizimle iletişime geçmek için web sitemizdeki iletişim formunu kullanabilir veya doğrudan arayabilirsiniz.',
             'Ücretsiz konsültasyon için randevu alabilirsiniz. Uzmanlarımız tüm sorularınızı yanıtlamaya hazır.',
-            'E-posta: info@teknova.com.tr | Telefon: +90 (212) 555-0123 | Adres: İstanbul, Türkiye'
+            'E-posta: info@teknova.com | Telefon: +90 (212) 555-0123 | Adres: İstanbul, Türkiye'
           ]
         };
 
         const lowerMessage = userMessage.toLowerCase();
         
-        // Anahtar kelime eşleştirme
-        for (const [keyword, responseArray] of Object.entries(responses)) {
-          if (lowerMessage.includes(keyword)) {
+        // Regex tabanlı anahtar kelime eşleştirme
+        for (const [keywords, responseArray] of Object.entries(responses)) {
+          const keywordRegex = new RegExp(keywords, 'i');
+          if (keywordRegex.test(lowerMessage)) {
+            console.log('Anahtar kelime eşleşti:', keywords);
             const randomResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
             return randomResponse;
           }
         }
 
-        // API çağrısı (yedek çözüm)
-        try {
-          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              contents: [{
-                parts: [{
-                  text: `Sen AI Nova adında TEKNOVA şirketinin yapay zeka asistanısın. TEKNOVA Türkiye'de yeni kurulan ve yapay zeka araştırmaları yapan bir teknoloji şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik konularında çalışmalar yapıyoruz. Müşteri sorusuna dostça, profesyonel ve yardımcı bir şekilde yanıt ver. Şirketimizin yeni olduğunu belirt ama iddialı olmayan bir yaklaşımla yanıt ver. Maksimum 150 kelime kullan. Kullanıcı sorusu: ${userMessage}`
-                }]
-              }],
-              generationConfig: {
-                temperature: 0.7,
-                topK: 40,
-                topP: 0.95,
-                maxOutputTokens: 512,
-              }
-            })
-          });
-
-          const data = await response.json();
-          
-          if (data.candidates && data.candidates[0] && data.candidates[0].content) {
-            return data.candidates[0].content.parts[0].text;
-          } else {
-            throw new Error('API yanıtı alınamadı');
-          }
-        } catch (error) {
-          console.error('AI API hatası:', error);
-          // Varsayılan yanıtlar
-          const defaultResponses = [
-            'Merhaba! Ben AI Nova, TEKNOVA\'nın yapay zeka asistanıyım. Size TEKNOVA çözümleri, AI projeleri ve teknoloji konularında yardımcı olabilirim.',
-            'İlginç bir soru! TEKNOVA olarak yapay zeka alanında araştırma ve geliştirme yapıyoruz. Bu konuda daha detaylı bilgi için iletişim sayfamızdan bize ulaşabilirsiniz.',
-            'Size en iyi şekilde yardımcı olmak istiyorum. Sorunuzu TEKNOVA çözümleri, AI teknolojileri veya projelerimiz hakkında daha spesifik hale getirebilir misiniz?'
-          ];
-          return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-        }
+        // Varsayılan yanıtlar (anahtar kelime eşleşmesi yoksa)
+        const defaultResponses = [
+          'İlginç bir soru! Ben AI Nova, TEKNOVA\'nın yapay zeka asistanıyım. Size TEKNOVA çözümleri, AI projeleri ve teknoloji konularında yardımcı olabilirim.',
+          'Merhaba! TEKNOVA olarak yapay zeka alanında araştırma ve geliştirme yapıyoruz. Bu konuda daha detaylı bilgi almak ister misiniz?',
+          'Size en iyi şekilde yardımcı olmak istiyorum. TEKNOVA çözümleri, AI teknolojileri veya projelerimiz hakkında daha spesifik sorular sorabilirsiniz.',
+          'Ben AI Nova! Size TEKNOVA hakkında, yapay zeka çözümlerimiz veya projelerimiz konusunda yardımcı olabilirim. Ne öğrenmek istiyorsunuz?',
+          'TEKNOVA\'nın AI asistanı olarak, şirketimiz ve teknoloji çözümlerimiz hakkında sorularınızı yanıtlayabilirim. Hangi konuya odaklanmak istersiniz?'
+        ];
+        
+        console.log('Varsayılan yanıt veriliyor');
+        return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
       }
 
       // Form gönderimi
-      chatForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const message = userInput.value.trim();
-        if (!message) return;
-
-        // Kullanıcı mesajını ekle
-        addMessage(message, true);
-        userInput.value = '';
-        
-        // UI durumunu güncelle
-        sendButton.disabled = true;
-        aiStatus.textContent = 'Yazıyor...';
-        showTypingIndicator();
-
-        try {
-          // AI yanıtını al
-          const response = await getAIResponse(message);
+      if (chatForm) {
+        chatForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          console.log('Form gönderildi');
           
-          // Yazıyor göstergesini kaldır ve yanıtı ekle
-          hideTypingIndicator();
-          addMessage(response);
-        } catch (error) {
-          hideTypingIndicator();
-          addMessage('Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.');
-        } finally {
-          sendButton.disabled = false;
-          aiStatus.textContent = 'Çevrimiçi ve hazır';
-        }
-      });
+          const message = userInput.value.trim();
+          console.log('Mesaj:', message);
+          if (!message) return;
+
+          // Kullanıcı mesajını ekle
+          addMessage(message, true);
+          userInput.value = '';
+          
+          // UI durumunu güncelle
+          sendButton.disabled = true;
+          aiStatus.textContent = 'Yazıyor...';
+          showTypingIndicator();
+
+          try {
+            // AI yanıtını al
+            console.log('AI yanıtı alınıyor...');
+            const response = await getAIResponse(message);
+            console.log('AI yanıtı:', response);
+            
+            // Yazıyor göstergesini kaldır ve yanıtı ekle
+            hideTypingIndicator();
+            addMessage(response);
+          } catch (error) {
+            console.error('Hata:', error);
+            hideTypingIndicator();
+            addMessage('Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.');
+          } finally {
+            sendButton.disabled = false;
+            aiStatus.textContent = 'Çevrimiçi ve hazır';
+          }
+        });
+      } else {
+        console.error('Chat form bulunamadı!');
+      }
 
       // Önerilen sorular
       document.querySelectorAll('.suggested-question').forEach(button => {
