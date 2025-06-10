@@ -438,7 +438,7 @@
             body: JSON.stringify({
               contents: [{
                 parts: [{
-                  text: `Sen AI Nova adında TEKNOVA şirketinin yapay zeka asistanısın. TEKNOVA Türkiye'de yapay zeka çözümleri sunan bir teknoloji şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik konularında uzmanız. Müşteri sorusuna dostça, profesyonel ve yardımcı bir şekilde yanıt ver. Maksimum 150 kelime kullan. Kullanıcı sorusu: ${userMessage}`
+                  text: `Sen AI Nova adında TEKNOVA şirketinin yapay zeka asistanısın. TEKNOVA Türkiye'de yeni kurulan ve yapay zeka araştırmaları yapan bir teknoloji şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik konularında çalışmalar yapıyoruz. Müşteri sorusuna dostça, profesyonel ve yardımcı bir şekilde yanıt ver. Şirketimizin yeni olduğunu belirt ama iddialı olmayan bir yaklaşımla yanıt ver. Maksimum 150 kelime kullan. Kullanıcı sorusu: ${userMessage}`
                 }]
               }],
               generationConfig: {
@@ -462,7 +462,7 @@
           // Varsayılan yanıtlar
           const defaultResponses = [
             'Merhaba! Ben AI Nova, TEKNOVA\'nın yapay zeka asistanıyım. Size TEKNOVA çözümleri, AI projeleri ve teknoloji konularında yardımcı olabilirim.',
-            'İlginç bir soru! TEKNOVA olarak yapay zeka alanında geniş deneyimimiz var. Bu konuda daha detaylı bilgi için iletişim sayfamızdan bize ulaşabilirsiniz.',
+            'İlginç bir soru! TEKNOVA olarak yapay zeka alanında araştırma ve geliştirme yapıyoruz. Bu konuda daha detaylı bilgi için iletişim sayfamızdan bize ulaşabilirsiniz.',
             'Size en iyi şekilde yardımcı olmak istiyorum. Sorunuzu TEKNOVA çözümleri, AI teknolojileri veya projelerimiz hakkında daha spesifik hale getirebilir misiniz?'
           ];
           return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
