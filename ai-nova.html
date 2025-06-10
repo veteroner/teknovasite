@@ -335,10 +335,21 @@
       const aiStatus = document.getElementById('ai-status');
 
       // TEKNOVA AI Nova - Akıllı Yanıt Sistemi
-      // API KEY GEÇİCİ OLARAK DEVRE DIŞI - QUOTA LIMIT AŞILDI
-      const GEMINI_API_KEY = null; // 'AIzaSyBvAFN4FXTp9X24x00RNI6CZO4Izixs5tY';
+      const GEMINI_API_KEY = 'AIzaSyBvAFN4FXTp9X24x00RNI6CZO4Izixs5tY';
       
-      // API key test fonksiyonu
+      // Gemini modelleri listesi (quota limitine göre sıralı)
+      const GEMINI_MODELS = [
+        'gemini-2.0-flash-lite',      // En hızlı, düşük quota
+        'gemini-1.5-flash-8b',        // Hızlı ve verimli
+        'gemini-2.0-flash',           // Yeni jenerasyon
+        'gemini-1.5-flash',           // Stabil flash model
+        'gemini-1.5-pro',             // Güçlü model
+        'gemini-2.0-flash-exp-image', // Deneysel modeller
+        'gemini-2.0-flash-exp-audio',
+        'gemini-pro',                 // Klasik model (yedek)
+      ];
+      
+      // API key test fonksiyonu - tüm modelleri test et
       async function testAPIConnection() {
         if (!GEMINI_API_KEY) {
           console.log('🔄 API key bulunamadı, offline modda çalışıyor');
@@ -346,32 +357,41 @@
           return false;
         }
         
-        try {
-          console.log('API bağlantısı test ediliyor...');
-          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              contents: [{
-                parts: [{text: 'Test mesajı'}]
-              }]
-            })
-          });
-          
-          if (response.ok) {
-            console.log('✅ API bağlantısı başarılı!');
-            aiStatus.textContent = 'Çevrimiçi ve hazır';
-            return true;
-          } else {
-            console.error('❌ API bağlantı hatası:', response.status, response.statusText);
-            aiStatus.textContent = 'API quota aşıldı - Offline mod';
-            return false;
+        console.log('🔍 Gemini modellerini test ediliyor...');
+        let workingModels = 0;
+        
+        for (const model of GEMINI_MODELS) {
+          try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [{text: 'Test'}]
+                }]
+              })
+            });
+            
+            if (response.ok) {
+              console.log(`✅ ${model} çalışıyor`);
+              workingModels++;
+            } else {
+              console.log(`❌ ${model} quota aşıldı (${response.status})`);
+            }
+          } catch (error) {
+            console.log(`❌ ${model} hata: ${error.message}`);
           }
-        } catch (error) {
-          console.error('❌ API test hatası:', error);
-          aiStatus.textContent = 'Bağlantı hatası - Offline mod';
+        }
+        
+        if (workingModels > 0) {
+          console.log(`🎉 ${workingModels}/${GEMINI_MODELS.length} model çalışıyor!`);
+          aiStatus.textContent = `${workingModels} model aktif`;
+          return true;
+        } else {
+          console.log('❌ Hiçbir model çalışmıyor');
+          aiStatus.textContent = 'Tüm modeller quota aşıldı - Offline mod';
           return false;
         }
       }
@@ -515,7 +535,7 @@
         return generalResponses[Math.floor(Math.random() * generalResponses.length)];
       }
 
-      // AI Nova Yanıt Sistemi
+            // AI Nova Yanıt Sistemi
       async function getAIResponse(userMessage) {
         console.log('Kullanıcı mesajı:', userMessage);
         
@@ -556,18 +576,23 @@
           return await getOfflineResponse(userMessage);
         }
 
-        // Gerçek AI API çağrısı (Gemini)
-        console.log('API çağrısı yapılıyor...');
-        try {
-          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              contents: [{
-                parts: [{
-                  text: `Sen AI Nova adında TEKNOVA şirketinin yapay zeka asistanısın. TEKNOVA Türkiye'de yeni kurulan (2024) ve yapay zeka araştırmaları yapan bir teknoloji şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik konularında çalışmalar yapıyoruz. 
+        // Çoklu model denemesi - sırayla tüm modelleri dene
+        console.log('Gemini modellerini sırayla deneyerek API çağrısı yapılıyor...');
+        
+        for (let i = 0; i < GEMINI_MODELS.length; i++) {
+          const model = GEMINI_MODELS[i];
+          console.log(`🔄 Model deneniyor: ${model} (${i + 1}/${GEMINI_MODELS.length})`);
+          
+          try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [{
+                    text: `Sen AI Nova adında TEKNOVA şirketinin yapay zeka asistanısın. TEKNOVA Türkiye'de yeni kurulan (2024) ve yapay zeka araştırmaları yapan bir teknoloji şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik konularında çalışmalar yapıyoruz. 
 
 ÖNEMLI KURALLAR:
 - Şirketimizin yeni olduğunu (2024 kuruldu) belirt
@@ -578,54 +603,61 @@
 - TEKNOVA'nın AR-GE odaklı çalıştığını vurgula
 
 Kullanıcı sorusu: ${userMessage}`
-                }]
-              }],
-              generationConfig: {
-                temperature: 0.7,
-                topK: 40,
-                topP: 0.95,
-                maxOutputTokens: 300,
-              },
-              safetySettings: [
-                {
-                  category: "HARM_CATEGORY_HARASSMENT",
-                  threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                  }]
+                }],
+                generationConfig: {
+                  temperature: 0.7,
+                  topK: 40,
+                  topP: 0.95,
+                  maxOutputTokens: 300,
                 },
-                {
-                  category: "HARM_CATEGORY_HATE_SPEECH", 
-                  threshold: "BLOCK_MEDIUM_AND_ABOVE"
-                }
-              ]
-            })
-          });
+                safetySettings: [
+                  {
+                    category: "HARM_CATEGORY_HARASSMENT",
+                    threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                  },
+                  {
+                    category: "HARM_CATEGORY_HATE_SPEECH", 
+                    threshold: "BLOCK_MEDIUM_AND_ABOVE"
+                  }
+                ]
+              })
+            });
 
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            if (response.ok) {
+              const data = await response.json();
+              console.log(`✅ ${model} başarıyla yanıt verdi:`, data);
+              
+              if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0]) {
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                console.log(`🎉 AI yanıtı ${model} modelinden alındı:`, aiResponse);
+                return aiResponse;
+              }
+            } else {
+              console.warn(`⚠️ ${model} modeli hata verdi (${response.status}): ${response.statusText}`);
+              
+              // 429 (Rate limit) veya 400 hatası ise bir sonraki modeli dene
+              if (response.status === 429 || response.status === 400 || response.status === 403) {
+                console.log(`🔄 ${model} quota/limit aşıldı, sonraki modele geçiliyor...`);
+                continue;
+              } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+            }
+          } catch (error) {
+            console.error(`❌ ${model} modeli hatası:`, error);
+            
+            // Son model değilse bir sonrakini dene
+            if (i < GEMINI_MODELS.length - 1) {
+              console.log(`🔄 ${model} başarısız, sonraki modele geçiliyor...`);
+              continue;
+            }
           }
-
-          const data = await response.json();
-          console.log('API yanıtı:', data);
-          
-          if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts[0]) {
-            const aiResponse = data.candidates[0].content.parts[0].text;
-            console.log('AI yanıtı alındı:', aiResponse);
-            return aiResponse;
-          } else {
-            throw new Error('API yanıtı formatı hatalı');
-          }
-        } catch (error) {
-          console.error('Gemini API hatası:', error);
-          
-          // API hatası durumunda varsayılan yanıtlar
-          const fallbackResponses = [
-            'Üzgünüm, şu anda teknik bir sorun yaşıyorum. Ben AI Nova, TEKNOVA\'nın yapay zeka asistanıyım. Size TEKNOVA çözümleri ve AI projeleri hakkında yardımcı olmaya çalışıyorum.',
-            'Bir bağlantı sorunu yaşıyorum. TEKNOVA olarak yapay zeka alanında araştırma ve geliştirme yapan yeni bir şirketiz. Size nasıl yardımcı olabilirim?',
-            'Sistemde geçici bir aksaklık var. Ben AI Nova! TEKNOVA\'nın teknoloji çözümleri ve AI projeleri hakkında size yardımcı olmak istiyorum.',
-            'Bağlantım biraz yavaş. TEKNOVA\'nın AI asistanı olarak, şirketimiz ve teknoloji çözümlerimiz hakkında sorularınızı yanıtlamaya çalışıyorum.'
-          ];
-          
-          return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
         }
+        
+        // Tüm modeller başarısız oldu - offline yanıt sistemine geç
+        console.error('❌ Tüm Gemini modelleri başarısız oldu, offline moda geçiliyor');
+        return await getOfflineResponse(userMessage);
       }
 
       // Form gönderimi
