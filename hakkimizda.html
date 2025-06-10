@@ -12,30 +12,59 @@
         theme: {
           extend: {
             colors: {
-              primary: '#2563eb',
-              secondary: '#64748b',
-              accent: '#0ea5e9',
-              dark: '#1e293b',
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
               light: '#f8fafc'
             },
             fontFamily: {
               sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-20px)' },
+              }
             }
           },
         },
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
       .gradient-text {
-        background: linear-gradient(135deg, #2563eb, #0ea5e9);
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      
+      .ai-glow {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+      }
+      
+      .neural-bg {
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
       }
     </style>
 </head>
-<body class="bg-white dark:bg-dark text-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
     <script>
       function applyTheme() {
@@ -46,50 +75,56 @@
         }
       }
       applyTheme();
+
+
     </script>
     
     <!-- Header -->
-    <header class="bg-white dark:bg-dark shadow-sm border-b border-gray-100 dark:border-gray-800 sticky top-0 z-40">
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
       <div class="container mx-auto flex items-center justify-between py-4 px-6">
         <div class="flex items-center gap-3">
-          <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-8 h-8 object-contain" />
-          <span class="text-xl font-semibold gradient-text">TEKNOVA</span>
+          <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
         </div>
         <nav class="hidden md:flex gap-8 text-sm font-medium">
-          <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
-          <a href="hakkimizda.html" class="text-primary dark:text-accent border-b-2 border-primary dark:border-accent pb-1">Hakkımızda</a>
-          <a href="cozumlerimiz.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
-          <a href="projeler.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
-          <a href="ai-nova.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
-          <a href="iletisim.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+          <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="hakkimizda.html" class="text-primary dark:text-accent border-b-2 border-primary dark:border-accent">Hakkımızda</a>
+          <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+          <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+          <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+          <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
         </nav>
         <div class="md:hidden">
           <button id="mobile-menu-btn" class="text-xl"><i class="fas fa-bars"></i></button>
         </div>
       </div>
       <!-- Mobil Menü -->
-      <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark border-t border-gray-100 dark:border-gray-800">
+      <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark border-t border-gray-200 dark:border-gray-800">
         <div class="container mx-auto py-4 px-6">
           <nav class="flex flex-col gap-4 text-sm font-medium">
-            <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
             <a href="hakkimizda.html" class="text-primary dark:text-accent">Hakkımızda</a>
-            <a href="cozumlerimiz.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
-            <a href="projeler.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
-            <a href="ai-nova.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
-            <a href="iletisim.html" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+            <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+            <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+            <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+            <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
           </nav>
         </div>
       </div>
     </header>
 
     <!-- Sayfa Başlığı -->
-    <section class="pt-24 pb-12 border-b border-gray-100 dark:border-gray-800">
-      <div class="container mx-auto px-4">
-        <div class="text-center">
-          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+    <section class="pt-16 pb-12 neural-bg relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <div class="absolute inset-0">
+        <div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+      </div>
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col items-center text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
             <span class="gradient-text">Hakkımızda</span>
           </h1>
-          <div class="text-gray-600 dark:text-gray-400 flex items-center justify-center gap-2">
+          <div class="text-gray-600 dark:text-gray-400 flex items-center gap-2">
             <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
             <i class="fas fa-chevron-right text-xs"></i>
             <span>Hakkımızda</span>
@@ -99,22 +134,28 @@
     </section>
 
     <!-- Hakkımızda Giriş -->
-    <section class="py-20">
-      <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+    <section class="py-24">
+      <div class="container mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
         <div>
-          <div class="inline-flex items-center px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-primary dark:text-blue-400 rounded-full text-sm font-medium mb-6">
+          <div class="inline-flex items-center px-4 py-2 bg-primary/10 text-primary dark:text-accent rounded-full text-sm font-medium mb-6">
             <i class="fas fa-brain mr-2"></i>
             AI Öncüsü
           </div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">Yapay Zeka'nın <span class="gradient-text">Geleceğini</span> Şekillendiriyoruz</h2>
-          <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">TEKNOVA, yapay zeka ve makine öğrenmesi alanlarında öncü teknolojiler geliştiren, işletmelerin dijital dönüşümünü AI gücüyle destekleyen yenilikçi bir teknoloji şirketidir.</p>
-          <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Kurulduğumuz günden bu yana, en gelişmiş AI algoritmalarını ve deep learning teknolojilerini kullanarak işletmelerin verimliliğini artırmak, süreçlerini optimize etmek ve gelecekteki ihtiyaçlarını öngörmek için çalışıyoruz.</p>
+          <h2 class="text-4xl font-bold mb-6">Yapay Zeka'nın <span class="gradient-text">Geleceğini</span> Şekillendiriyoruz</h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">TEKNOVA, yapay zeka ve makine öğrenmesi alanlarında öncü teknolojiler geliştiren, işletmelerin dijital dönüşümünü AI gücüyle destekleyen yenilikçi bir teknoloji şirketidir.</p>
+          <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">Kurulduğumuz günden bu yana, en gelişmiş AI algoritmalarını ve deep learning teknolojilerini kullanarak işletmelerin verimliliğini artırmak, süreçlerini optimize etmek ve gelecekteki ihtiyaçlarını öngörmek için çalışıyoruz. Bilgisayarlı görü, doğal dil işleme ve tahminsel analitik gibi AI alt dallarında uzmanlaşarak, müşterilerimize rekabet avantajı sağlayan çözümler sunuyoruz.</p>
         </div>
         <div class="flex justify-center">
-          <div class="w-80 h-80 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl flex items-center justify-center">
-            <div class="text-center text-primary dark:text-blue-400">
-              <i class="fas fa-brain text-6xl mb-4"></i>
-              <div class="text-sm font-semibold">AI POWERED</div>
+          <div class="relative">
+            <div class="w-80 h-80 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full absolute -top-5 -left-5 animate-pulse-slow blur-xl"></div>
+            <div class="w-80 h-80 bg-gradient-to-tl from-accent/20 to-primary/20 rounded-full absolute -bottom-5 -right-5 animate-pulse-slow blur-xl" style="animation-delay: 1s"></div>
+            <div class="relative z-10">
+              <div class="w-72 h-72 bg-gradient-to-br from-primary to-secondary rounded-3xl flex items-center justify-center ai-glow animate-float shadow-2xl">
+                <div class="text-center text-white">
+                  <i class="fas fa-brain text-6xl mb-4 opacity-90"></i>
+                  <div class="text-sm font-semibold">AI POWERED</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -122,219 +163,300 @@
     </section>
 
     <!-- Misyon & Vizyon -->
-    <section class="py-20 bg-gray-50 dark:bg-gray-900">
+    <section class="py-24 bg-gray-50 dark:bg-gray-900/50">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Misyon ve <span class="gradient-text">Vizyon</span></h2>
-          <p class="text-lg text-gray-600 dark:text-gray-300">AI'nin gücüyle geleceği şekillendirme amacımız</p>
+          <h2 class="text-4xl font-bold mb-6">Misyon ve <span class="gradient-text">Vizyon</span></h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">AI'nin gücüyle geleceği şekillendirme amacımız</p>
         </div>
         
         <div class="grid md:grid-cols-2 gap-8">
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-8">
-            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mb-6">
-              <i class="fas fa-target text-xl text-primary"></i>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-target text-2xl text-white"></i>
             </div>
-            <h3 class="text-xl font-semibold mb-4">Misyonumuz</h3>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Yapay zeka teknolojilerinin etik ve sürdürülebilir kullanımını destekleyerek, işletmelerin ve toplumun dijital dönüşümünü hızlandırmak.</p>
+            <h3 class="text-2xl font-semibold mb-4">Misyonumuz</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">Yapay zeka teknolojilerinin etik ve sürdürülebilir kullanımını destekleyerek, işletmelerin ve toplumun dijital dönüşümünü hızlandırmak. AI'nin demokratikleştirilmesi yoluyla inovasyonu teşvik etmek ve insan yaşamına değer katacak çözümler geliştirmek.</p>
           </div>
           
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-8">
-            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center mb-6">
-              <i class="fas fa-rocket text-xl text-purple-600"></i>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-rocket text-2xl text-white"></i>
             </div>
-            <h3 class="text-xl font-semibold mb-4">Vizyonumuz</h3>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Küresel ölçekte tanınan, AI alanında öncü teknolojiler geliştiren ve yapay zeka çözümlerinin erişilebilirliğini artıran lider bir teknoloji şirketi olmak.</p>
+            <h3 class="text-2xl font-semibold mb-4">Vizyonumuz</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">Küresel ölçekte tanınan, AI alanında öncü teknolojiler geliştiren ve yapay zeka çözümlerinin erişilebilirliğini artıran lider bir teknoloji şirketi olmak. İnsanı merkeze alan AI felsefeisiyle geleceğin akıllı dünyasını inşa etmek.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- AI Uzmanlık Alanları -->
-    <section class="py-20">
+    <section class="py-24">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">AI <span class="gradient-text">Uzmanlık</span> Alanlarımız</h2>
-          <p class="text-lg text-gray-600 dark:text-gray-300">En son teknolojilerle geliştirdiğimiz yapay zeka çözümleri</p>
+          <h2 class="text-4xl font-bold mb-6">AI <span class="gradient-text">Uzmanlık</span> Alanlarımız</h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">En son teknolojilerle geliştirdiğimiz yapay zeka çözümleri</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 text-center hover:border-primary dark:hover:border-accent transition-colors">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-robot text-2xl text-primary"></i>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group transform hover:scale-105">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-robot text-2xl text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-3">Makine Öğrenmesi</h3>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Supervised, unsupervised ve reinforcement learning algoritmalarıyla akıllı sistemler geliştiriyoruz.</p>
+            <h3 class="text-xl font-semibold mb-3">Machine Learning</h3>
+            <p class="text-gray-600 dark:text-gray-300">Supervised, unsupervised ve reinforcement learning algoritmaları ile akıllı çözümler.</p>
           </div>
           
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 text-center hover:border-primary dark:hover:border-accent transition-colors">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-eye text-2xl text-green-600"></i>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group transform hover:scale-105">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-eye text-2xl text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-3">Bilgisayarlı Görü</h3>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">CNN ve transformer modelleriyle görüntü analizi, nesne tanıma ve görsel AI çözümleri.</p>
+            <h3 class="text-xl font-semibold mb-3">Computer Vision</h3>
+            <p class="text-gray-600 dark:text-gray-300">CNN, YOLO ve transformer tabanlı görüntü analizi ve nesne tanıma sistemleri.</p>
           </div>
           
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 text-center hover:border-primary dark:hover:border-accent transition-colors">
-            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-comments text-2xl text-purple-600"></i>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group transform hover:scale-105">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-comments text-2xl text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-3">Doğal Dil İşleme</h3>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">BERT, GPT ve transformer modelleriyle metin analizi ve dil modelleri geliştiriyoruz.</p>
+            <h3 class="text-xl font-semibold mb-3">NLP & NLU</h3>
+            <p class="text-gray-600 dark:text-gray-300">BERT, GPT ve custom language model'ler ile gelişmiş dil işleme çözümleri.</p>
           </div>
           
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 text-center hover:border-primary dark:hover:border-accent transition-colors">
-            <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-chart-line text-2xl text-orange-600"></i>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group transform hover:scale-105">
+            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-chart-line text-2xl text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-3">Tahminsel Analitik</h3>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Time series analysis ve forecasting modelleriyle gelecek tahminleri yapıyoruz.</p>
-          </div>
-          
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 text-center hover:border-primary dark:hover:border-accent transition-colors">
-            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-shield-alt text-2xl text-red-600"></i>
-            </div>
-            <h3 class="text-lg font-semibold mb-3">AI Güvenliği</h3>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Anomali tespiti, siber güvenlik ve AI model güvenliği çözümleri geliştiriyoruz.</p>
-          </div>
-          
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 text-center hover:border-primary dark:hover:border-accent transition-colors">
-            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-cogs text-2xl text-indigo-600"></i>
-            </div>
-            <h3 class="text-lg font-semibold mb-3">Otomasyon</h3>
-            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">RPA ve AI hibrit çözümleriyle iş süreçlerini otomatikleştiyiyoruz.</p>
+            <h3 class="text-xl font-semibold mb-3">Predictive Analytics</h3>
+            <p class="text-gray-600 dark:text-gray-300">Time series analysis ve ensemble methods ile gelecek tahminleme modelleri.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Değerlerimiz -->
-    <section class="py-20 bg-gray-50 dark:bg-gray-900">
+    <!-- Kuruluş Hikayesi -->
+    <section class="py-24 bg-gray-50 dark:bg-gray-900/50">
       <div class="container mx-auto px-4">
         <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Temel <span class="gradient-text">Değerlerimiz</span></h2>
-          <p class="text-lg text-gray-600 dark:text-gray-300">Çalışma kültürümüzü şekillendiren değerler</p>
+          <h2 class="text-4xl font-bold mb-6">AI Yolculuğumuzun <span class="gradient-text">Hikayesi</span></h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">2009'dan bugüne yapay zeka alanındaki serüvenimiz</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="relative">
+            <!-- Timeline line -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary to-secondary"></div>
+            
+            <div class="space-y-12">
+              <!-- 2009 -->
+              <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-8">
+                  <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center mb-4">
+                      <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-lightbulb text-white"></i>
+                      </div>
+                      <h3 class="text-xl font-semibold">2009 - Başlangıç</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">AI araştırmalarına odaklanan küçük bir takım olarak yolculuğumuz başladı. İlk machine learning projelerimizi hayata geçirdik.</p>
+                  </div>
+                </div>
+                <div class="w-8 h-8 bg-primary rounded-full border-4 border-white shadow-lg z-10 my-4 md:my-0"></div>
+                <div class="md:w-1/2 md:pl-8"></div>
+              </div>
+
+              <!-- 2015 -->
+              <div class="flex flex-col md:flex-row-reverse items-center">
+                <div class="md:w-1/2 md:pl-8">
+                  <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center mb-4">
+                      <div class="w-12 h-12 bg-gradient-to-br from-secondary to-accent rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-brain text-white"></i>
+                      </div>
+                      <h3 class="text-xl font-semibold">2015 - Deep Learning</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">Deep learning alanında uzmanlaştık ve ilk neural network tabanlı çözümlerimizi geliştirdik. Computer vision projelerinde önemli başarılar elde ettik.</p>
+                  </div>
+                </div>
+                <div class="w-8 h-8 bg-secondary rounded-full border-4 border-white shadow-lg z-10 my-4 md:my-0"></div>
+                <div class="md:w-1/2 md:pr-8"></div>
+              </div>
+
+              <!-- 2020 -->
+              <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 md:pr-8">
+                  <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center mb-4">
+                      <div class="w-12 h-12 bg-gradient-to-br from-accent to-primary rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-rocket text-white"></i>
+                      </div>
+                      <h3 class="text-xl font-semibold">2020 - TEKNOVA Kuruluşu</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">TEKNOVA markasıyla yeniden yapılandık. Kurumsal AI çözümlerine odaklandık ve ilk büyük ölçekli projelerimizi teslim ettik.</p>
+                  </div>
+                </div>
+                <div class="w-8 h-8 bg-accent rounded-full border-4 border-white shadow-lg z-10 my-4 md:my-0"></div>
+                <div class="md:w-1/2 md:pl-8"></div>
+              </div>
+
+              <!-- 2024 -->
+              <div class="flex flex-col md:flex-row-reverse items-center">
+                <div class="md:w-1/2 md:pl-8">
+                  <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center mb-4">
+                      <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-trophy text-white"></i>
+                      </div>
+                      <h3 class="text-xl font-semibold">2024 - Lider Pozisyon</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300">Yeni kurulan şirketimiz, AI alanındaki araştırma ve geliştirme çalışmalarımızla sektöre değer katmayı hedefliyoruz. Gelecek nesil AI teknolojileri üzerinde çalışıyoruz.</p>
+                  </div>
+                </div>
+                <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full border-4 border-white shadow-lg z-10 my-4 md:my-0"></div>
+                <div class="md:w-1/2 md:pr-8"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Araştırma Alanları -->
+    <section class="py-24">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-bold mb-6">Araştırma <span class="gradient-text">Odak</span> Alanlarımız</h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">Gelişen AI teknolojilerinde uzmanlaştığımız alanlar</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div class="text-center">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-lightbulb text-2xl text-primary"></i>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center group">
+            <div class="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fas fa-brain text-3xl text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-3">İnovasyon</h3>
-            <p class="text-gray-600 dark:text-gray-300">Sürekli öğrenme ve yenilik odaklı yaklaşım</p>
+            <h3 class="text-xl font-semibold mb-2">Makine Öğrenmesi</h3>
+            <p class="text-primary dark:text-accent font-medium mb-4">Temel AI Teknolojisi</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">Supervised ve unsupervised learning algoritmalarından deep learning modellere kadar geniş yelpazede araştırma</p>
           </div>
           
-          <div class="text-center">
-            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-shield-alt text-2xl text-green-600"></i>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center group">
+            <div class="w-24 h-24 bg-gradient-to-br from-secondary to-accent rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fas fa-eye text-3xl text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-3">Güvenilirlik</h3>
-            <p class="text-gray-600 dark:text-gray-300">Şeffaf ve güvenilir AI çözümleri</p>
+            <h3 class="text-xl font-semibold mb-2">Bilgisayarlı Görü</h3>
+            <p class="text-primary dark:text-accent font-medium mb-4">Görsel AI Sistemleri</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">CNN'den transformer tabanlı vision modellere, nesne tanımadan görüntü segmentasyonuna</p>
           </div>
           
-          <div class="text-center">
-            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-users text-2xl text-purple-600"></i>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center group">
+            <div class="w-24 h-24 bg-gradient-to-br from-accent to-primary rounded-full mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i class="fas fa-comments text-3xl text-white"></i>
             </div>
-            <h3 class="text-lg font-semibold mb-3">İşbirliği</h3>
-            <p class="text-gray-600 dark:text-gray-300">Müşterilerimizle uzun vadeli ortaklık</p>
+            <h3 class="text-xl font-semibold mb-2">Doğal Dil İşleme</h3>
+            <p class="text-primary dark:text-accent font-medium mb-4">AI Dil Teknolojileri</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">BERT, GPT gibi transformer mimarilerinden dil modellerinin özelleştirilmesine</p>
           </div>
-          
-          <div class="text-center">
-            <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-award text-2xl text-orange-600"></i>
-            </div>
-            <h3 class="text-lg font-semibold mb-3">Mükemmellik</h3>
-            <p class="text-gray-600 dark:text-gray-300">En yüksek kalite standartları</p>
-          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Bölümü -->
+    <section class="py-20 bg-gradient-to-r from-primary via-secondary to-accent text-white relative overflow-hidden">
+      <div class="absolute inset-0">
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+      </div>
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">AI Dönüşümünde Bize Katılın</h2>
+        <p class="text-xl max-w-3xl mx-auto mb-8 leading-relaxed">Yapay zeka alanındaki deneyimimiz ve expertise'imiz ile işletmenizi geleceğe taşıyalım.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="iletisim.html" class="px-8 py-4 bg-white text-primary font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition-all transform hover:scale-105">
+            <i class="fas fa-handshake mr-2"></i>
+            Bizimle Çalışın
+          </a>
+          <a href="cozumlerimiz.html" class="px-8 py-4 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-xl border border-white/30 hover:bg-white/30 transition-all">
+            <i class="fas fa-brain mr-2"></i>
+            AI Çözümlerimizi Keşfedin
+          </a>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
+    <footer class="bg-gray-900 text-gray-100 pt-16 pb-8">
       <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
             <div class="flex items-center gap-3 mb-4">
-              <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-8 h-8 object-contain" />
-              <span class="text-xl font-semibold text-white">TEKNOVA</span>
+              <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+              <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
             </div>
-            <p class="mb-4 leading-relaxed">Yapay zeka teknolojileri ile geleceği şekillendiren yenilikçi çözümler sunuyoruz.</p>
+            <p class="text-gray-400 mb-4 leading-relaxed">Yapay zeka teknolojileri ile işletmeleri geleceğe hazırlıyoruz.</p>
             <div class="flex gap-4">
-              <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary transition-colors">
-                <i class="fab fa-linkedin"></i>
-              </a>
-              <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary transition-colors">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary transition-colors">
-                <i class="fab fa-instagram"></i>
-              </a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
           </div>
           
           <div>
-            <h3 class="text-white font-semibold mb-4">Hızlı Linkler</h3>
+            <h3 class="text-lg font-semibold mb-4">Hızlı Erişim</h3>
             <ul class="space-y-2">
-              <li><a href="index.html" class="hover:text-white transition-colors">Ana Sayfa</a></li>
-              <li><a href="cozumlerimiz.html" class="hover:text-white transition-colors">AI Çözümlerimiz</a></li>
-              <li><a href="projeler.html" class="hover:text-white transition-colors">Projeler</a></li>
-              <li><a href="ai-nova.html" class="hover:text-white transition-colors">AI Nova</a></li>
-              <li><a href="iletisim.html" class="hover:text-white transition-colors">İletişim</a></li>
+              <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Ana Sayfa</a></li>
+              <li><a href="hakkimizda.html" class="text-gray-400 hover:text-white transition-colors">Hakkımızda</a></li>
+              <li><a href="cozumlerimiz.html" class="text-gray-400 hover:text-white transition-colors">AI Çözümlerimiz</a></li>
+              <li><a href="projeler.html" class="text-gray-400 hover:text-white transition-colors">Projeler</a></li>
+              <li><a href="ai-nova.html" class="text-gray-400 hover:text-white transition-colors">AI Nova</a></li>
+              <li><a href="iletisim.html" class="text-gray-400 hover:text-white transition-colors">İletişim</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 class="text-white font-semibold mb-4">AI Çözümlerimiz</h3>
+            <h3 class="text-lg font-semibold mb-4">AI Çözümleri</h3>
             <ul class="space-y-2">
-              <li><a href="#" class="hover:text-white transition-colors">Makine Öğrenmesi</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Bilgisayarlı Görü</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Doğal Dil İşleme</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Veri Analizi</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Siber Güvenlik AI</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Makine Öğrenmesi</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bilgisayarlı Görü</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Doğal Dil İşleme</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tahminsel Analitik</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI Danışmanlığı</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 class="text-white font-semibold mb-4">İletişim</h3>
-            <ul class="space-y-3">
-              <li class="flex items-center gap-3">
-                <i class="fas fa-envelope text-primary"></i>
-                <span>info@teknova.com</span>
+            <h3 class="text-lg font-semibold mb-4">İletişim</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt mt-1 mr-3 text-gray-400"></i>
+                <span class="text-gray-400">Teknokent AI Merkezi, İstanbul</span>
               </li>
-              <li class="flex items-center gap-3">
-                <i class="fas fa-phone text-primary"></i>
-                <span>+90 (212) 123 45 67</span>
+              <li class="flex items-start">
+                <i class="fas fa-phone mt-1 mr-3 text-gray-400"></i>
+                <span class="text-gray-400">+90 212 555 00 99</span>
               </li>
-              <li class="flex items-center gap-3">
-                <i class="fas fa-map-marker-alt text-primary"></i>
-                <span>İstanbul, Türkiye</span>
+              <li class="flex items-start">
+                <i class="fas fa-envelope mt-1 mr-3 text-gray-400"></i>
+                <span class="text-gray-400">info@teknova.com.tr</span>
               </li>
             </ul>
           </div>
         </div>
         
-        <div class="border-t border-gray-800 pt-8 text-center">
-          <p>&copy; 2024 TEKNOVA. Tüm hakları saklıdır.</p>
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+          <p>&copy; 2024 TEKNOVA. Tüm hakları saklıdır. | Yapay Zeka ile Güçlendirilmiştir</p>
         </div>
       </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
-        // Mobil menü toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+      // Mobil menü
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
-            });
-        }
+      mobileMenuBtn.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+      });
     </script>
 </body>
 </html> 
