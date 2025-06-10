@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Nova - TEKNOVA Yapay Zeka Asistanı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
+              light: '#f8fafc'
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'typing': 'typing 1s steps(20) infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              typing: {
+                '0%': { opacity: '0.4' },
+                '50%': { opacity: '1' },
+                '100%': { opacity: '0.4' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      
+      .ai-glow {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+      }
+      
+      .chat-bubble {
+        animation: slideUp 0.3s ease-out;
+      }
+      
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .typing-indicator {
+        display: inline-block;
+        animation: typing 1.5s ease-in-out infinite;
+      }
+      
+      .chat-container {
+        height: calc(100vh - 200px);
+        max-height: 600px;
+      }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+    <!-- Koyu-Açık Mod Butonu -->
+    <button id="theme-toggle" class="fixed top-4 right-4 z-50 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all ai-glow" aria-label="Tema Değiştir">
+      <i class="fas fa-moon hidden dark:inline text-primary"></i>
+      <i class="fas fa-sun dark:hidden text-primary"></i>
+    </button>
+    
+    <!-- Header -->
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto flex items-center justify-between py-4 px-6">
+        <div class="flex items-center gap-3">
+          <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+          <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+          <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+          <a href="ai-nova.html" class="text-primary dark:text-accent border-b-2 border-primary dark:border-accent">AI Nova</a>
+          <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-xl" aria-label="Mobil Menü Aç/Kapat"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+      <!-- Mobil Menü -->
+      <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto py-4 px-6">
+          <nav class="flex flex-col gap-4 text-sm font-medium">
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+            <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+            <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+            <a href="ai-nova.html" class="text-primary dark:text-accent">AI Nova</a>
+            <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Ana İçerik -->
+    <main class="py-8">
+      <div class="container mx-auto px-4">
+        <!-- Başlık -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center px-4 py-2 bg-primary/10 text-primary dark:text-accent rounded-full text-sm font-medium mb-4">
+            <i class="fas fa-robot mr-2"></i>
+            Yapay Zeka Asistanı
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            <span class="gradient-text">AI Nova</span> ile Tanışın
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            TEKNOVA'nın geliştirdiği akıllı asistan. Yapay zeka, teknoloji ve işletme sorunlarınız hakkında size yardımcı olur.
+          </p>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden ai-glow">
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-primary to-secondary p-6 text-white">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-robot text-xl"></i>
+                  </div>
+                  <div>
+                    <h2 class="text-xl font-bold">AI Nova</h2>
+                    <p class="text-white/80 text-sm" id="ai-status">Çevrimiçi ve hazır</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <!-- Model Seçici -->
+                  <div class="relative">
+                    <select id="model-selector" class="bg-white/20 text-white border border-white/30 rounded-lg px-3 py-2 text-sm appearance-none cursor-pointer min-w-[140px]">
+                      <option value="gemini-pro" class="text-gray-800">Gemini Pro</option>
+                      <option value="gemini-1.5-flash" class="text-gray-800">Gemini 1.5 Flash</option>
+                      <option value="gemini-1.5-pro" class="text-gray-800">Gemini 1.5 Pro</option>
+                      <option value="gemini-pro-vision" class="text-gray-800">Gemini Pro Vision</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-2 top-1/2 transform -translate-y-1/2 text-white/70 pointer-events-none"></i>
+                  </div>
+                  <button id="clear-chat" class="p-2 hover:bg-white/20 rounded-lg transition-colors" title="Sohbeti Temizle">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Model Bilgisi -->
+              <div class="mt-3 text-white/70 text-xs" id="model-info">
+                Model: Gemini Pro - Genel amaçlı konuşma ve analiz
+              </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="chat-container overflow-y-auto p-6 space-y-4">
+              <!-- Karşılama Mesajı -->
+              <div class="flex items-start gap-3 chat-bubble">
+                <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-robot text-white text-xs"></i>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-tl-md p-4 max-w-xs md:max-w-md">
+                  <p class="text-gray-800 dark:text-gray-200">
+                    Merhaba! Ben AI Nova, TEKNOVA'nın yapay zeka asistanıyım. Size nasıl yardımcı olabilirim? 
+                    Yapay zeka, teknoloji çözümleri veya TEKNOVA hakkında sorularınızı yanıtlayabilirim! 🤖
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="border-t border-gray-200 dark:border-gray-700 p-6">
+              <form id="chat-form" class="flex gap-3">
+                <input 
+                  type="text" 
+                  id="user-input" 
+                  placeholder="AI Nova'ya mesajınızı yazın..." 
+                  class="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-accent text-gray-900 dark:text-gray-100"
+                  autocomplete="off"
+                  maxlength="500"
+                >
+                <button 
+                  type="submit" 
+                  id="send-button"
+                  class="px-6 py-3 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white rounded-2xl transition-all transform hover:scale-105 ai-glow disabled:opacity-50 disabled:transform-none"
+                >
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
+              
+              <!-- Önerilen Sorular -->
+              <div class="mt-4">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Önerilen sorular:</p>
+                <div class="flex flex-wrap gap-2">
+                  <button class="suggested-question px-3 py-1 bg-primary/10 text-primary dark:text-accent rounded-full text-sm hover:bg-primary/20 transition-colors">
+                    TEKNOVA neler yapıyor?
+                  </button>
+                  <button class="suggested-question px-3 py-1 bg-primary/10 text-primary dark:text-accent rounded-full text-sm hover:bg-primary/20 transition-colors">
+                    Yapay zeka çözümleriniz neler?
+                  </button>
+                  <button class="suggested-question px-3 py-1 bg-primary/10 text-primary dark:text-accent rounded-full text-sm hover:bg-primary/20 transition-colors">
+                    AI projesi nasıl başlatırım?
+                  </button>
+                </div>
+              </div>
+
+              <!-- API Key Uyarısı -->
+              <div id="api-warning" class="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                <p class="text-yellow-800 dark:text-yellow-200 text-sm">
+                  <i class="fas fa-exclamation-triangle mr-2"></i>
+                  Gemini API anahtarınızı ayarlamak için sayfanın JavaScript kodunu düzenleyin.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+              <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+            </div>
+            <p class="text-gray-400 mb-4 leading-relaxed">Yapay zeka teknolojileri ile işletmeleri geleceğe hazırlıyoruz.</p>
+            <div class="flex gap-4">
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Çözümlerimiz</h3>
+            <ul class="space-y-2">
+              <li><a href="cozumlerimiz.html" class="text-gray-400 hover:text-primary transition-colors">Makine Öğrenmesi</a></li>
+              <li><a href="cozumlerimiz.html" class="text-gray-400 hover:text-primary transition-colors">Bilgisayarlı Görü</a></li>
+              <li><a href="cozumlerimiz.html" class="text-gray-400 hover:text-primary transition-colors">Doğal Dil İşleme</a></li>
+              <li><a href="cozumlerimiz.html" class="text-gray-400 hover:text-primary transition-colors">Tahminsel Analitik</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Şirket</h3>
+            <ul class="space-y-2">
+              <li><a href="hakkimizda.html" class="text-gray-400 hover:text-primary transition-colors">Hakkımızda</a></li>
+              <li><a href="projeler.html" class="text-gray-400 hover:text-primary transition-colors">Projelerimiz</a></li>
+              <li><a href="iletisim.html" class="text-gray-400 hover:text-primary transition-colors">İletişim</a></li>
+              <li><a href="ai-nova.html" class="text-gray-400 hover:text-primary transition-colors">AI Nova</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">İletişim</h3>
+            <ul class="space-y-2 text-gray-400">
+              <li class="flex items-center gap-2">
+                <i class="fas fa-envelope text-primary"></i>
+                <span>info@teknova.com</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="fas fa-phone text-primary"></i>
+                <span>+90 (212) 555-0123</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <i class="fas fa-map-marker-alt text-primary"></i>
+                <span>İstanbul, Türkiye</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-800 pt-8 text-center">
+          <p class="text-gray-400">&copy; 2024 TEKNOVA. Tüm hakları saklıdır.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Tema değiştirme
+      function applyTheme() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      applyTheme();
+
+      const themeToggle = document.getElementById('theme-toggle');
+      themeToggle.onclick = () => {
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      };
+
+      // Mobil menü
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          const isOpen = !mobileMenu.classList.contains('hidden');
+          mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+        });
+      }
+
+      // Chat fonksiyonları
+      const chatForm = document.getElementById('chat-form');
+      const userInput = document.getElementById('user-input');
+      const chatMessages = document.getElementById('chat-messages');
+      const sendButton = document.getElementById('send-button');
+      const clearChatBtn = document.getElementById('clear-chat');
+      const aiStatus = document.getElementById('ai-status');
+      const apiWarning = document.getElementById('api-warning');
+
+      // Gemini API ayarları
+      const GEMINI_API_KEY = 'AIzaSyBvAFN4FXTp9X24x00RNI6CZO4Izixs5tY';
+      let CURRENT_MODEL = 'gemini-pro'; // Varsayılan model
+      
+      // Model bilgileri
+      const MODEL_INFO = {
+        'gemini-pro': {
+          name: 'Gemini Pro',
+          description: 'Genel amaçlı konuşma ve analiz',
+          url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
+        },
+        'gemini-1.5-flash': {
+          name: 'Gemini 1.5 Flash',
+          description: 'Hızlı yanıt ve verimli işlem',
+          url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent'
+        },
+        'gemini-1.5-pro': {
+          name: 'Gemini 1.5 Pro',
+          description: 'Gelişmiş analiz ve uzun metinler',
+          url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent'
+        },
+        'gemini-pro-vision': {
+          name: 'Gemini Pro Vision',
+          description: 'Görüntü anlama ve analiz',
+          url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent'
+        }
+      };
+
+      // API anahtarı kontrolü
+      if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE') {
+        apiWarning.style.display = 'block';
+      } else {
+        apiWarning.style.display = 'none';
+      }
+
+      // Model seçici
+      const modelSelector = document.getElementById('model-selector');
+      const modelInfo = document.getElementById('model-info');
+
+      if (modelSelector && modelInfo) {
+        modelSelector.addEventListener('change', (e) => {
+          CURRENT_MODEL = e.target.value;
+          const model = MODEL_INFO[CURRENT_MODEL];
+          modelInfo.textContent = `Model: ${model.name} - ${model.description}`;
+          
+          // Model değiştiğinde kullanıcıya bildir
+          addMessage(`Model değiştirildi: ${model.name}. ${model.description} için optimize edilmiştir.`, false);
+        });
+      }
+
+      // Mesaj ekleme fonksiyonu
+      function addMessage(message, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `flex items-start gap-3 chat-bubble ${isUser ? 'justify-end' : ''}`;
+        
+        if (isUser) {
+          messageDiv.innerHTML = `
+            <div class="bg-gradient-to-r from-primary to-secondary text-white rounded-2xl rounded-tr-md p-4 max-w-xs md:max-w-md">
+              <p>${message}</p>
+            </div>
+            <div class="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-user text-gray-600 dark:text-gray-300 text-xs"></i>
+            </div>
+          `;
+        } else {
+          messageDiv.innerHTML = `
+            <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-robot text-white text-xs"></i>
+            </div>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-tl-md p-4 max-w-xs md:max-w-md">
+              <p class="text-gray-800 dark:text-gray-200">${message}</p>
+            </div>
+          `;
+        }
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      // Yazıyor göstergesi
+      function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.id = 'typing-indicator';
+        typingDiv.className = 'flex items-start gap-3 chat-bubble';
+        typingDiv.innerHTML = `
+          <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-robot text-white text-xs"></i>
+          </div>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-tl-md p-4">
+            <div class="flex gap-1">
+              <div class="w-2 h-2 bg-gray-400 rounded-full typing-indicator"></div>
+              <div class="w-2 h-2 bg-gray-400 rounded-full typing-indicator" style="animation-delay: 0.2s"></div>
+              <div class="w-2 h-2 bg-gray-400 rounded-full typing-indicator" style="animation-delay: 0.4s"></div>
+            </div>
+          </div>
+        `;
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function hideTypingIndicator() {
+        const typingDiv = document.getElementById('typing-indicator');
+        if (typingDiv) {
+          typingDiv.remove();
+        }
+      }
+
+      // Gemini API çağrısı
+      async function callGeminiAPI(userMessage) {
+        if (GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE') {
+          return 'Merhaba! Gemini API anahtarı henüz ayarlanmamış. Lütfen JavaScript kodunda GEMINI_API_KEY değişkenini kendi API anahtarınızla güncelleyin. TEKNOVA hakkında sorularınızı yanıtlamak için hazırım!';
+        }
+
+        // Offline demo yanıtları
+        const demoResponses = {
+          'teknova': 'TEKNOVA, Türkiye\'de faaliyet gösteren öncü bir yapay zeka şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik alanlarında uzmanız. İşletmelerin AI dönüşümünde rehberlik ediyor ve özel AI çözümleri geliştiriyoruz.',
+          'ai': 'Yapay zeka, makinelerin insan benzeri öğrenme ve karar verme yeteneklerini simüle etmesidir. TEKNOVA olarak, işletmenizin AI potansiyelini açığa çıkarmak için özel çözümler sunuyoruz.',
+          'proje': 'AI projenizi başlatmak için önce ihtiyaçlarınızı analiz ediyoruz, sonra uygun teknolojileri belirliyor ve adım adım uyguluyoruz. Ücretsiz konsültasyon için iletişim sayfamızdan bize ulaşabilirsiniz.',
+          'çözüm': 'TEKNOVA olarak makine öğrenmesi, bilgisayarlı görü, NLP, tahminsel analitik, süreç otomasyonu ve AI güvenliği alanlarında kapsamlı çözümler sunuyoruz.',
+          'model': `Şu anda ${MODEL_INFO[CURRENT_MODEL].name} modelini kullanıyorum. Bu model ${MODEL_INFO[CURRENT_MODEL].description} için optimize edilmiştir. Başka modeller de mevcuttur: Gemini Pro, Gemini 1.5 Flash, Gemini 1.5 Pro ve Gemini Pro Vision.`
+        };
+
+        // Basit keyword matching
+        const lowerMessage = userMessage.toLowerCase();
+        for (const [keyword, response] of Object.entries(demoResponses)) {
+          if (lowerMessage.includes(keyword)) {
+            return response;
+          }
+        }
+
+        try {
+          const currentModelInfo = MODEL_INFO[CURRENT_MODEL];
+          const response = await fetch(`${currentModelInfo.url}?key=${GEMINI_API_KEY}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              contents: [{
+                parts: [{
+                  text: `Sen AI Nova adında TEKNOVA şirketinin yapay zeka asistanısın. TEKNOVA Türkiye'de yapay zeka çözümleri sunan bir teknoloji şirketidir. Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik konularında uzmanız. Şu anda ${currentModelInfo.name} modelini kullanıyorsun. Müşteri sorusuna dostça, profesyonel ve yardımcı bir şekilde yanıt ver. Kullanıcı sorusu: ${userMessage}`
+                }]
+              }],
+              generationConfig: {
+                temperature: 0.7,
+                topK: 40,
+                topP: 0.95,
+                maxOutputTokens: 1024,
+              }
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+            return data.candidates[0].content.parts[0].text;
+          } else {
+            throw new Error('Geçersiz API yanıtı');
+          }
+        } catch (error) {
+          console.error('Gemini API hatası:', error);
+          // API çalışmazsa varsayılan yanıt
+          return `Merhaba! Ben AI Nova, TEKNOVA'nın yapay zeka asistanıyım. Şu anda ${MODEL_INFO[CURRENT_MODEL].name} modelini kullanıyorum, ancak API bağlantısında bir sorun var. Size yardımcı olmaya devam edebilirim. TEKNOVA hakkında, yapay zeka çözümlerimiz veya AI projeleriniz hakkında sorularınızı yanıtlayabilirim.`;
+        }
+      }
+
+      // Form gönderimi
+      chatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        // Kullanıcı mesajını ekle
+        addMessage(message, true);
+        userInput.value = '';
+        
+        // UI durumunu güncelle
+        sendButton.disabled = true;
+        aiStatus.textContent = 'Yazıyor...';
+        showTypingIndicator();
+
+        try {
+          // API çağrısı
+          const response = await callGeminiAPI(message);
+          
+          // Yazıyor göstergesini kaldır ve yanıtı ekle
+          hideTypingIndicator();
+          addMessage(response);
+        } catch (error) {
+          hideTypingIndicator();
+          addMessage('Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.');
+        } finally {
+          sendButton.disabled = false;
+          aiStatus.textContent = 'Çevrimiçi ve hazır';
+        }
+      });
+
+      // Önerilen sorular
+      document.querySelectorAll('.suggested-question').forEach(button => {
+        button.addEventListener('click', () => {
+          userInput.value = button.textContent;
+          chatForm.dispatchEvent(new Event('submit'));
+        });
+      });
+
+      // Sohbeti temizle
+      clearChatBtn.addEventListener('click', () => {
+        if (confirm('Sohbet geçmişini temizlemek istediğinizden emin misiniz?')) {
+          chatMessages.innerHTML = `
+            <div class="flex items-start gap-3 chat-bubble">
+              <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-robot text-white text-xs"></i>
+              </div>
+              <div class="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-tl-md p-4 max-w-xs md:max-w-md">
+                <p class="text-gray-800 dark:text-gray-200">
+                  Merhaba! Ben AI Nova, TEKNOVA'nın yapay zeka asistanıyım. Size nasıl yardımcı olabilirim? 
+                  Yapay zeka, teknoloji çözümleri veya TEKNOVA hakkında sorularınızı yanıtlayabilirim! 🤖
+                </p>
+              </div>
+            </div>
+          `;
+        }
+      });
+
+      // Enter tuşu ile gönderme
+      userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          chatForm.dispatchEvent(new Event('submit'));
+        }
+      });
+    </script>
+</body>
+</html>

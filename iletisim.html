@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim - TEKNOVA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
+              light: '#f8fafc'
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-20px)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      
+      .ai-glow {
+        box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+      }
+      
+      .neural-bg {
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+      }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+    <!-- Koyu-Açık Mod Butonu -->
+    <button id="theme-toggle" class="fixed top-4 right-4 z-50 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all ai-glow" aria-label="Tema Değiştir">
+      <i class="fas fa-moon hidden dark:inline text-primary"></i>
+      <i class="fas fa-sun dark:hidden text-primary"></i>
+    </button>
+    <script>
+      function applyTheme() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      applyTheme();
+
+      const btn = document.getElementById('theme-toggle');
+      btn.onclick = () => {
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      };
+    </script>
+    
+    <!-- Header -->
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto flex items-center justify-between py-4 px-6">
+        <div class="flex items-center gap-3">
+          <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+          <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+          <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+          <a href="iletisim.html" class="text-primary dark:text-accent border-b-2 border-primary dark:border-accent">İletişim</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-xl" aria-label="Mobil Menü Aç/Kapat"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+      <!-- Mobil Menü -->
+      <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto py-4 px-6">
+          <nav class="flex flex-col gap-4 text-sm font-medium">
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+            <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+            <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+            <a href="iletisim.html" class="text-primary dark:text-accent">İletişim</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sayfa Başlığı -->
+    <section class="pt-16 pb-12 neural-bg relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <div class="absolute inset-0">
+        <div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+      </div>
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col items-center text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">İletişim</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mb-6">
+            AI projeleriniz ve işbirliği fırsatları için bizimle iletişime geçin
+          </p>
+          <div class="text-gray-600 dark:text-gray-400 flex items-center gap-2">
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <span>İletişim</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- İletişim Kartları -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-map-marker-alt text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">AI Merkezimiz</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Mevlana Mahallesi,<br>Sincan, Ankara</p>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-phone text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Telefon</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">+90 312 555 00 99<br>+90 312 555 00 88</p>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-envelope text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">E-posta</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">bilgi@teknovagroup.com<br>destek@teknovagroup.com</p>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <i class="fas fa-clock text-2xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Çalışma Saatleri</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Pazartesi - Cuma: 09:00 - 18:00<br>AI Support: 7/24</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- İletişim Formu ve Harita -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-bold mb-6">AI Projenizi <span class="gradient-text">Konuşalım</span></h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">AI ihtiyaçlarınız ve işbirliği fırsatları için uzman ekibimizle iletişime geçin</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+            <form class="space-y-6" id="contact-form">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Adınız Soyadınız*</label>
+                  <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent dark:focus:ring-secondary bg-white dark:bg-gray-800 dark:text-white transition-all">
+                </div>
+                <div>
+                  <label for="email" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">E-posta Adresiniz*</label>
+                  <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent dark:focus:ring-secondary bg-white dark:bg-gray-800 dark:text-white transition-all">
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="phone" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Telefon</label>
+                  <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent dark:focus:ring-secondary bg-white dark:bg-gray-800 dark:text-white transition-all">
+                </div>
+                <div>
+                  <label for="subject" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Konu*</label>
+                  <select id="subject" name="subject" required class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent dark:focus:ring-secondary bg-white dark:bg-gray-800 dark:text-white transition-all">
+                    <option value="">Seçiniz</option>
+                    <option value="AI Danışmanlığı">AI Danışmanlığı</option>
+                    <option value="Makine Öğrenmesi">Makine Öğrenmesi</option>
+                    <option value="Computer Vision">Computer Vision</option>
+                    <option value="Doğal Dil İşleme">Doğal Dil İşleme</option>
+                    <option value="Tahminsel Analitik">Tahminsel Analitik</option>
+                    <option value="AI Güvenlik">AI Güvenlik</option>
+                    <option value="MLOps & Deployment">MLOps & Deployment</option>
+                    <option value="İş Birliği">İş Birliği</option>
+                    <option value="Genel Bilgi">Genel Bilgi</option>
+                    <option value="Diğer">Diğer</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div>
+                <label for="company" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Şirket/Kurum</label>
+                <input type="text" id="company" name="company" class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent dark:focus:ring-secondary bg-white dark:bg-gray-800 dark:text-white transition-all">
+              </div>
+              
+              <div>
+                <label for="message" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">AI Proje Detayları / Mesajınız*</label>
+                <textarea id="message" name="message" rows="5" required placeholder="AI projesi hakkında detaylar, beklentileriniz ve ihtiyaçlarınız..." class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent dark:focus:ring-secondary bg-white dark:bg-gray-800 dark:text-white transition-all"></textarea>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="flex items-center h-5">
+                  <input id="privacy" name="privacy" type="checkbox" required class="w-4 h-4 accent-primary">
+                </div>
+                <label for="privacy" class="ml-3 text-sm text-gray-600 dark:text-gray-300">
+                  Kişisel verilerimin işlenmesine ilişkin <a href="#" class="text-primary dark:text-accent hover:underline">Gizlilik Politikası</a>'nı okudum ve kabul ediyorum.*
+                </label>
+              </div>
+              
+              <button type="submit" class="w-full px-8 py-4 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold rounded-xl transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 transform hover:scale-105 ai-glow">
+                <i class="fas fa-paper-plane mr-2"></i>
+                AI Projesini Başlat
+              </button>
+            </form>
+          </div>
+          
+          <div class="space-y-8">
+            <div class="rounded-2xl overflow-hidden shadow-lg">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12250.486!2d32.851!3d39.807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d340f8b7d7d5b7%3A0x5a6b1f8c3e22d2f!2sMevlana%20Mah.%2C%20Sincan%2FAnkara!5e0!3m2!1str!2str!4v1685543210408!5m2!1str!2str" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+              <h3 class="text-2xl font-semibold mb-4 flex items-center">
+                <i class="fas fa-brain text-primary mr-3"></i>
+                AI Merkezimizi Ziyaret Edin
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">Ankara'nın teknoloji üssü Sincan'da yer alan AI merkezimizde sizi ağırlamaktan mutluluk duyarız. En son AI teknolojilerini görmek ve projelerinizi yerinde konuşmak için randevu alabilirsiniz.</p>
+              <div class="flex flex-wrap gap-4">
+                <a href="tel:+903125550099" class="inline-flex items-center px-6 py-3 bg-primary/10 text-primary dark:text-accent rounded-xl hover:bg-primary/20 transition-all">
+                  <i class="fas fa-phone mr-2"></i> Randevu Al
+                </a>
+                                  <a href="mailto:bilgi@teknovagroup.com" class="inline-flex items-center px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
+                  <i class="fas fa-envelope mr-2"></i> E-posta Gönder
+                </a>
+              </div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-8 border border-primary/20">
+              <h3 class="text-xl font-semibold mb-4 text-primary dark:text-accent">🚀 Hızlı AI Danışmanlığı</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">15 dakikalık ücretsiz AI danışmanlığı için hemen randevu alın. Uzmanlarımız AI potansiyelinizi değerlendirsin.</p>
+              <a href="#" class="inline-flex items-center text-primary dark:text-accent font-semibold hover:underline">
+                Ücretsiz Danışmanlık Randevusu <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sosyal Medya -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-bold mb-6">AI Dünyasında <span class="gradient-text">Bizi Takip Edin</span></h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">AI trendleri, projelerimiz ve teknoloji haberleri için sosyal medya kanallarımızı takip edin</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8 max-w-4xl mx-auto">
+          <a href="#" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center group">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-all group-hover:scale-110">
+              <i class="fab fa-twitter text-2xl text-blue-600 dark:text-blue-400 group-hover:text-white"></i>
+            </div>
+            <span class="text-gray-600 dark:text-gray-300 font-medium">Twitter</span>
+          </a>
+          
+          <a href="#" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center group">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-700 group-hover:text-white transition-all group-hover:scale-110">
+              <i class="fab fa-linkedin-in text-2xl text-blue-700 dark:text-blue-400 group-hover:text-white"></i>
+            </div>
+            <span class="text-gray-600 dark:text-gray-300 font-medium">LinkedIn</span>
+          </a>
+          
+          <a href="#" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center group">
+            <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 group-hover:bg-gray-900 group-hover:text-white transition-all group-hover:scale-110">
+              <i class="fab fa-github text-2xl text-gray-800 dark:text-gray-300 group-hover:text-white"></i>
+            </div>
+            <span class="text-gray-600 dark:text-gray-300 font-medium">GitHub</span>
+          </a>
+          
+          <a href="#" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center group">
+            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-red-600 group-hover:text-white transition-all group-hover:scale-110">
+              <i class="fab fa-youtube text-2xl text-red-600 dark:text-red-400 group-hover:text-white"></i>
+            </div>
+            <span class="text-gray-600 dark:text-gray-300 font-medium">YouTube</span>
+          </a>
+          
+          <a href="#" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-8 flex flex-col items-center group">
+            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-600 group-hover:text-white transition-all group-hover:scale-110">
+              <i class="fas fa-blog text-2xl text-purple-600 dark:text-purple-400 group-hover:text-white"></i>
+            </div>
+            <span class="text-gray-600 dark:text-gray-300 font-medium">AI Blog</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SSS Bölümü -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
+      <div class="container mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-4xl font-bold mb-6">Sıkça Sorulan <span class="gradient-text">AI Soruları</span></h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">Yapay zeka projeleriniz hakkında merak ettikleriniz</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto space-y-6">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <button class="w-full px-8 py-6 text-left font-semibold flex justify-between items-center focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" onclick="this.parentElement.classList.toggle('active'); this.nextElementSibling.classList.toggle('hidden')">
+              <span class="text-lg">TEKNOVA hangi AI teknolojilerinde uzmanlaşmış?</span>
+              <i class="fas fa-chevron-down transition-transform duration-200 text-primary"></i>
+            </button>
+            <div class="hidden px-8 py-6 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Makine öğrenmesi, derin öğrenme, computer vision, doğal dil işleme (NLP), tahminsel analitik, AI güvenlik ve MLOps konularında uzmanız. TensorFlow, PyTorch, Hugging Face gibi en güncel teknolojilerle çalışıyoruz.</p>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <button class="w-full px-8 py-6 text-left font-semibold flex justify-between items-center focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" onclick="this.parentElement.classList.toggle('active'); this.nextElementSibling.classList.toggle('hidden')">
+              <span class="text-lg">AI projesi geliştirme süreci nasıl işliyor?</span>
+              <i class="fas fa-chevron-down transition-transform duration-200 text-primary"></i>
+            </button>
+            <div class="hidden px-8 py-6 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">4 aşamalı sürecimiz: 1) Keşif & Analiz - ihtiyaçlarınızı değerlendiririz, 2) Veri Stratejisi - veri kalitesi ve feature engineering, 3) Model Geliştirme - algoritma seçimi ve training, 4) Deployment & MLOps - production'da güvenli yayınlama ve monitoring.</p>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <button class="w-full px-8 py-6 text-left font-semibold flex justify-between items-center focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" onclick="this.parentElement.classList.toggle('active'); this.nextElementSibling.classList.toggle('hidden')">
+              <span class="text-lg">AI model doğruluğu konusunda garanti veriyor musunuz?</span>
+              <i class="fas fa-chevron-down transition-transform duration-200 text-primary"></i>
+            </button>
+            <div class="hidden px-8 py-6 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Projelerimizde ortalama %99 model doğruluğuna ulaşıyoruz. Her proje için gerçekçi doğruluk hedefleri belirleyip, veri kalitesi ve model performansını optimize ediyoruz. Proje öncesi detaylı veri analizi yaparak beklenen performans metriklerini paylaşırız.</p>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <button class="w-full px-8 py-6 text-left font-semibold flex justify-between items-center focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" onclick="this.parentElement.classList.toggle('active'); this.nextElementSibling.classList.toggle('hidden')">
+              <span class="text-lg">Küçük işletmeler için de AI çözümleri sunuyor musunuz?</span>
+              <i class="fas fa-chevron-down transition-transform duration-200 text-primary"></i>
+            </button>
+            <div class="hidden px-8 py-6 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Evet, hem büyük enterprise şirketler hem de küçük-orta ölçekli işletmeler için ölçeklenebilir AI çözümleri geliştiriyoruz. AutoML platformları ve cloud-based çözümlerle maliyet-etkin AI projelerine odaklanıyoruz.</p>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <button class="w-full px-8 py-6 text-left font-semibold flex justify-between items-center focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" onclick="this.parentElement.classList.toggle('active'); this.nextElementSibling.classList.toggle('hidden')">
+              <span class="text-lg">AI projesinin maliyeti ve süresi nasıl belirlenir?</span>
+              <i class="fas fa-chevron-down transition-transform duration-200 text-primary"></i>
+            </button>
+            <div class="hidden px-8 py-6 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Maliyet ve süre; projenin karmaşıklığı, veri miktarı, algoritma türü ve deployment gereksinimlerine göre değişir. MVP projeler 4-8 hafta, karmaşık AI sistemler 3-6 ay sürebilir. Detaylı teknik analiz sonrası sabit fiyat teklifi sunuyoruz.</p>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <button class="w-full px-8 py-6 text-left font-semibold flex justify-between items-center focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" onclick="this.parentElement.classList.toggle('active'); this.nextElementSibling.classList.toggle('hidden')">
+              <span class="text-lg">Veri güvenliği ve gizliliği nasıl sağlanıyor?</span>
+              <i class="fas fa-chevron-down transition-transform duration-200 text-primary"></i>
+            </button>
+            <div class="hidden px-8 py-6 border-t border-gray-200 dark:border-gray-700">
+              <p class="text-gray-600 dark:text-gray-300 leading-relaxed">GDPR ve KVKK uyumlu veri işleme prosedürlerimiz var. End-to-end encryption, secure cloud infrastructure ve federated learning yaklaşımları kullanıyoruz. Müşteri verileri hiçbir zaman üçüncü taraflarla paylaşılmaz.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-12">
+          <a href="#" class="inline-flex items-center text-primary dark:text-accent font-semibold hover:underline text-lg">
+            <i class="fas fa-question-circle mr-2"></i>
+            Daha Fazla AI Sorusu <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+              <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+            </div>
+            <p class="text-gray-400 mb-4 leading-relaxed">Yapay zeka teknolojileri ile işletmeleri geleceğe hazırlıyoruz.</p>
+            <div class="flex gap-4">
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Hızlı Erişim</h3>
+            <ul class="space-y-2">
+              <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Ana Sayfa</a></li>
+              <li><a href="hakkimizda.html" class="text-gray-400 hover:text-white transition-colors">Hakkımızda</a></li>
+              <li><a href="cozumlerimiz.html" class="text-gray-400 hover:text-white transition-colors">AI Çözümlerimiz</a></li>
+              <li><a href="projeler.html" class="text-gray-400 hover:text-white transition-colors">Projeler</a></li>
+              <li><a href="iletisim.html" class="text-gray-400 hover:text-white transition-colors">İletişim</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">AI Çözümleri</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Makine Öğrenmesi</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bilgisayarlı Görü</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Doğal Dil İşleme</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tahminsel Analitik</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI Danışmanlığı</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">İletişim</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt mt-1 mr-3 text-gray-400"></i>
+                <span class="text-gray-400">Mevlana Mahallesi, Sincan, Ankara</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-phone mt-1 mr-3 text-gray-400"></i>
+                <span class="text-gray-400">+90 312 555 00 99</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-envelope mt-1 mr-3 text-gray-400"></i>
+                <span class="text-gray-400">bilgi@teknovagroup.com</span>
+              </li>
+            </ul>
+            
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold mb-3">AI Bülteni</h4>
+              <form class="flex" id="newsletter-form">
+                <input type="email" name="newsletter-email" placeholder="E-posta adresiniz" class="flex-1 px-4 py-2 rounded-l-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-1 focus:ring-primary text-white" autocomplete="off">
+                <button type="submit" class="px-4 py-2 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all text-white rounded-r-lg">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
+              <div id="newsletter-message" class="mt-2 text-sm"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+          <p>&copy; 2024 TEKNOVA. Tüm hakları saklıdır. | Yapay Zeka ile Güçlendirilmiştir</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Mobil menü
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+      }
+      function openMobileMenu() {
+        mobileMenu.classList.remove('hidden');
+      }
+
+      mobileMenuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (mobileMenu.classList.contains('hidden')) {
+          openMobileMenu();
+        } else {
+          closeMobileMenu();
+        }
+      });
+
+      // ESC ile kapama
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+        }
+      });
+
+      // Dışarı tıklayınca kapama
+      document.addEventListener('click', function(e) {
+        if (!mobileMenu.classList.contains('hidden')) {
+          if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            closeMobileMenu();
+          }
+        }
+      });
+      
+      // SSS toggle
+      document.querySelectorAll('.bg-white button, .bg-gray-800 button').forEach(button => {
+        button.addEventListener('click', function() {
+          const icon = this.querySelector('i');
+          if (this.parentElement.classList.contains('active')) {
+            icon.style.transform = 'rotate(0deg)';
+          } else {
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+      // İletişim formu
+      document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Form gönderme simülasyonu
+        const button = this.querySelector('button[type="submit"]');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Gönderiliyor...';
+        button.disabled = true;
+        
+        setTimeout(() => {
+          button.innerHTML = '<i class="fas fa-check mr-2"></i>Başarıyla Gönderildi!';
+          button.classList.remove('from-primary', 'to-secondary');
+          button.classList.add('bg-green-500');
+          
+          setTimeout(() => {
+            button.innerHTML = originalText;
+            button.disabled = false;
+            button.classList.remove('bg-green-500');
+            button.classList.add('from-primary', 'to-secondary');
+            this.reset();
+          }, 2000);
+        }, 1500);
+      });
+
+      // Newsletter form
+      document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const emailInput = this.elements['newsletter-email'];
+        const messageDiv = document.getElementById('newsletter-message');
+        const email = emailInput.value.trim();
+        
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          messageDiv.textContent = "Lütfen geçerli bir e-posta adresi girin.";
+          messageDiv.className = "mt-2 text-sm text-red-500";
+          return;
+        }
+        
+        messageDiv.textContent = "AI bülteni için kaydınız alındı!";
+        messageDiv.className = "mt-2 text-sm text-green-500";
+        emailInput.value = "";
+      });
+    </script>
+</body>
+</html> 
