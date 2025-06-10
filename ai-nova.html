@@ -335,10 +335,17 @@
       const aiStatus = document.getElementById('ai-status');
 
       // TEKNOVA AI Nova - Akıllı Yanıt Sistemi
-      const GEMINI_API_KEY = 'AIzaSyBvAFN4FXTp9X24x00RNI6CZO4Izixs5tY';
+      // API KEY GEÇİCİ OLARAK DEVRE DIŞI - QUOTA LIMIT AŞILDI
+      const GEMINI_API_KEY = null; // 'AIzaSyBvAFN4FXTp9X24x00RNI6CZO4Izixs5tY';
       
       // API key test fonksiyonu
       async function testAPIConnection() {
+        if (!GEMINI_API_KEY) {
+          console.log('🔄 API key bulunamadı, offline modda çalışıyor');
+          aiStatus.textContent = 'Offline modda çalışıyor';
+          return false;
+        }
+        
         try {
           console.log('API bağlantısı test ediliyor...');
           const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
@@ -355,13 +362,16 @@
           
           if (response.ok) {
             console.log('✅ API bağlantısı başarılı!');
+            aiStatus.textContent = 'Çevrimiçi ve hazır';
             return true;
           } else {
             console.error('❌ API bağlantı hatası:', response.status, response.statusText);
+            aiStatus.textContent = 'API quota aşıldı - Offline mod';
             return false;
           }
         } catch (error) {
           console.error('❌ API test hatası:', error);
+          aiStatus.textContent = 'Bağlantı hatası - Offline mod';
           return false;
         }
       }
@@ -428,6 +438,83 @@
         }
       }
 
+      // Akıllı offline yanıt sistemi
+      async function getOfflineResponse(userMessage) {
+        console.log('Offline yanıt üretiliyor...');
+        
+        const message = userMessage.toLowerCase();
+        
+        // Konu kategorileri ve yanıtları
+        const topicResponses = {
+          'teknova': [
+            'TEKNOVA, 2024 yılında kurulan yenilikçi bir yapay zeka şirketidir. Makine öğrenmesi, bilgisayarlı görü ve doğal dil işleme alanlarında araştırma ve geliştirme çalışmaları yürütüyoruz.',
+            'TEKNOVA olarak, işletmelerin yapay zeka teknolojileri ile dijital dönüşümlerinde rehberlik sağlıyoruz. Yeni kurulan şirketimiz, AR-GE odaklı çalışarak sektöre değer katmayı hedefliyor.',
+            'Türkiye\'de yapay zeka alanında yeni nesil çözümler geliştiren TEKNOVA, 2024\'te kurulan dinamik bir teknoloji şirketidir.'
+          ],
+          'yapay_zeka': [
+            'Yapay zeka, makinelerin insan benzeri öğrenme ve karar verme yeteneklerini simüle eden teknolojidir. TEKNOVA olarak bu alanda çeşitli araştırmalar yapıyoruz.',
+            'AI teknolojileri artık hayatımızın her alanında. TEKNOVA\'da makine öğrenmesi, derin öğrenme ve NLP konularında çalışıyoruz.',
+            'Yapay zeka çözümlerimiz: Makine öğrenmesi algoritmaları, bilgisayarlı görü sistemleri ve doğal dil işleme uygulamaları.'
+          ],
+          'proje': [
+            'TEKNOVA olarak müşterilerimizle birlikte AI projelerini hayata geçirmeyi planlıyoruz. İhtiyaç analizi ve çözüm tasarımı ile başlıyoruz.',
+            'Proje geliştirme sürecimiz: İhtiyaç belirleme, teknoloji seçimi, prototyping, test ve implementasyon aşamalarından oluşur.',
+            'AI proje danışmanlığı hizmetimizle, şirketinizin yapay zeka yolculuğunda size eşlik etmeyi hedefliyoruz.'
+          ],
+          'çözüm': [
+            'Odaklandığımız AI çözüm alanları: Makine öğrenmesi, bilgisayarlı görü, doğal dil işleme ve tahminsel analitik.',
+            'TEKNOVA çözümleri ile işletmenizin verilerini değerli insights\'a dönüştürmeyi hedefliyoruz.',
+            'Her sektöre uygun özelleştirilmiş AI çözümleri geliştirme konusunda araştırmalar yürütüyoruz.'
+          ],
+          'fiyat': [
+            'Proje fiyatlandırmalarımız, kapsamına ve ihtiyaçlara göre değişiklik gösterir. Ücretsiz konsültasyon ile başlayabiliriz.',
+            'Esnek fiyatlandırma modelleri sunmayı planlıyoruz: Proje bazlı, retainer veya başarı fee seçenekleri.',
+            'Detaylı fiyat bilgisi için lütfen iletişime geçin. Size özel bir teklif hazırlayabiliriz.'
+          ],
+          'iletişim': [
+            'Bizimle iletişime geçmek için: info@teknova.com | +90 (212) 555-0123 | İstanbul, Türkiye',
+            'TEKNOVA ile görüşmek için web sitemizdeki iletişim formunu kullanabilir veya doğrudan arayabilirsiniz.',
+            'Ücretsiz konsültasyon randevusu almak için iletişim bilgilerimizi kullanın.'
+          ]
+        };
+
+        // Anahtar kelime eşleştirme sistemi
+        const keywords = {
+          'teknova|şirket|company|kuruluş': 'teknova',
+          'ai|yapay zeka|artificial|machine learning|ml|nlp|bilgisayarlı görü|computer vision': 'yapay_zeka', 
+          'proje|project|başlat|geliştir|develop': 'proje',
+          'çözüm|solution|hizmet|service|ürün|product': 'çözüm',
+          'fiyat|ücret|maliyet|price|cost|budget|bütçe': 'fiyat',
+          'iletişim|contact|ulaş|telefon|email|randevu': 'iletişim'
+        };
+
+        // En uygun kategoriyi bul
+        let selectedCategory = null;
+        for (const [pattern, category] of Object.entries(keywords)) {
+          const regex = new RegExp(pattern, 'i');
+          if (regex.test(message)) {
+            selectedCategory = category;
+            break;
+          }
+        }
+
+        // Kategori bulunduysa ilgili yanıtı ver
+        if (selectedCategory && topicResponses[selectedCategory]) {
+          const responses = topicResponses[selectedCategory];
+          return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        // Genel yanıtlar
+        const generalResponses = [
+          'Merhaba! TEKNOVA hakkında daha spesifik sorular sorabilirsiniz. Örneğin: şirketimiz, AI çözümlerimiz, projeler veya iletişim.',
+          'Size daha iyi yardımcı olabilmek için sorunuzu TEKNOVA çözümleri, yapay zeka projeleri veya hizmetlerimiz hakkında daha detaylandırabilir misiniz?',
+          'Ben AI Nova, TEKNOVA\'nın yapay zeka asistanıyım. Şirketimiz 2024\'te kuruldu ve AI alanında araştırmalar yapıyoruz. Hangi konuda bilgi almak istiyorsunuz?',
+          'TEKNOVA olarak yapay zeka teknolojileri konusunda size yardımcı olmaya çalışıyorum. Makine öğrenmesi, bilgisayarlı görü veya projelerimiz hakkında soru sorabilirsiniz.'
+        ];
+
+        return generalResponses[Math.floor(Math.random() * generalResponses.length)];
+      }
+
       // AI Nova Yanıt Sistemi
       async function getAIResponse(userMessage) {
         console.log('Kullanıcı mesajı:', userMessage);
@@ -461,6 +548,12 @@
             const randomResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
             return randomResponse;
           }
+        }
+
+        // API key kontrolü
+        if (!GEMINI_API_KEY) {
+          console.log('API key yok, offline yanıt sistemi kullanılıyor...');
+          return await getOfflineResponse(userMessage);
         }
 
         // Gerçek AI API çağrısı (Gemini)
