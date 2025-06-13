@@ -6,6 +6,7 @@
     <title>AI Nova - TEKNOVA Yapay Zeka Asistanı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AI Nova Özel Ses Sistemi için Web Audio API -->
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -97,7 +98,28 @@
         height: calc(100vh - 200px);
         max-height: 600px;
       }
+
+      /* Sesli Modal Animasyonları */
+      .voice-wave {
+        animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+      }
+      
+      @keyframes voice-pulse {
+        0%, 100% { 
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+        }
+        50% { 
+          transform: scale(1.1);
+          box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+        }
+      }
+      
+      .voice-recording {
+        animation: voice-pulse 1.5s infinite;
+      }
     </style>
+    <meta name="google-site-verification" content="xb3ywseK2XR4UsVHxRakjZC-eYfdDkPso6QaSZ6QI3A" />
 </head>
 <body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
@@ -206,6 +228,14 @@
                   maxlength="500"
                 >
                 <button 
+                  type="button" 
+                  id="voice-button"
+                  class="px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl transition-all transform hover:scale-105 ai-glow"
+                  title="Sesli Soru Sor"
+                >
+                  <i class="fas fa-microphone"></i>
+                </button>
+                <button 
                   type="submit" 
                   id="send-button"
                   class="px-6 py-3 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white rounded-2xl transition-all transform hover:scale-105 ai-glow disabled:opacity-50 disabled:transform-none"
@@ -236,6 +266,46 @@
         </div>
       </div>
     </main>
+
+    <!-- Sesli Modal -->
+    <div id="voice-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+      <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl max-w-md w-full mx-4 text-center">
+        <!-- Modal Header -->
+        <div class="mb-6">
+          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">Sesli Soru</h3>
+          <p class="text-gray-600 dark:text-gray-400 text-sm">Mikrofonunuza konuşun</p>
+        </div>
+        
+        <!-- Ses İkonu -->
+        <div class="mb-6 relative">
+          <div id="voice-circle" class="w-32 h-32 mx-auto bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300">
+            <i id="voice-icon" class="fas fa-microphone text-white text-4xl"></i>
+          </div>
+          <!-- Ses Dalgaları -->
+          <div id="voice-waves" class="absolute inset-0 hidden">
+            <div class="voice-wave absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-green-500/30 rounded-full animate-ping"></div>
+            <div class="voice-wave absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-green-500/20 rounded-full animate-ping" style="animation-delay: 0.5s"></div>
+            <div class="voice-wave absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-green-500/10 rounded-full animate-ping" style="animation-delay: 1s"></div>
+          </div>
+        </div>
+        
+        <!-- Durum Mesajı -->
+        <div class="mb-6">
+          <p id="voice-status" class="text-lg font-medium text-gray-700 dark:text-gray-300">Dinleme başlatılıyor...</p>
+          <p id="voice-transcript" class="text-sm text-gray-500 dark:text-gray-400 mt-2 min-h-[20px]"></p>
+        </div>
+        
+        <!-- Kontrol Butonları -->
+        <div class="flex gap-3 justify-center">
+          <button id="voice-stop" class="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-2xl transition-all transform hover:scale-105 font-medium">
+            <i class="fas fa-stop mr-2"></i>Durdur
+          </button>
+          <button id="voice-cancel" class="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-2xl transition-all transform hover:scale-105 font-medium">
+            <i class="fas fa-times mr-2"></i>İptal
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-gray-100 pt-16 pb-8">
@@ -733,6 +803,350 @@ Kullanıcı sorusu: ${userMessage}`
         if (e.key === 'Enter' && !e.shiftKey) {
           e.preventDefault();
           chatForm.dispatchEvent(new Event('submit'));
+        }
+      });
+
+      // Sesli İnteraksiyon Sistemi
+      let recognition = null;
+      let isListening = false;
+      let speechSynthesis = window.speechSynthesis;
+
+      // Modal elementleri
+      const voiceModal = document.getElementById('voice-modal');
+      const voiceButton = document.getElementById('voice-button');
+      const voiceStop = document.getElementById('voice-stop');
+      const voiceCancel = document.getElementById('voice-cancel');
+      const voiceStatus = document.getElementById('voice-status');
+      const voiceTranscript = document.getElementById('voice-transcript');
+      const voiceCircle = document.getElementById('voice-circle');
+      const voiceIcon = document.getElementById('voice-icon');
+      const voiceWaves = document.getElementById('voice-waves');
+
+      // Web Speech API Desteği Kontrolü
+      function initializeSpeechRecognition() {
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          recognition = new SpeechRecognition();
+          
+          recognition.continuous = false;
+          recognition.interimResults = true;
+          recognition.lang = 'tr-TR';
+          recognition.maxAlternatives = 1;
+
+          recognition.onstart = function() {
+            console.log('🎤 Ses tanıma başladı');
+            isListening = true;
+            voiceStatus.textContent = 'Dinliyorum... Konuşun!';
+            voiceIcon.className = 'fas fa-microphone-slash text-white text-4xl';
+            voiceCircle.classList.add('voice-recording');
+            voiceWaves.classList.remove('hidden');
+          };
+
+          recognition.onresult = function(event) {
+            let finalTranscript = '';
+            let interimTranscript = '';
+
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+              const result = event.results[i];
+              if (result.isFinal) {
+                finalTranscript += result[0].transcript;
+              } else {
+                interimTranscript += result[0].transcript;
+              }
+            }
+
+            const transcript = finalTranscript || interimTranscript;
+            voiceTranscript.textContent = transcript;
+
+            if (finalTranscript) {
+              console.log('🗣️ Final transcript:', finalTranscript);
+              processSpeechInput(finalTranscript.trim());
+            }
+          };
+
+          recognition.onerror = function(event) {
+            console.error('❌ Ses tanıma hatası:', event.error);
+            let errorMessage = 'Ses tanıma hatası oluştu.';
+            
+            switch(event.error) {
+              case 'network':
+                errorMessage = 'İnternet bağlantısı sorunu.';
+                break;
+              case 'not-allowed':
+                errorMessage = 'Mikrofon izni reddedildi.';
+                break;
+              case 'no-speech':
+                errorMessage = 'Ses algılanamadı. Tekrar deneyin.';
+                break;
+              case 'audio-capture':
+                errorMessage = 'Mikrofon bulunamadı.';
+                break;
+            }
+            
+            voiceStatus.textContent = errorMessage;
+            setTimeout(closeVoiceModal, 2000);
+          };
+
+          recognition.onend = function() {
+            console.log('🔇 Ses tanıma sona erdi');
+            isListening = false;
+            resetVoiceUI();
+          };
+
+          return true;
+        }
+        return false;
+      }
+
+      // Ses girişini işleme
+      async function processSpeechInput(transcript) {
+        if (!transcript) return;
+
+        console.log('🗣️ Ses girişi işleniyor:', transcript);
+        closeVoiceModal();
+        
+        // Kullanıcı mesajını chat'e ekle
+        addMessage(transcript, true);
+        
+        // AI yanıtını al
+        try {
+          aiStatus.textContent = 'Yazıyor...';
+          showTypingIndicator();
+          
+          const response = await getAIResponse(transcript);
+          
+          hideTypingIndicator();
+          addMessage(response);
+          
+          // Sesli yanıt ver
+          speakResponse(response);
+          
+        } catch (error) {
+          console.error('❌ AI yanıt hatası:', error);
+          hideTypingIndicator();
+          const errorMsg = 'Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.';
+          addMessage(errorMsg);
+          speakResponse(errorMsg);
+        } finally {
+          aiStatus.textContent = 'Çevrimiçi ve hazır';
+        }
+      }
+
+      // Sesli yanıt
+      function speakResponse(text) {
+        // Mevcut konuşmaları durdur
+        speechSynthesis.cancel();
+        
+        // Metni temizle (HTML tagları vs.)
+        const cleanText = text.replace(/<[^>]*>/g, '').replace(/[🤖🎉✅❌🔄]/g, '');
+        
+        if (cleanText.trim()) {
+          // Google Text-to-Speech API kullan
+          playGoogleTTS(cleanText);
+        }
+      }
+
+      // AI Nova'nın Özel Ses Sistemi
+      async function playGoogleTTS(text) {
+        console.log('🎭 AI Nova\'nın kendine özel sesi aktifleştiriliyor...');
+        aiStatus.textContent = 'AI Nova konuşuyor...';
+        
+        // AI Nova için özelleştirilmiş ses çalma
+        playAINovaVoice(text);
+      }
+
+      // AI Nova Özel Ses Karakteri
+      function playAINovaVoice(text) {
+        console.log('🤖 AI Nova\'nın kendine özgü sesi kullanılıyor...');
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        // AI Nova'ya özel ses karakteristikleri
+        utterance.lang = 'tr-TR';
+        utterance.rate = 0.88;     // Biraz yavaş ve ölçülü
+        utterance.pitch = 1.15;    // Hafif yüksek, dostça ton
+        utterance.volume = 0.85;   // Net ve rahat duyulur seviye
+        
+        // AI Nova için en uygun sesi bul
+        const voices = speechSynthesis.getVoices();
+        let aiNovaVoice = null;
+        
+        // Tercih sırası: Doğal > Neural > Standart
+        const voicePreferences = [
+          // En kaliteli seçenekler (Neural/Natural)
+          'Microsoft Emel Online (Natural) - Turkish (Turkey)',
+          'tr-TR-EmelNeural',
+          'Microsoft Emel - Turkish (Turkey)',
+          
+          // Google'ın kaliteli sesleri
+          'Google Türkçe',
+          'Google tr-TR',
+          
+          // Standart seçenekler
+          'tr-TR-Standard-E',    // Kadın
+          'tr-TR-Standard-A',    // Kadın
+          'tr-TR-Wavenet-E',     // Kadın Neural
+          'tr-TR-Wavenet-A',     // Kadın Neural
+          
+          // Yedek seçenekler
+          'Turkishh Female',
+          'Turkish Female'
+        ];
+        
+        // En iyi sesi bul
+        for (const preferredName of voicePreferences) {
+          aiNovaVoice = voices.find(voice => {
+            const voiceName = voice.name.toLowerCase();
+            const preferredLower = preferredName.toLowerCase();
+            return voiceName.includes(preferredLower) || 
+                   voiceName === preferredLower ||
+                   (voice.lang === 'tr-TR' && voice.name.includes('Female'));
+          });
+          
+          if (aiNovaVoice) {
+            console.log(`✨ AI Nova'nın sesi seçildi: ${aiNovaVoice.name}`);
+            break;
+          }
+        }
+        
+        // Ses bulunamazsa Türkçe kadın sesi ara
+        if (!aiNovaVoice) {
+          aiNovaVoice = voices.find(voice => 
+            voice.lang && voice.lang.startsWith('tr') && 
+            (voice.name.toLowerCase().includes('female') || 
+             voice.name.toLowerCase().includes('kadın') ||
+             voice.name.toLowerCase().includes('emel'))
+          );
+        }
+        
+        // Son çare: herhangi bir Türkçe ses
+        if (!aiNovaVoice) {
+          aiNovaVoice = voices.find(voice => 
+            voice.lang && voice.lang.startsWith('tr')
+          );
+        }
+        
+        if (aiNovaVoice) {
+          utterance.voice = aiNovaVoice;
+          console.log(`🗣️ AI Nova konuşuyor: ${aiNovaVoice.name} (${aiNovaVoice.lang})`);
+        } else {
+          console.warn('⚠️ Türkçe ses bulunamadı, varsayılan ses kullanılıyor');
+        }
+        
+        // AI Nova'nın konuşma olayları
+        utterance.onstart = function() {
+          console.log('🎤 AI Nova konuşmaya başladı');
+          aiStatus.textContent = '🤖 AI Nova konuşuyor...';
+          
+          // Ses sırasında görsel efekt
+          const aiIcon = document.querySelector('#ai-status');
+          if (aiIcon) {
+            aiIcon.style.animation = 'pulse 1s infinite';
+          }
+        };
+        
+        utterance.onend = function() {
+          console.log('✅ AI Nova konuşmasını tamamladı');
+          aiStatus.textContent = 'Çevrimiçi ve hazır';
+          
+          // Animasyonu durdur
+          const aiIcon = document.querySelector('#ai-status');
+          if (aiIcon) {
+            aiIcon.style.animation = '';
+          }
+        };
+        
+        utterance.onerror = function(event) {
+          console.error('❌ AI Nova ses hatası:', event.error);
+          aiStatus.textContent = 'Ses hatası - Çevrimiçi ve hazır';
+          
+          const aiIcon = document.querySelector('#ai-status');
+          if (aiIcon) {
+            aiIcon.style.animation = '';
+          }
+        };
+        
+        // Konuşmayı başlat
+        speechSynthesis.speak(utterance);
+      }
+
+      
+
+      // Modal açma
+      function openVoiceModal() {
+        if (!recognition) {
+          alert('Üzgünüm, tarayıcınız ses tanıma özelliğini desteklemiyor. Chrome veya Edge kullanmayı deneyin.');
+          return;
+        }
+
+        voiceModal.classList.remove('hidden');
+        voiceStatus.textContent = 'Mikrofon izni bekleniyor...';
+        voiceTranscript.textContent = '';
+        
+        // Ses tanımayı başlat
+        setTimeout(() => {
+          try {
+            recognition.start();
+          } catch (error) {
+            console.error('❌ Ses tanıma başlatma hatası:', error);
+            voiceStatus.textContent = 'Ses tanıma başlatılamadı.';
+            setTimeout(closeVoiceModal, 2000);
+          }
+        }, 500);
+      }
+
+      // Modal kapatma
+      function closeVoiceModal() {
+        voiceModal.classList.add('hidden');
+        if (recognition && isListening) {
+          recognition.stop();
+        }
+        resetVoiceUI();
+      }
+
+      // Ses UI'ını sıfırla
+      function resetVoiceUI() {
+        voiceIcon.className = 'fas fa-microphone text-white text-4xl';
+        voiceCircle.classList.remove('voice-recording');
+        voiceWaves.classList.add('hidden');
+        voiceStatus.textContent = 'Dinleme başlatılıyor...';
+        voiceTranscript.textContent = '';
+      }
+
+      // Event Listeners
+      voiceButton.addEventListener('click', openVoiceModal);
+      voiceStop.addEventListener('click', closeVoiceModal);
+      voiceCancel.addEventListener('click', closeVoiceModal);
+
+      // Modal dışına tıklayınca kapatma
+      voiceModal.addEventListener('click', (e) => {
+        if (e.target === voiceModal) {
+          closeVoiceModal();
+        }
+      });
+
+      // ESC tuşu ile kapatma
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !voiceModal.classList.contains('hidden')) {
+          closeVoiceModal();
+        }
+      });
+
+      // Sayfa yüklendiğinde ses tanıma özelliğini başlat
+      window.addEventListener('load', () => {
+        const speechSupported = initializeSpeechRecognition();
+        if (!speechSupported) {
+          console.warn('⚠️ Ses tanıma desteklenmiyor');
+          voiceButton.style.display = 'none';
+        } else {
+          console.log('✅ Ses tanıma hazır');
+        }
+        
+        // Sesler yüklendiğinde Türkçe sesi ayarla
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+          speechSynthesis.onvoiceschanged = function() {
+            console.log('🔊 Sesler yüklendi:', speechSynthesis.getVoices().length);
+          };
         }
       });
     </script>
