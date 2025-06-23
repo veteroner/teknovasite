@@ -433,16 +433,16 @@
         return context;
       }
       
-      // Gemini modelleri listesi (quota limitine göre sıralı)
+      // Gemini modelleri listesi (resimdeki tüm modeller dahil)
       const GEMINI_MODELS = [
-        'gemini-2.0-flash-lite',      // En hızlı, düşük quota
-        'gemini-1.5-flash-8b',        // Hızlı ve verimli
-        'gemini-2.0-flash',           // Yeni jenerasyon
-        'gemini-1.5-flash',           // Stabil flash model
-        'gemini-1.5-pro',             // Güçlü model
-        'gemini-2.0-flash-exp-image', // Deneysel modeller
-        'gemini-2.0-flash-exp-audio',
-        'gemini-pro',                 // Klasik model (yedek)
+        'gemini-1.5-flash',        // En hızlı model
+        'gemini-1.5-flash-8b',     // Hafif ve hızlı model
+        'gemini-1.5-pro',          // En gelişmiş model
+        'gemini-2.0-flash',        // Yeni nesil hızlı model
+        'gemini-2.0-flash-exp',    // Deneysel hızlı model
+        'gemini-2.0-flash-lite',   // Hafif yeni nesil model
+        'gemini-2.5-flash',        // En son model
+        'gemini-pro'               // Standart model (yedek)
       ];
       
       // API key test fonksiyonu - tüm modelleri test et

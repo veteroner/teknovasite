@@ -81,13 +81,15 @@ emailjs.init("YOUR_PUBLIC_KEY_HERE");
 emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData)
 ```
 
-### ✅ Tamamlanan Entegrasyon:
+### ✅ Tamamlanan Entegrasyon (EmailJS v4):
 ```javascript
-// ✅ Tüm değerler güncellendi - EmailJS hazır!
-emailjs.init("VI55cGZbM-LjtSY7f");
+// ✅ EmailJS v4 ile güncellendi - Son sürüm!
+emailjs.init({
+  publicKey: "VI55cGZbM-LjtSY7f"
+});
 emailjs.send('service_fmkti4t', 'template_spv7pkk', formData)
 
-// 🎉 EmailJS entegrasyonu tamamlandı!
+// 🎉 EmailJS v4 entegrasyonu tamamlandı!
 ```
 
 ## 5. Test Etme
