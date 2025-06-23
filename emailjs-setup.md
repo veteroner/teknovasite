@@ -26,34 +26,46 @@
 - **Template Name**: TEKNOVA Contact Form
 - **Template ID**: Otomatik oluşacak (örn: `template_xyz123`)
 
-### Email Ayarları:
+### ⚠️ Kritik: Template Ayarları
+
+EmailJS Template'inizde (`template_spv7pkk`) şu ayarları yapın:
+
+#### Email Settings:
 - **To Email**: `bilgi@teknovagroup.com`
 - **From Name**: `{{from_name}}`
 - **Reply To**: `{{reply_to}}`
-- **Subject**: `TEKNOVA - Yeni İletişim Formu Mesajı - {{subject}}`
+- **Subject**: `TEKNOVA İletişim - {{subject}}`
 
-### Email Content (Body):
+#### Email Content (Body):
 ```
-TEKNOVA - Yeni İletişim Formu Mesajı
+TEKNOVA İletişim Formu Mesajı
 
 ═══════════════════════════════════════
 
-👤 Kişi Bilgileri:
-Ad Soyad: {{name}}
-E-posta: {{email}}
+👤 Gönderen Bilgileri:
+Ad Soyad: {{from_name}}
+E-posta: {{from_email}}
 Telefon: {{phone}}
 Şirket/Kurum: {{company}}
 
 📋 Mesaj Detayları:
 Konu: {{subject}}
 
-Mesaj:
+Mesaj İçeriği:
 {{message}}
 
 ═══════════════════════════════════════
-📅 Tarih: {{date}}
-🌐 Kaynak: TEKNOVA Web Sitesi İletişim Formu
+🌐 TEKNOVA Web Sitesi İletişim Formu
 ```
+
+#### ✅ Template Değişken Kontrol Listesi:
+- `{{from_name}}` - Gönderenin adı
+- `{{from_email}}` - Gönderenin e-postası  
+- `{{phone}}` - Telefon numarası
+- `{{company}}` - Şirket bilgisi
+- `{{subject}}` - Mesaj konusu
+- `{{message}}` - Mesaj içeriği
+- `{{reply_to}}` - Yanıt adresi
 
 4. "Save" butonuna tıklayın
 
