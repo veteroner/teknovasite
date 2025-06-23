@@ -7,7 +7,7 @@
     <title>İletişim - TEKNOVA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -99,9 +99,11 @@
       //    Bu mesaj TEKNOVA web sitesinden gönderilmiştir.
       // 5. ✅ Tüm API değerleri güncellendi - EmailJS entegrasyonu hazır!
       
-      // EmailJS başlatma
+      // EmailJS v4 başlatma
       (function(){
-        emailjs.init("VI55cGZbM-LjtSY7f"); // EmailJS Public Key
+        emailjs.init({
+          publicKey: "VI55cGZbM-LjtSY7f", // EmailJS Public Key
+        });
       })();
     </script>
     
@@ -595,7 +597,7 @@
         // Debug için console'a yazdır
         console.log('Form Data:', formData);
         
-        // EmailJS ile e-posta gönder
+        // EmailJS v4 ile e-posta gönder
         emailjs.send('service_fmkti4t', 'template_spv7pkk', formData)
           .then(function(response) {
             console.log('E-posta başarıyla gönderildi:', response.status, response.text);
