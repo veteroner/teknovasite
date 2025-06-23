@@ -402,6 +402,37 @@
       // TEKNOVA AI Nova - Akıllı Yanıt Sistemi
       const GEMINI_API_KEY = 'AIzaSyBvAFN4FXTp9X24x00RNI6CZO4Izixs5tY';
       
+      // Konuşma geçmişini saklamak için
+      let conversationHistory = [];
+      const MAX_HISTORY_LENGTH = 10; // Son 10 mesajı sakla
+      
+      // Konuşma geçmişini güncelle
+      function updateConversationHistory(userMessage, aiResponse) {
+        conversationHistory.push({
+          user: userMessage,
+          ai: aiResponse,
+          timestamp: Date.now()
+        });
+        
+        // Geçmişi sınırla
+        if (conversationHistory.length > MAX_HISTORY_LENGTH) {
+          conversationHistory = conversationHistory.slice(-MAX_HISTORY_LENGTH);
+        }
+      }
+      
+      // Konuşma bağlamını oluştur
+      function buildConversationContext() {
+        if (conversationHistory.length === 0) return '';
+        
+        let context = '\n\nÖnceki konuşma:\n';
+        conversationHistory.slice(-3).forEach((exchange, index) => { // Son 3 mesaj alışverişi
+          context += `Kullanıcı: ${exchange.user}\nAI Nova: ${exchange.ai}\n`;
+        });
+        context += '\nBu bağlamda yeni soruyu yanıtla:';
+        
+        return context;
+      }
+      
       // Gemini modelleri listesi (quota limitine göre sıralı)
       const GEMINI_MODELS = [
         'gemini-2.0-flash-lite',      // En hızlı, düşük quota
@@ -529,6 +560,45 @@
         
         const message = userMessage.toLowerCase();
         
+        // Konuşma geçmişinden bağlam çıkar
+        const hasContext = conversationHistory.length > 0;
+        const lastExchange = hasContext ? conversationHistory[conversationHistory.length - 1] : null;
+        
+        // Bağlamsal yanıtlar (önceki konuşmaya dayalı)
+        if (hasContext && lastExchange) {
+          const lastUserMessage = lastExchange.user.toLowerCase();
+          const lastAiMessage = lastExchange.ai.toLowerCase();
+          
+          // Devam eden konuşma desenleri
+          if (message.includes('peki') || message.includes('tamam') || message.includes('anladım')) {
+            if (lastAiMessage.includes('proje') || lastAiMessage.includes('çözüm')) {
+              return 'Başka hangi konularda bilgi almak istiyorsunuz?';
+            }
+            if (lastAiMessage.includes('fiyat') || lastAiMessage.includes('ücret')) {
+              return 'Detaylı fiyat teklifi için iletişime geçebilirsiniz.';
+            }
+            return 'Başka sorularınız var mı?';
+          }
+          
+          // "Daha fazla" tarzı sorular
+          if (message.includes('daha fazla') || message.includes('detay') || message.includes('açıkla')) {
+            if (lastAiMessage.includes('makine öğrenmesi')) {
+              return 'Makine öğrenmesi ile veri analizi, tahminleme ve otomatizasyon çözümleri sunuyoruz.';
+            }
+            if (lastAiMessage.includes('bilgisayarlı görü')) {
+              return 'Görüntü işleme, nesne tanıma ve video analizi projelerinde uzmanız.';
+            }
+            if (lastAiMessage.includes('nlp') || lastAiMessage.includes('doğal dil')) {
+              return 'Metin analizi, chatbot geliştirme ve dil işleme çözümleri geliştiriyoruz.';
+            }
+          }
+          
+          // "Nasıl" soruları
+          if (message.includes('nasıl') && lastAiMessage.includes('proje')) {
+            return 'Proje süreci: İhtiyaç analizi → Tasarım → Geliştirme → Test → Teslim şeklinde ilerler.';
+          }
+        }
+        
         // Konu kategorileri ve yanıtları
         const topicResponses = {
           'teknova': [
@@ -606,15 +676,10 @@
         
         // Hızlı yanıt için basit anahtar kelimeler (sadece çok temel sorular)
         const quickResponses = {
-          '^(merhaba|selam|hello|hi|hey)!?$': [
-            'Merhaba! Ben AI Nova. Size nasıl yardımcı olabilirim? 🤖',
-            'Selam! Hangi konuda yardıma ihtiyacınız var?',
-            'Merhaba! Ne öğrenmek istiyorsunuz?'
-          ],
           '^(adın ne|adın|ismin ne|ismin|kim|kimsin)\\??$': [
-            'Ben AI Nova, TEKNOVA\'nın AI asistanıyım.',
+            'AI Nova, TEKNOVA\'nın AI asistanıyım.',
             'Adım AI Nova!',
-            'Ben AI Nova.'
+            'AI Nova.'
           ],
           '^(nasılsın|nasıl|naber|ne haber)\\??$': [
             'İyiyim, teşekkürler! Size nasıl yardımcı olabilirim?',
@@ -662,9 +727,13 @@
 ÖNEMLI KURALLAR:
 - Kısa ve öz yanıtlar ver (maksimum 50-80 kelime)
 - Doğrudan soruyu yanıtla, gereksiz tanıtım yapma
+- "Merhaba ben AI Nova" diye başlama, direkt cevap ver
 - Türkçe yanıt ver
 - Dostça ve doğal ol
 - Sadece sorulduğunda şirket bilgisi ver
+- Önceki konuşma bağlamını dikkate al ve uygun şekilde devam ettir
+
+${buildConversationContext()}
 
 Kullanıcı sorusu: ${userMessage}`
                   }]
@@ -749,13 +818,19 @@ Kullanıcı sorusu: ${userMessage}`
             const response = await getAIResponse(message);
             console.log('AI yanıtı:', response);
             
+            // Konuşma geçmişini güncelle
+            updateConversationHistory(message, response);
+            
             // Yazıyor göstergesini kaldır ve yanıtı ekle
             hideTypingIndicator();
             addMessage(response);
           } catch (error) {
             console.error('Hata:', error);
             hideTypingIndicator();
-            addMessage('Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.');
+            const errorMsg = 'Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.';
+            addMessage(errorMsg);
+            // Hata mesajını da geçmişe ekle
+            updateConversationHistory(message, errorMsg);
           } finally {
             sendButton.disabled = false;
             aiStatus.textContent = 'Çevrimiçi ve hazır';
@@ -776,6 +851,9 @@ Kullanıcı sorusu: ${userMessage}`
       // Sohbeti temizle
       clearChatBtn.addEventListener('click', () => {
         if (confirm('Sohbet geçmişini temizlemek istediğinizden emin misiniz?')) {
+          // Konuşma geçmişini sıfırla
+          conversationHistory = [];
+          
           chatMessages.innerHTML = `
             <div class="flex items-start gap-3 chat-bubble">
               <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
@@ -908,6 +986,9 @@ Kullanıcı sorusu: ${userMessage}`
           
           const response = await getAIResponse(transcript);
           
+          // Konuşma geçmişini güncelle
+          updateConversationHistory(transcript, response);
+          
           hideTypingIndicator();
           addMessage(response);
           
@@ -919,7 +1000,8 @@ Kullanıcı sorusu: ${userMessage}`
           hideTypingIndicator();
           const errorMsg = 'Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.';
           addMessage(errorMsg);
-          speakResponse(errorMsg);
+          // Hata mesajını da geçmişe ekle
+          updateConversationHistory(transcript, errorMsg);
         } finally {
           aiStatus.textContent = 'Çevrimiçi ve hazır';
         }
