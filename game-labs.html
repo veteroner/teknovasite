@@ -197,24 +197,25 @@
         <!-- Oyunlar grid'i - Burada oyunlarınızı ekleyebilirsiniz -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           
-          <!-- Örnek Oyun Kartı 1 -->
+          <!-- Bilgoo - AI Destekli Bilgi Yarışması -->
           <div class="game-card rounded-2xl p-6 game-glow">
-            <div class="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl mb-4 flex items-center justify-center">
-              <i class="fas fa-gamepad text-4xl text-primary dark:text-accent"></i>
+            <div class="aspect-video bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl mb-4 overflow-hidden">
+              <img src="bilgoo-screenshot-1.jpg" alt="Bilgoo Oyun Görünümü" class="w-full h-full object-cover rounded-xl">
             </div>
-            <h3 class="text-xl font-bold mb-2">Oyun Adı</h3>
+            <h3 class="text-xl font-bold mb-2">Bilgoo</h3>
             <p class="text-gray-600 dark:text-gray-300 mb-4">
-              AI destekli oyun açıklaması buraya gelecek. Oyunun özelliklerini ve mekaniklerini anlatan kısa bir açıklama.
+              AI destekli bilgi yarışması oyunu. Yapay zeka tarafından üretilen sorularla bilginizi test edin. 
+              Farklı kategorilerde binlerce soru ve adaptif zorluk seviyesi.
             </p>
             <div class="flex items-center justify-between">
-              <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Yayında</span>
+              <span class="px-3 py-1 bg-blue-500/10 text-blue-600 text-sm rounded-full">Yayında</span>
               <div class="flex gap-2">
-                <a href="#" class="p-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors">
+                <a href="https://bilgoo.com" target="_blank" class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
                   <i class="fas fa-play"></i>
                 </a>
-                <a href="#" class="p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors">
+                <button onclick="showBilgooInfo()" class="p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors">
                   <i class="fas fa-info-circle"></i>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -418,6 +419,84 @@
       </div>
     </footer>
 
+    <!-- Bilgoo Info Modal -->
+    <div id="bilgoo-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold gradient-text">Bilgoo - AI Destekli Bilgi Yarışması</h2>
+            <button onclick="closeBilgooModal()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div>
+              <img src="bilgoo-screenshot-1.jpg" alt="Bilgoo Ana Ekran" class="w-full rounded-xl shadow-lg mb-4">
+              <div class="grid grid-cols-2 gap-2">
+                <img src="bilgoo-screenshot-2.jpg" alt="Bilgoo Oyun Ekranı" class="w-full rounded-lg shadow">
+                <img src="bilgoo-screenshot-3.jpg" alt="Bilgoo Sorular" class="w-full rounded-lg shadow">
+              </div>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-semibold mb-4">🎯 Oyun Özellikleri</h3>
+              <ul class="space-y-3 mb-6">
+                <li class="flex items-start">
+                  <i class="fas fa-brain text-blue-500 mt-1 mr-3"></i>
+                  <span><strong>AI Destekli Sorular:</strong> Yapay zeka tarafından sürekli güncellenen soru havuzu</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-trophy text-yellow-500 mt-1 mr-3"></i>
+                  <span><strong>Adaptif Zorluk:</strong> Performansınıza göre ayarlanan soru seviyesi</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-users text-green-500 mt-1 mr-3"></i>
+                  <span><strong>Çok Oyunculu:</strong> Arkadaşlarınızla yarışma modu</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-chart-line text-purple-500 mt-1 mr-3"></i>
+                  <span><strong>İlerleme Takibi:</strong> Detaylı istatistikler ve gelişim analizi</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-medal text-orange-500 mt-1 mr-3"></i>
+                  <span><strong>Başarı Sistemi:</strong> Rozetler ve liderlik tabloları</span>
+                </li>
+              </ul>
+              
+              <h3 class="text-xl font-semibold mb-4">📚 Kategoriler</h3>
+              <div class="grid grid-cols-2 gap-2 mb-6">
+                <span class="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm rounded-lg text-center">Genel Kültür</span>
+                <span class="px-3 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm rounded-lg text-center">Bilim</span>
+                <span class="px-3 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm rounded-lg text-center">Teknoloji</span>
+                <span class="px-3 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm rounded-lg text-center">Tarih</span>
+                <span class="px-3 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-sm rounded-lg text-center">Spor</span>
+                <span class="px-3 py-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 text-sm rounded-lg text-center">Sanat</span>
+              </div>
+              
+              <div class="flex gap-3">
+                <a href="https://bilgoo.com" target="_blank" class="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-xl transition-all text-center font-semibold">
+                  <i class="fas fa-play mr-2"></i>Şimdi Oyna
+                </a>
+                <button onclick="closeBilgooModal()" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl transition-all">
+                  Kapat
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+            <h3 class="text-lg font-semibold mb-4">🤖 AI Teknolojisi</h3>
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+              Bilgoo, gelişmiş doğal dil işleme (NLP) ve makine öğrenmesi algoritmalarını kullanarak 
+              her oyuncu için kişiselleştirilmiş bir deneyim sunar. AI sistemi, oyuncuların güçlü ve 
+              zayıf yanlarını analiz ederek en uygun soruları seçer ve zorluk seviyesini dinamik olarak ayarlar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- JavaScript -->
     <script>
       // Mobil menü
@@ -483,6 +562,31 @@
         card.addEventListener('mouseleave', function() {
           this.style.transform = 'translateY(0) scale(1)';
         });
+      });
+
+      // Bilgoo Modal Functions
+      function showBilgooInfo() {
+        document.getElementById('bilgoo-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeBilgooModal() {
+        document.getElementById('bilgoo-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      // ESC ile modal kapama
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeBilgooModal();
+        }
+      });
+
+      // Modal dışına tıklayınca kapama
+      document.getElementById('bilgoo-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeBilgooModal();
+        }
       });
     </script>
 </body>
