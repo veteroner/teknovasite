@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="xb3ywseK2XR4UsVHxRakjZC-eYfdDkPso6QaSZ6QI3A" />
+    <title>Game Labs - TEKNOVA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
+              light: '#f8fafc'
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'game-bounce': 'gameBounce 2s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              gameBounce: {
+                '0%, 100%': { transform: 'translateY(0px) scale(1)' },
+                '50%': { transform: 'translateY(-10px) scale(1.05)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      
+      .game-glow {
+        box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+      }
+      
+      .neural-bg {
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+      }
+      
+      .game-card {
+        transition: all 0.3s ease;
+        background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 100%);
+      }
+      
+      .dark .game-card {
+        background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
+      }
+      
+      .game-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      }
+      
+      .coming-soon {
+        background: linear-gradient(45deg, #f59e0b, #ef4444);
+        background-size: 400% 400%;
+        animation: gradientShift 3s ease infinite;
+      }
+      
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+    <script>
+      function applyTheme() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      applyTheme();
+    </script>
+    
+    <!-- Header -->
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto flex items-center justify-between py-4 px-6">
+        <div class="flex items-center gap-3">
+          <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+          <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+          <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+          <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+          <a href="game-labs.html" class="text-primary dark:text-accent border-b-2 border-primary dark:border-accent">Game Labs</a>
+          <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-xl" aria-label="Mobil Menü Aç/Kapat"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+      <!-- Mobil Menü -->
+      <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto py-4 px-6">
+          <nav class="flex flex-col gap-4 text-sm font-medium">
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+            <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+            <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+            <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+            <a href="game-labs.html" class="text-primary dark:text-accent">Game Labs</a>
+            <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sayfa Başlığı -->
+    <section class="pt-16 pb-12 neural-bg relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <div class="absolute inset-0">
+        <div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+        <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+      </div>
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col items-center text-center">
+          <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary dark:text-accent rounded-full text-sm font-medium mb-4">
+            <i class="fas fa-gamepad mr-2"></i>
+            Oyun Geliştirme Atölyesi
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">TEKNOVA Game Labs</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mb-6">
+            AI destekli oyun geliştirme laboratuvarımızda yaratılan eşsiz deneyimler
+          </p>
+          <div class="text-gray-600 dark:text-gray-400 flex items-center gap-2">
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <span>Game Labs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Labs Tanıtım -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">AI ile Oyun Geliştirmenin <span class="gradient-text">Geleceği</span></h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+            TEKNOVA Game Labs, yapay zeka teknolojilerini oyun geliştirme süreciyle harmanlayarak 
+            benzersiz oyun deneyimleri yaratmaktadır. Makine öğrenmesi, procedural generation ve 
+            AI-driven gameplay mekanikleriyle geleceğin oyunlarını bugünden inşa ediyoruz.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Oyunlar Grid -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Oyun <span class="gradient-text">Koleksiyonumuz</span></h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">AI destekli oyunlarımızı keşfedin</p>
+        </div>
+        
+        <!-- Oyunlar grid'i - Burada oyunlarınızı ekleyebilirsiniz -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Örnek Oyun Kartı 1 -->
+          <div class="game-card rounded-2xl p-6 game-glow">
+            <div class="aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl mb-4 flex items-center justify-center">
+              <i class="fas fa-gamepad text-4xl text-primary dark:text-accent"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Oyun Adı</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              AI destekli oyun açıklaması buraya gelecek. Oyunun özelliklerini ve mekaniklerini anlatan kısa bir açıklama.
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Yayında</span>
+              <div class="flex gap-2">
+                <a href="#" class="p-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors">
+                  <i class="fas fa-play"></i>
+                </a>
+                <a href="#" class="p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors">
+                  <i class="fas fa-info-circle"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Örnek Oyun Kartı 2 -->
+          <div class="game-card rounded-2xl p-6 game-glow">
+            <div class="aspect-video bg-gradient-to-br from-secondary/20 to-accent/20 rounded-xl mb-4 flex items-center justify-center">
+              <i class="fas fa-robot text-4xl text-secondary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">AI Puzzle</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Yapay zeka ile oluşturulan dinamik bulmaca oyunu. Her seviye AI tarafından benzersiz şekilde tasarlanır.
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Beta</span>
+              <div class="flex gap-2">
+                <a href="#" class="p-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg transition-colors">
+                  <i class="fas fa-play"></i>
+                </a>
+                <a href="#" class="p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors">
+                  <i class="fas fa-info-circle"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Yakında Gelecek Oyun -->
+          <div class="game-card rounded-2xl p-6 relative overflow-hidden">
+            <div class="aspect-video bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 rounded-xl mb-4 flex items-center justify-center relative">
+              <i class="fas fa-clock text-4xl text-gray-500"></i>
+              <div class="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                <span class="coming-soon text-white text-sm font-bold px-3 py-1 rounded-full">Yakında</span>
+              </div>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Yeni Proje</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Geliştirme aşamasındaki yeni oyunumuz için geri sayım başladı. AI teknolojilerinin sınırlarını zorlayacak.
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-sm rounded-full">Geliştiriliyor</span>
+              <div class="flex gap-2">
+                <button class="p-2 bg-gray-200 dark:bg-gray-700 text-gray-400 rounded-lg cursor-not-allowed" disabled>
+                  <i class="fas fa-lock"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+        <!-- Daha Fazla Oyun Eklemek İçin Alan -->
+        <div class="text-center mt-12">
+          <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl">
+            <i class="fas fa-plus-circle mr-3 text-primary"></i>
+            <span class="text-gray-600 dark:text-gray-300">Daha fazla oyun yakında ekleniyor...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teknolojiler -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Kullandığımız <span class="gradient-text">Teknolojiler</span></h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300">AI destekli oyun geliştirme teknoloji yığınımız</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fab fa-unity text-2xl text-white"></i>
+            </div>
+            <h3 class="font-semibold mb-2">Unity Engine</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">3D oyun geliştirme platformu</p>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
+            <div class="w-16 h-16 bg-gradient-to-br from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fab fa-python text-2xl text-white"></i>
+            </div>
+            <h3 class="font-semibold mb-2">TensorFlow</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">AI model entegrasyonu</p>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-brain text-2xl text-white"></i>
+            </div>
+            <h3 class="font-semibold mb-2">ML Agents</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">AI karakterler ve NPCs</p>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-cube text-2xl text-white"></i>
+            </div>
+            <h3 class="font-semibold mb-2">Procedural Gen</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">AI ile içerik üretimi</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- İstatistikler -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+            <div class="text-4xl font-bold gradient-text mb-2">5+</div>
+            <p class="text-gray-600 dark:text-gray-300">Aktif Proje</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+            <div class="text-4xl font-bold gradient-text mb-2">50K+</div>
+            <p class="text-gray-600 dark:text-gray-300">Oyuncu</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+            <div class="text-4xl font-bold gradient-text mb-2">100%</div>
+            <p class="text-gray-600 dark:text-gray-300">AI Destekli</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+            <div class="text-4xl font-bold gradient-text mb-2">2025</div>
+            <p class="text-gray-600 dark:text-gray-300">Kuruluş Yılı</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+              <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+            </div>
+            <p class="text-gray-400 mb-4 leading-relaxed">Yapay zeka teknolojileri ile işletmeleri geleceğe hazırlıyoruz.</p>
+            <div class="flex gap-4">
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" class="text-gray-400 hover:text-primary transition-colors" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Hızlı Erişim</h3>
+            <ul class="space-y-2">
+              <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Ana Sayfa</a></li>
+              <li><a href="hakkimizda.html" class="text-gray-400 hover:text-white transition-colors">Hakkımızda</a></li>
+              <li><a href="cozumlerimiz.html" class="text-gray-400 hover:text-white transition-colors">AI Çözümlerimiz</a></li>
+              <li><a href="projeler.html" class="text-gray-400 hover:text-white transition-colors">Projeler</a></li>
+              <li><a href="ai-nova.html" class="text-gray-400 hover:text-white transition-colors">AI Nova</a></li>
+              <li><a href="game-labs.html" class="text-gray-400 hover:text-white transition-colors">Game Labs</a></li>
+              <li><a href="iletisim.html" class="text-gray-400 hover:text-white transition-colors">İletişim</a></li>
+              <li><a href="terms-of-service.html" class="text-gray-400 hover:text-white transition-colors">Kullanım Şartları</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">AI Çözümleri</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Makine Öğrenmesi</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bilgisayarlı Görü</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Doğal Dil İşleme</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tahminsel Analitik</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI Danışmanlığı</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4">İletişim</h3>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt mt-1 mr-3 text-gray-400"></i>
+                <span class="text-gray-400">Mevlana Mahallesi 432. Cadde No:8/23 Sincan Ankara</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-envelope mt-1 mr-3 text-gray-400"></i>
+                <span class="text-gray-400">bilgi@teknovagroup.com</span>
+              </li>
+            </ul>
+            
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold mb-3">Game Updates</h4>
+              <form class="flex" id="newsletter-form">
+                <input type="email" name="newsletter-email" placeholder="E-posta adresiniz" class="flex-1 px-4 py-2 rounded-l-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-1 focus:ring-primary text-white" autocomplete="off">
+                <button type="submit" class="px-4 py-2 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all text-white rounded-r-lg">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
+              <div id="newsletter-message" class="mt-2 text-sm"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+          <p>&copy; 2025 TEKNOVA. Tüm hakları saklıdır. | Yapay Zeka ile Güçlendirilmiştir</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Mobil menü
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+      }
+      function openMobileMenu() {
+        mobileMenu.classList.remove('hidden');
+      }
+
+      mobileMenuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (mobileMenu.classList.contains('hidden')) {
+          openMobileMenu();
+        } else {
+          closeMobileMenu();
+        }
+      });
+
+      // ESC ile kapama
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+        }
+      });
+
+      // Dışarı tıklayınca kapama
+      document.addEventListener('click', function(e) {
+        if (!mobileMenu.classList.contains('hidden')) {
+          if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            closeMobileMenu();
+          }
+        }
+      });
+
+      // Newsletter form
+      document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const emailInput = this.elements['newsletter-email'];
+        const messageDiv = document.getElementById('newsletter-message');
+        const email = emailInput.value.trim();
+        
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          messageDiv.textContent = "Lütfen geçerli bir e-posta adresi girin.";
+          messageDiv.className = "mt-2 text-sm text-red-500";
+          return;
+        }
+        
+        messageDiv.textContent = "Oyun güncellemeleri için kaydınız alındı!";
+        messageDiv.className = "mt-2 text-sm text-green-500";
+        emailInput.value = "";
+      });
+
+      // Game card hover effects
+      document.querySelectorAll('.game-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+    </script>
+</body>
+</html>
