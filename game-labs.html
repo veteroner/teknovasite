@@ -220,24 +220,24 @@
             </div>
           </div>
 
-          <!-- Örnek Oyun Kartı 2 -->
+          <!-- PopGo - Eğlenceli Puzzle Oyunu -->
           <div class="game-card rounded-2xl p-6 game-glow">
-            <div class="aspect-video bg-gradient-to-br from-secondary/20 to-accent/20 rounded-xl mb-4 flex items-center justify-center">
-              <i class="fas fa-robot text-4xl text-secondary"></i>
+            <div class="aspect-video bg-gradient-to-br from-pink-500/20 to-orange-500/20 rounded-xl mb-4 flex items-center justify-center">
+              <i class="fas fa-circle text-4xl text-pink-500"></i>
             </div>
-            <h3 class="text-xl font-bold mb-2">AI Puzzle</h3>
+            <h3 class="text-xl font-bold mb-2">PopGo</h3>
             <p class="text-gray-600 dark:text-gray-300 mb-4">
-              Yapay zeka ile oluşturulan dinamik bulmaca oyunu. Her seviye AI tarafından benzersiz şekilde tasarlanır.
+              Eğlenceli ve bağımlılık yapan balon patlatma oyunu. Renkli balonları patlatarak yüksek puanlar kazanın.
             </p>
             <div class="flex items-center justify-between">
-              <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Beta</span>
+              <span class="px-3 py-1 bg-pink-500/10 text-pink-600 text-sm rounded-full">Yayında</span>
               <div class="flex gap-2">
-                <a href="#" class="p-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg transition-colors">
+                <a href="#" class="p-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg transition-colors">
                   <i class="fas fa-play"></i>
                 </a>
-                <a href="#" class="p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors">
+                <button onclick="showPopGoInfo()" class="p-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors">
                   <i class="fas fa-info-circle"></i>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -487,10 +487,86 @@
           
           <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
             <h3 class="text-lg font-semibold mb-4">🤖 AI Teknolojisi</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PopGo Info Modal -->
+    <div id="popgo-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold gradient-text">PopGo - Eğlenceli Puzzle Oyunu</h2>
+            <button onclick="closePopGoModal()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div>
+              <div class="aspect-video bg-gradient-to-br from-pink-500/20 to-orange-500/20 rounded-xl mb-4 flex items-center justify-center">
+                <i class="fas fa-circle text-6xl text-pink-500"></i>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="aspect-video bg-gradient-to-br from-pink-400/20 to-red-400/20 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-trophy text-2xl text-pink-500"></i>
+                </div>
+                <div class="aspect-video bg-gradient-to-br from-orange-400/20 to-yellow-400/20 rounded-lg flex items-center justify-center">
+                  <i class="fas fa-star text-2xl text-orange-500"></i>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-semibold mb-4">🎈 Oyun Özellikleri</h3>
+              <ul class="space-y-3 mb-6">
+                <li class="flex items-start">
+                  <i class="fas fa-circle-play text-pink-500 mt-1 mr-3"></i>
+                  <span><strong>Kolay Oynanış:</strong> Dokunarak veya kaydırarak balon patlatın</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-palette text-orange-500 mt-1 mr-3"></i>
+                  <span><strong>Renkli Tasarım:</strong> Canlı ve göz alıcı grafik tasarımı</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-chart-line text-purple-500 mt-1 mr-3"></i>
+                  <span><strong>Artan Zorluk:</strong> Her seviyede daha fazla meydan okuma</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-trophy text-yellow-500 mt-1 mr-3"></i>
+                  <span><strong>Puan Sistemi:</strong> Yüksek puanlar için stratejik oyun</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-clock text-blue-500 mt-1 mr-3"></i>
+                  <span><strong>Hızlı Oyun:</strong> Her seviye kısa ve eğlenceli</span>
+                </li>
+              </ul>
+              
+              <h3 class="text-xl font-semibold mb-4">🎯 Oyun Modları</h3>
+              <div class="grid grid-cols-1 gap-2 mb-6">
+                <span class="px-3 py-2 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 text-sm rounded-lg text-center">Klasik Mod</span>
+                <span class="px-3 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm rounded-lg text-center">Zaman Yarışı</span>
+                <span class="px-3 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm rounded-lg text-center">Sonsuz Mod</span>
+              </div>
+              
+              <div class="flex gap-3">
+                <a href="#" class="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white rounded-xl transition-all text-center font-semibold">
+                  <i class="fas fa-play mr-2"></i>Şimdi Oyna
+                </a>
+                <button onclick="closePopGoModal()" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl transition-all">
+                  Kapat
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+            <h3 class="text-lg font-semibold mb-4">🎮 Oyun Mekanikleri</h3>
             <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Bilgoo, gelişmiş doğal dil işleme (NLP) ve makine öğrenmesi algoritmalarını kullanarak 
-              her oyuncu için kişiselleştirilmiş bir deneyim sunar. AI sistemi, oyuncuların güçlü ve 
-              zayıf yanlarını analiz ederek en uygun soruları seçer ve zorluk seviyesini dinamik olarak ayarlar.
+              PopGo, basit dokunmatik kontroller ile oynanan addictive puzzle oyunudur. Renkli balonları 
+              patlatarak puanlar toplayın, combo yapmaya çalışın ve en yüksek skoru hedefleyin. Stratejik 
+              düşünme ve hızlı refleksler gerektiren oyun, her yaştan oyuncuya hitap eder.
             </p>
           </div>
         </div>
@@ -575,10 +651,22 @@
         document.body.style.overflow = 'auto';
       }
 
+      // PopGo Modal Functions
+      function showPopGoInfo() {
+        document.getElementById('popgo-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closePopGoModal() {
+        document.getElementById('popgo-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
       // ESC ile modal kapama
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
           closeBilgooModal();
+          closePopGoModal();
         }
       });
 
@@ -586,6 +674,12 @@
       document.getElementById('bilgoo-modal').addEventListener('click', function(e) {
         if (e.target === this) {
           closeBilgooModal();
+        }
+      });
+
+      document.getElementById('popgo-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closePopGoModal();
         }
       });
     </script>

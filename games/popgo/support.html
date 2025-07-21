@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="xb3ywseK2XR4UsVHxRakjZC-eYfdDkPso6QaSZ6QI3A" />
+    <title>PopGo - Destek ve İletişim | TEKNOVA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
+              light: '#f8fafc'
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            }
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+    <script>
+      function applyTheme() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      applyTheme();
+    </script>
+    
+    <!-- Header -->
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto flex items-center justify-between py-4 px-6">
+        <div class="flex items-center gap-3">
+          <img src="../../teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="../../index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="../../game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+          <a href="../../iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-xl" aria-label="Mobil Menü Aç/Kapat"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sayfa Başlığı -->
+    <section class="pt-16 pb-12 bg-gradient-to-br from-accent/10 to-primary/10 relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col items-center text-center">
+          <div class="inline-flex items-center px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-accent dark:text-accent rounded-full text-sm font-medium mb-4">
+            <i class="fas fa-headset mr-2"></i>
+            PopGo Oyunu
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">Destek & İletişim</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mb-6">
+            PopGo oyunu için teknik destek ve müşteri hizmetleri
+          </p>
+          <div class="text-gray-600 dark:text-gray-400 flex items-center gap-2">
+            <a href="../../index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <a href="../../game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <span>PopGo Destek</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- İçerik -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          
+          <!-- Hızlı Erişim Kartları -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-all">
+              <div class="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-envelope text-white text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">E-posta Desteği</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">Sorularınız için bize e-posta gönderin</p>
+              <a href="mailto:bilgi@teknovagroup.com?subject=PopGo Oyun Desteği" class="inline-flex items-center px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors">
+                <i class="fas fa-paper-plane mr-2"></i>
+                E-posta Gönder
+              </a>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-all">
+              <div class="w-16 h-16 bg-gradient-to-r from-secondary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-question-circle text-white text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Sık Sorulan Sorular</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">Yaygın sorunlar ve çözümleri</p>
+              <button onclick="scrollToFAQ()" class="inline-flex items-center px-4 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg transition-colors">
+                <i class="fas fa-list mr-2"></i>
+                SSS İncele
+              </button>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-all">
+              <div class="w-16 h-16 bg-gradient-to-r from-accent to-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-bug text-white text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Hata Bildirimi</h3>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">Oyundaki hataları bildirin</p>
+              <button onclick="showBugReport()" class="inline-flex items-center px-4 py-2 bg-accent hover:bg-accent/90 text-white rounded-lg transition-colors">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                Hata Bildir
+              </button>
+            </div>
+          </div>
+
+          <!-- İletişim Bilgileri -->
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 mb-12">
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center mr-4">
+                <i class="fas fa-address-book text-white text-xl"></i>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold">İletişim Bilgileri</h2>
+                <p class="text-gray-600 dark:text-gray-300">PopGo oyunu için destek kanalları</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-lg font-semibold mb-4 text-primary dark:text-accent">📧 E-posta İletişim</h3>
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <i class="fas fa-envelope text-gray-500 mr-3"></i>
+                    <span>bilgi@teknovagroup.com</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-clock text-gray-500 mr-3"></i>
+                    <span>Yanıt süresi: 24-48 saat</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-language text-gray-500 mr-3"></i>
+                    <span>Türkçe ve İngilizce destek</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h3 class="text-lg font-semibold mb-4 text-secondary dark:text-accent">🏢 Şirket Bilgileri</h3>
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <i class="fas fa-map-marker-alt text-gray-500 mr-3 mt-1"></i>
+                    <span>Mevlana Mahallesi 432. Cadde No:8/23<br>Sincan, Ankara</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-building text-gray-500 mr-3"></i>
+                    <span>TEKNOVA Technology</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sık Sorulan Sorular -->
+          <div id="faq-section" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 mb-12">
+            <div class="flex items-center mb-8">
+              <div class="w-12 h-12 bg-gradient-to-r from-secondary to-accent rounded-xl flex items-center justify-center mr-4">
+                <i class="fas fa-question-circle text-white text-xl"></i>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold">Sık Sorulan Sorular</h2>
+                <p class="text-gray-600 dark:text-gray-300">PopGo oyunu hakkında yaygın sorular</p>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <button class="w-full text-left p-4 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center" onclick="toggleFAQ(1)">
+                  <span>PopGo oyunu nasıl oynanır?</span>
+                  <i class="fas fa-chevron-down transition-transform" id="faq-icon-1"></i>
+                </button>
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700 hidden" id="faq-content-1">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    PopGo, kolay öğrenilen fakat ustalaşması zor bir puzzle oyunudur. Renkli balonları patlatarak 
+                    puanlar kazanın ve seviyeleri geçin. Dokunarak veya kaydırarak oynayabilirsiniz.
+                  </p>
+                </div>
+              </div>
+
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <button class="w-full text-left p-4 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center" onclick="toggleFAQ(2)">
+                  <span>Oyunum kayboldu, nasıl kurtarabilirim?</span>
+                  <i class="fas fa-chevron-down transition-transform" id="faq-icon-2"></i>
+                </button>
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700 hidden" id="faq-content-2">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    PopGo, ilerlemenizi otomatik olarak kaydeder. Aynı hesapla giriş yaparak ilerlemenizi 
+                    kurtarabilirsiniz. Sorun yaşıyorsanız bize e-posta gönderin.
+                  </p>
+                </div>
+              </div>
+
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <button class="w-full text-left p-4 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center" onclick="toggleFAQ(3)">
+                  <span>Satın aldığım öğeler görünmüyor?</span>
+                  <i class="fas fa-chevron-down transition-transform" id="faq-icon-3"></i>
+                </button>
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700 hidden" id="faq-content-3">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Satın alımlarınız genellikle anında hesabınıza yansır. Eğer görünmüyorsa oyunu yeniden 
+                    başlatın. Sorun devam ederse destek ekibiyle iletişime geçin.
+                  </p>
+                </div>
+              </div>
+
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <button class="w-full text-left p-4 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center" onclick="toggleFAQ(4)">
+                  <span>Oyun çok yavaş çalışıyor, ne yapmalıyım?</span>
+                  <i class="fas fa-chevron-down transition-transform" id="faq-icon-4"></i>
+                </button>
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700 hidden" id="faq-content-4">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Önce cihazınızda yeterli depolama alanı olduğundan emin olun. Arka planda çalışan 
+                    diğer uygulamaları kapatın. Oyunu güncelleyin ve cihazınızı yeniden başlatın.
+                  </p>
+                </div>
+              </div>
+
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg">
+                <button class="w-full text-left p-4 font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center" onclick="toggleFAQ(5)">
+                  <span>Hesabımı nasıl silebilirim?</span>
+                  <i class="fas fa-chevron-down transition-transform" id="faq-icon-5"></i>
+                </button>
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700 hidden" id="faq-content-5">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Hesap silme talebi için bilgi@teknovagroup.com adresine "PopGo Hesap Silme" konulu 
+                    e-posta gönderin. Talebiniz 7 iş günü içinde işleme alınacaktır.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Geri Bildirim Formu -->
+          <div id="bug-report-section" class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 hidden">
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-gradient-to-r from-accent to-primary rounded-xl flex items-center justify-center mr-4">
+                <i class="fas fa-bug text-white text-xl"></i>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold">Hata Bildirimi</h2>
+                <p class="text-gray-600 dark:text-gray-300">PopGo'da karşılaştığınız sorunları bildirin</p>
+              </div>
+            </div>
+
+            <form id="bug-report-form" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium mb-2">Adınız</label>
+                  <input type="text" name="name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-gray-700" required>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">E-posta</label>
+                  <input type="email" name="email" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-gray-700" required>
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">Cihaz Bilgisi</label>
+                <input type="text" name="device" placeholder="Örn: iPhone 13, Android 12" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-gray-700">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">Hata Türü</label>
+                <select name="bug-type" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-gray-700">
+                  <option value="">Seçin...</option>
+                  <option value="crash">Oyun çöküyor</option>
+                  <option value="performance">Performans sorunu</option>
+                  <option value="graphics">Grafik hatası</option>
+                  <option value="sound">Ses sorunu</option>
+                  <option value="gameplay">Oynanış hatası</option>
+                  <option value="purchase">Satın alım sorunu</option>
+                  <option value="other">Diğer</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">Hata Açıklaması</label>
+                <textarea name="description" rows="4" placeholder="Hatayı detaylı olarak açıklayın..." class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:bg-gray-700" required></textarea>
+              </div>
+              
+              <div class="flex gap-4">
+                <button type="submit" class="px-6 py-2 bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white rounded-lg transition-all">
+                  <i class="fas fa-paper-plane mr-2"></i>
+                  Hata Bildir
+                </button>
+                <button type="button" onclick="hideBugReport()" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-all">
+                  İptal
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 pt-12 pb-6">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="flex items-center gap-3 mb-4 md:mb-0">
+            <img src="../../teknova-logo.png" alt="TEKNOVA Logo" class="w-8 h-8 object-contain rounded-lg shadow" />
+            <span class="text-xl font-bold gradient-text">TEKNOVA</span>
+          </div>
+          <div class="text-center text-gray-400 text-sm">
+            <p>&copy; 2025 TEKNOVA. PopGo Oyunu Destek Merkezi</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // FAQ toggle
+      function toggleFAQ(index) {
+        const content = document.getElementById(`faq-content-${index}`);
+        const icon = document.getElementById(`faq-icon-${index}`);
+        
+        if (content.classList.contains('hidden')) {
+          content.classList.remove('hidden');
+          icon.style.transform = 'rotate(180deg)';
+        } else {
+          content.classList.add('hidden');
+          icon.style.transform = 'rotate(0deg)';
+        }
+      }
+
+      // Scroll to FAQ
+      function scrollToFAQ() {
+        document.getElementById('faq-section').scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Show bug report form
+      function showBugReport() {
+        document.getElementById('bug-report-section').classList.remove('hidden');
+        document.getElementById('bug-report-section').scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Hide bug report form
+      function hideBugReport() {
+        document.getElementById('bug-report-section').classList.add('hidden');
+      }
+
+      // Bug report form submission
+      document.getElementById('bug-report-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Form verilerini topla
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+        
+        // E-posta oluştur
+        const subject = `PopGo Hata Bildirimi: ${data['bug-type']}`;
+        const body = `
+Hata Bildirimi Detayları:
+
+Ad: ${data.name}
+E-posta: ${data.email}
+Cihaz: ${data.device}
+Hata Türü: ${data['bug-type']}
+
+Açıklama:
+${data.description}
+        `;
+        
+        // E-posta linkini oluştur
+        const mailtoLink = `mailto:bilgi@teknovagroup.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoLink;
+        
+        // Formu temizle
+        this.reset();
+        alert('Hata bildirimi için e-posta uygulamanız açılacak. E-postayı gönderin.');
+      });
+
+      // Mobil menü
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      
+      mobileMenuBtn?.addEventListener('click', function() {
+        // Mobil menü işlevselliği eklenebilir
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="xb3ywseK2XR4UsVHxRakjZC-eYfdDkPso6QaSZ6QI3A" />
+    <title>PopGo - Kullanım Şartları | TEKNOVA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
+              light: '#f8fafc'
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            }
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+    <script>
+      function applyTheme() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      applyTheme();
+    </script>
+    
+    <!-- Header -->
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto flex items-center justify-between py-4 px-6">
+        <div class="flex items-center gap-3">
+          <img src="../../teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="../../index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="../../game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+          <a href="../../iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-xl" aria-label="Mobil Menü Aç/Kapat"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sayfa Başlığı -->
+    <section class="pt-16 pb-12 bg-gradient-to-br from-secondary/10 to-accent/10 relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col items-center text-center">
+          <div class="inline-flex items-center px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-secondary dark:text-accent rounded-full text-sm font-medium mb-4">
+            <i class="fas fa-file-contract mr-2"></i>
+            PopGo Oyunu
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">Kullanım Şartları</span>
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mb-6">
+            PopGo oyunu için hizmet şartları ve kullanım koşulları
+          </p>
+          <div class="text-gray-600 dark:text-gray-400 flex items-center gap-2">
+            <a href="../../index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <a href="../../game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <span>PopGo Şartlar</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- İçerik -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 mb-8">
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-gradient-to-r from-secondary to-accent rounded-xl flex items-center justify-center mr-4">
+                <i class="fas fa-file-contract text-white text-xl"></i>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold">Kullanım Şartları</h2>
+                <p class="text-gray-600 dark:text-gray-300">Son güncelleme: 21 Temmuz 2025</p>
+              </div>
+            </div>
+            
+            <div class="prose dark:prose-invert max-w-none">
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">1. Hizmet Sözleşmesi</h3>
+              <p class="mb-6 leading-relaxed">
+                Bu kullanım şartları, TEKNOVA tarafından geliştirilen PopGo mobil oyununu 
+                kullanmanız için gerekli şart ve koşulları belirler. Oyunu indirerek, yükleyerek 
+                veya kullanarak bu şartları kabul etmiş sayılırsınız.
+              </p>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">2. Oyun Tanımı</h3>
+              <p class="mb-6 leading-relaxed">
+                PopGo, eğlenceli ve bağımlılık yapan puzzle oyunudur. Oyun, mobil cihazlarda 
+                ücretsiz olarak sunulmakta ve oyun içi satın alımlar içerebilmektedir. Oyunun 
+                temel amacı eğlence sağlamaktır.
+              </p>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">3. Kullanım Lisansı</h3>
+              <div class="mb-6">
+                <h4 class="font-semibold mb-2">3.1 İzin Verilen Kullanım:</h4>
+                <ul class="list-disc pl-6 space-y-2 mb-4">
+                  <li>Kişisel, ticari olmayan amaçlarla oyunu oynamak</li>
+                  <li>Oyunu tek bir cihazda kullanmak</li>
+                  <li>Yasal yedekleme kopyaları oluşturmak</li>
+                </ul>
+
+                <h4 class="font-semibold mb-2">3.2 Yasaklanan Faaliyetler:</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                  <li>Oyunu tersine mühendislik yapmak</li>
+                  <li>Oyun kodlarını çıkarmaya çalışmak</li>
+                  <li>Hileli yazılımlar kullanmak</li>
+                  <li>Oyunu yeniden dağıtmak veya satmak</li>
+                  <li>Oyunun güvenlik özelliklerini aşmaya çalışmak</li>
+                </ul>
+              </div>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">4. Hesap ve Kullanıcı Sorumluluğu</h3>
+              <ul class="list-disc pl-6 space-y-2 mb-6">
+                <li>Hesap güvenliğinden siz sorumlusunuz</li>
+                <li>Hesap bilgilerinizi kimseyle paylaşmamanız gerekir</li>
+                <li>Yaşa uygun olmayan içerik paylaşmak yasaktır</li>
+                <li>Diğer oyuncuları rahatsız edici davranışlar sergilemek yasaktır</li>
+                <li>Spam, reklam veya zararlı içerik paylaşmak yasaktır</li>
+              </ul>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">5. Oyun İçi Satın Alımlar</h3>
+              <p class="mb-4 leading-relaxed">
+                PopGo'da oyun içi satın alımlar yapabilirsiniz. Bu satın alımlar için aşağıdaki kurallar geçerlidir:
+              </p>
+              <ul class="list-disc pl-6 space-y-2 mb-6">
+                <li>Tüm satın alımlar gerçek para ile yapılır</li>
+                <li>Satın alımlar derhal hesabınıza yansır</li>
+                <li>İade politikası platform kurallarına tabidir</li>
+                <li>18 yaş altı kullanıcılar için ebeveyn izni gereklidir</li>
+                <li>Hileli satın alım girişimleri hesap kapatılmasına neden olabilir</li>
+              </ul>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">6. Fikri Mülkiyet Hakları</h3>
+              <p class="mb-6 leading-relaxed">
+                PopGo oyunu, grafikleri, müzikleri, ses efektleri ve tüm içeriği TEKNOVA'nın 
+                fikri mülkiyetidir. Bu içerikler telif hakkı, marka ve diğer fikri mülkiyet 
+                yasaları ile korunmaktadır. Kullanıcılar, sadece oyunu oynama hakkına sahiptir.
+              </p>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">7. Hizmet Kesintileri</h3>
+              <p class="mb-6 leading-relaxed">
+                TEKNOVA, PopGo oyununun kesintisiz çalışacağını garanti etmez. Teknik bakım, 
+                güncelleme veya beklenmeyen sorunlar nedeniyle hizmet kesintileri yaşanabilir. 
+                Bu kesintiler için herhangi bir tazminat talep edilemez.
+              </p>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">8. Hesap Kapatma</h3>
+              <p class="mb-4 leading-relaxed">
+                TEKNOVA, aşağıdaki durumlarda kullanıcı hesaplarını askıya alabilir veya kapatabilir:
+              </p>
+              <ul class="list-disc pl-6 space-y-2 mb-6">
+                <li>Kullanım şartlarının ihlal edilmesi</li>
+                <li>Hileli yazılım kullanımı</li>
+                <li>Diğer oyuncuları rahatsız edici davranışlar</li>
+                <li>Yasal gerekliliklerin ihlal edilmesi</li>
+                <li>Uzun süre pasif kalma</li>
+              </ul>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">9. Yaş Sınırlaması</h3>
+              <p class="mb-6 leading-relaxed">
+                PopGo, 4+ yaş kategorisinde bir oyundur. 13 yaş altındaki çocukların oyunu 
+                oynaması için ebeveyn veya vasi izni gerekmektedir. Ebeveynler, çocuklarının 
+                oyun aktivitelerini takip etmekle sorumludur.
+              </p>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">10. Sorumluluk Sınırlaması</h3>
+              <p class="mb-6 leading-relaxed">
+                TEKNOVA, PopGo oyunundan kaynaklanan dolaylı, arızi veya özel zararlar için 
+                sorumlu tutulamaz. Toplam sorumluluk, kullanıcının oyuna ödediği miktar ile sınırlıdır.
+              </p>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">11. Değişiklikler</h3>
+              <p class="mb-6 leading-relaxed">
+                TEKNOVA, bu kullanım şartlarını önceden haber vermeksizin değiştirme hakkını saklı tutar. 
+                Önemli değişiklikler olduğunda oyuncular oyun içi bildirim ile bilgilendirilecektir.
+              </p>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">12. Uygulanacak Hukuk</h3>
+              <p class="mb-6 leading-relaxed">
+                Bu kullanım şartları Türkiye Cumhuriyeti yasalarına tabidir. Uyuşmazlık durumunda 
+                Ankara mahkemeleri yetkilidir.
+              </p>
+
+              <h3 class="text-xl font-semibold mb-4 text-secondary dark:text-accent">13. İletişim</h3>
+              <p class="mb-4 leading-relaxed">
+                Kullanım şartları hakkında sorularınız için bizimle iletişime geçebilirsiniz:
+              </p>
+              <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                <p><strong>E-posta:</strong> bilgi@teknovagroup.com</p>
+                <p><strong>Adres:</strong> Mevlana Mahallesi 432. Cadde No:8/23 Sincan Ankara</p>
+                <p><strong>Oyun Desteği:</strong> <a href="support.html" class="text-secondary dark:text-accent hover:underline">PopGo Destek Sayfası</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 pt-12 pb-6">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="flex items-center gap-3 mb-4 md:mb-0">
+            <img src="../../teknova-logo.png" alt="TEKNOVA Logo" class="w-8 h-8 object-contain rounded-lg shadow" />
+            <span class="text-xl font-bold gradient-text">TEKNOVA</span>
+          </div>
+          <div class="text-center text-gray-400 text-sm">
+            <p>&copy; 2025 TEKNOVA. PopGo Oyunu Kullanım Şartları</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      // Mobil menü
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      
+      mobileMenuBtn?.addEventListener('click', function() {
+        // Mobil menü işlevselliği eklenebilir
+      });
+    </script>
+</body>
+</html>
