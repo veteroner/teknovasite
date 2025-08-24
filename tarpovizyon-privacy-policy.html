@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gizlilik Politikası - TarpoVizyon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
+              light: '#f8fafc'
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .neural-bg {
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+      }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+    <script>
+      function applyTheme() {
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      applyTheme();
+    </script>
+
+    <!-- Header -->
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto flex items-center justify-between py-4 px-6">
+        <div class="flex items-center gap-3">
+          <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+          <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+          <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+          <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+          <a href="game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+          <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-xl" aria-label="Mobil Menü Aç/Kapat" aria-expanded="false" aria-controls="mobile-menu"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+      <!-- Mobil Menü -->
+      <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto py-4 px-6">
+          <nav class="flex flex-col gap-4 text-sm font-medium">
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+            <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+            <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+            <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+            <a href="game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+            <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-16 pb-12 neural-bg relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-blue-600 rounded-xl flex items-center justify-center mb-6">
+            <i class="fas fa-seedling text-3xl text-white"></i>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">TarpoVizyon</span> Gizlilik Politikası
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mb-6">
+            Kişisel verilerinizin korunması ve gizliliğiniz bizim için çok önemlidir. TarpoVizyon mobil uygulaması, kullanıcı gizliliğine saygı göstererek <strong>hiçbir kişisel veri toplamaz</strong> ve tamamen çevrimdışı çalışır.
+          </p>
+          <div class="text-sm text-gray-500 dark:text-gray-400">
+            Son güncelleme: 24 Ağustos 2025
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
+      <div class="container mx-auto px-4 max-w-4xl">
+        
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-info-circle text-primary mr-3"></i>
+            1. Uygulama Hakkında
+          </h2>
+          <p class="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+            TarpoVizyon, TARPOL (Tarımsal Strateji ve Politika Geliştirme Merkezi) tarafından geliştirilen, tarım ve hayvancılık sektöründe çalışan profesyoneller için hazırlanmış bir mobil uygulamadır. Uygulama, sektörel gelişmeleri takip etmek, politika önerilerini değerlendirmek ve tarımsal bilgi paylaşımını kolaylaştırmak amacıyla geliştirilmiştir.
+          </p>
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+            <strong>Önemli:</strong> TarpoVizyon uygulaması, kullanıcı gizliliğini korumak amacıyla tasarlanmış olup, <strong>hiçbir kişisel veri toplamaz, saklamaz veya üçüncü taraflarla paylaşmaz.</strong> Uygulama tamamen çevrimdışı çalışır ve reklam içermez.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-shield-check text-green-500 mr-3"></i>
+            2. Veri Toplama Politikamız
+          </h2>
+          <div class="bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-lg p-8 text-center">
+            <div class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-user-shield text-green-600 text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-800 dark:text-green-400 mb-4">📵 SIFIR VERİ TOPLAMA</h3>
+            <p class="text-green-700 dark:text-green-300 text-lg leading-relaxed mb-6">
+              TarpoVizyon uygulaması <strong>hiçbir kişisel veri toplamaz, kaydetmez veya saklamaz.</strong> Uygulama tamamen çevrimdışı çalışır ve tüm içerikler cihazınızda yerel olarak saklanır.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="font-semibold text-green-800 dark:text-green-400 mb-3">❌ Toplamadığımız Veriler</h4>
+                <ul class="text-left space-y-2 text-green-700 dark:text-green-300 text-sm">
+                  <li>• Kişisel kimlik bilgileri</li>
+                  <li>• E-posta adresi</li>
+                  <li>• Telefon numarası</li>
+                  <li>• Konum bilgileri</li>
+                  <li>• Cihaz kimlik bilgileri</li>
+                  <li>• Kullanım analitikleri</li>
+                  <li>• Çerezler (cookies)</li>
+                  <li>• IP adresi</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold text-green-800 dark:text-green-400 mb-3">✅ Güvencelerimiz</h4>
+                <ul class="text-left space-y-2 text-green-700 dark:text-green-300 text-sm">
+                  <li>• Tamamen çevrimdışı çalışma</li>
+                  <li>• Reklam yok</li>
+                  <li>• Takip yok</li>
+                  <li>• İnternet bağlantısı gerektirmez</li>
+                  <li>• Üçüncü taraf servis yok</li>
+                  <li>• Analitik araç yok</li>
+                  <li>• Veri transferi yok</li>
+                  <li>• Hesap sistemi yok</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-mobile-alt text-blue-500 mr-3"></i>
+            3. Uygulama Nasıl Çalışır
+          </h2>
+          <div class="space-y-6">
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
+              <h3 class="text-lg font-semibold mb-3 text-blue-800 dark:text-blue-400">📱 Tamamen Çevrimdışı Uygulama</h3>
+              <p class="text-blue-700 dark:text-blue-300 leading-relaxed mb-4">
+                TarpoVizyon, tüm içerikleri uygulama kurulumu sırasında cihazınıza indirir ve tamamen çevrimdışı çalışır. İnternet bağlantısına ihtiyaç duymaz.
+              </p>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 class="font-semibold text-blue-800 dark:text-blue-400 mb-2">İçerik Türleri</h4>
+                  <ul class="space-y-1 text-blue-700 dark:text-blue-300 text-sm">
+                    <li>• Tarımsal politika dokümanları</li>
+                    <li>• Araştırma raporları</li>
+                    <li>• Uzman makaleleri</li>
+                    <li>• Piyasa analizleri</li>
+                    <li>• Eğitim materyalleri</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-blue-800 dark:text-blue-400 mb-2">Özellikler</h4>
+                  <ul class="space-y-1 text-blue-700 dark:text-blue-300 text-sm">
+                    <li>• PDF okuyucu</li>
+                    <li>• Arama fonksiyonu</li>
+                    <li>• Kategori filtreleme</li>
+                    <li>• Yer imleri (yerel)</li>
+                    <li>• Notlar (yerel)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-lg">
+              <h3 class="text-lg font-semibold mb-3">🔒 Yerel Veri Saklama</h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                Uygulamada yaptığınız tüm ayarlar, yer imleri ve notlar sadece cihazınızda saklanır. Bu veriler hiçbir zaman dışarıya gönderilmez veya bulut sistemlerde saklanmaz.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-ban text-green-500 mr-3"></i>
+            4. Veri Paylaşımı - HİÇBİR ŞEKİLDE YOK
+          </h2>
+          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-6">
+            <div class="flex items-start">
+              <i class="fas fa-check-shield text-green-500 mt-1 mr-3 text-2xl"></i>
+              <div>
+                <h4 class="font-semibold text-green-800 dark:text-green-400 mb-2">✅ Kesin Garanti</h4>
+                <p class="text-green-700 dark:text-green-300 text-sm">
+                  <strong>TarpoVizyon uygulaması hiçbir veri toplamadığından, paylaşılacak hiçbir veri yoktur.</strong> Bu durum aşağıdaki garantileri sağlar:
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold mb-3 text-green-600">🛡️ Koruma Garantilerimiz</h3>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                <li class="flex items-start"><i class="fas fa-shield-check text-green-500 mr-2 mt-1"></i>Hiçbir üçüncü tarafla veri paylaşımı YOK</li>
+                <li class="flex items-start"><i class="fas fa-shield-check text-green-500 mr-2 mt-1"></i>Reklam ağları ile veri alışverişi YOK</li>
+                <li class="flex items-start"><i class="fas fa-shield-check text-green-500 mr-2 mt-1"></i>Analitik platformlara veri gönderimi YOK</li>
+                <li class="flex items-start"><i class="fas fa-shield-check text-green-500 mr-2 mt-1"></i>Bulut servislerde veri saklama YOK</li>
+              </ul>
+            </div>
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold mb-3 text-blue-600">🔒 Teknik Garanti</h3>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                <li class="flex items-start"><i class="fas fa-wifi-slash text-blue-500 mr-2 mt-1"></i>İnternet bağlantısı kullanmaz</li>
+                <li class="flex items-start"><i class="fas fa-server text-blue-500 mr-2 mt-1"></i>Sunucu iletişimi yoktur</li>
+                <li class="flex items-start"><i class="fas fa-database text-blue-500 mr-2 mt-1"></i>Uzak veri tabanı bağlantısı yoktur</li>
+                <li class="flex items-start"><i class="fas fa-eye-slash text-blue-500 mr-2 mt-1"></i>Kullanıcı takibi yapılmaz</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-shield-alt text-purple-500 mr-3"></i>
+            5. Veri Güvenliği (Çevrimdışı Uygulama)
+          </h2>
+          <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-purple-800 dark:text-purple-400">🔐 En Güvenli Yaklaşım: Veri Toplamamak</h3>
+            <p class="text-purple-700 dark:text-purple-300 leading-relaxed">
+              TarpoVizyon'un en büyük güvenlik özelliği, hiçbir kişisel veri toplamamasıdır. Bu yaklaşım, tüm olası siber güvenlik risklerini ortadan kaldırır.
+            </p>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-4 text-purple-500">🛡️ Güvenlik Avantajları</h3>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Veri sızıntısı riski: SIFIR</li>
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Kimlik hırsızlığı riski: SIFIR</li>
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Siber saldırı hedefi: DEĞİL</li>
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Veri ihlali riski: YOK</li>
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Takip edilme riski: İMKANSIZ</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-4 text-purple-500">📱 Cihaz Güvenliği</h3>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Tüm veriler cihazınızda kalır</li>
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> İOS/Android güvenlik sistemi koruması</li>
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Ağ trafiği yoktur</li>
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Şifreli cihaz depolama</li>
+                <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Uygulama sandbox koruması</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <p class="text-blue-800 dark:text-blue-300 text-sm">
+              <i class="fas fa-info-circle mr-2"></i>
+              Uygulamayı sildiğinizde, tüm yerel veriler (yer imleri, notlar) tamamen silinir ve kurtarılamaz hale gelir.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-user-check text-indigo-500 mr-3"></i>
+            6. Kullanıcı Hakları - KVKK Kapsamında
+          </h2>
+          <div class="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-lg p-6 mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-indigo-800 dark:text-indigo-400">📝 Özel Durum: Veri Toplamamak</h3>
+            <p class="text-indigo-700 dark:text-indigo-300 text-sm leading-relaxed">
+              TarpoVizyon hiçbir kişisel veri toplamadığından, KVKK'da belirtilen veri sahibi hakları uygulanacak bir veri bulunmamaktadır. Bu durum aslında kullanıcılar için en iyi sonuçtur.
+            </p>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold text-green-800 dark:text-green-400 mb-2">✅ Doğal Haklarınız</h4>
+                <ul class="text-green-700 dark:text-green-300 text-sm space-y-1">
+                  <li>• Verileriniz zaten toplanmıyor</li>
+                  <li>• Silinecek veri bulunmuyor</li>
+                  <li>• Düzeltilecek veri yok</li>
+                  <li>• Taşınacak veri mevcut değil</li>
+                </ul>
+              </div>
+              <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold text-blue-800 dark:text-blue-400 mb-2">🔍 Şeffaflık</h4>
+                <ul class="text-blue-700 dark:text-blue-300 text-sm space-y-1">
+                  <li>• Uygulama kodları incelenebilir</li>
+                  <li>• Ağ trafiği monitörlenebilir</li>
+                  <li>• Veri toplama kanıtı bulunamaz</li>
+                  <li>• Tam şeffaflık sağlanır</li>
+                </ul>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold text-orange-800 dark:text-orange-400 mb-2">📞 Sorularınız İçin</h4>
+                <p class="text-orange-700 dark:text-orange-300 text-sm">
+                  Veri toplama konusunda herhangi bir endişeniz varsa, teknik ekibimizle iletişime geçebilirsiniz.
+                </p>
+              </div>
+              <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold text-purple-800 dark:text-purple-400 mb-2">🛡️ Güvence</h4>
+                <p class="text-purple-700 dark:text-purple-300 text-sm">
+                  Bu politika değişirse, veri toplama başlatılacaksa önceden bilgilendirilirsiniz.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-clock text-pink-500 mr-3"></i>
+            7. Veri Saklama - GEÇERLİ DEĞİL
+          </h2>
+          <div class="bg-pink-50 dark:bg-pink-900/20 border border-pink-200 dark:border-pink-800 rounded-lg p-6">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-pink-100 dark:bg-pink-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-times-circle text-pink-600 text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-pink-800 dark:text-pink-400 mb-3">❌ VERİ SAKLAMA SÜRESİ: GEÇERSİZ</h3>
+              <p class="text-pink-700 dark:text-pink-300 leading-relaxed">
+                TarpoVizyon uygulaması hiçbir kişisel veri toplamadığından ve saklamadığından, veri saklama süreleri ile ilgili kurallar bu uygulama için geçerli değildir.
+              </p>
+            </div>
+          </div>
+          
+          <div class="mt-6 space-y-4">
+            <div class="border-l-4 border-gray-400 pl-4">
+              <h4 class="font-semibold text-gray-600 dark:text-gray-400">Yerel Cihaz Verileri</h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Uygulamada oluşturduğunuz yer imleri ve notlar sadece cihazınızda saklanır ve uygulama silindiğinde tamamen kaybolur</p>
+            </div>
+            <div class="border-l-4 border-blue-500 pl-4">
+              <h4 class="font-semibold text-blue-600 dark:text-blue-400">Uygulama İçeriği</h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">TARPOL dokümanları ve raporları uygulama ile birlikte gelir, kişisel veri değildir</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-mobile-alt text-cyan-500 mr-3"></i>
+            8. Mobil Uygulama İzinleri
+          </h2>
+          <div class="bg-cyan-50 dark:bg-cyan-900/20 p-6 rounded-lg mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-cyan-800 dark:text-cyan-400">📱 Minimal İzin Talebi</h3>
+            <p class="text-cyan-700 dark:text-cyan-300 leading-relaxed">
+              TarpoVizyon, çevrimdışı çalıştığından çoğu mobil uygulama iznine ihtiyaç duymaz. Sadece temel işlevler için minimal izinler gereklidir.
+            </p>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-4 text-green-600">✅ Gerekli İzinler</h3>
+              <div class="space-y-3">
+                <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                  <h4 class="font-semibold text-green-800 dark:text-green-400 mb-2">📁 Depolama İzni</h4>
+                  <p class="text-green-700 dark:text-green-300 text-sm">Uygulamanın içerik dosyalarını cihazınızda saklamak için (SADECE YEREL)</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-4 text-red-600">❌ Talep ETMEDİĞİMİZ İzinler</h3>
+              <div class="space-y-2">
+                <div class="flex items-center text-red-700 dark:text-red-300 text-sm">
+                  <i class="fas fa-times text-red-500 mr-2"></i>Kamera erişimi
+                </div>
+                <div class="flex items-center text-red-700 dark:text-red-300 text-sm">
+                  <i class="fas fa-times text-red-500 mr-2"></i>Mikrofon erişimi
+                </div>
+                <div class="flex items-center text-red-700 dark:text-red-300 text-sm">
+                  <i class="fas fa-times text-red-500 mr-2"></i>Konum bilgileri
+                </div>
+                <div class="flex items-center text-red-700 dark:text-red-300 text-sm">
+                  <i class="fas fa-times text-red-500 mr-2"></i>Kişiler listesi
+                </div>
+                <div class="flex items-center text-red-700 dark:text-red-300 text-sm">
+                  <i class="fas fa-times text-red-500 mr-2"></i>İnternet erişimi
+                </div>
+                <div class="flex items-center text-red-700 dark:text-red-300 text-sm">
+                  <i class="fas fa-times text-red-500 mr-2"></i>Bildirim gönderme
+                </div>
+                <div class="flex items-center text-red-700 dark:text-red-300 text-sm">
+                  <i class="fas fa-times text-red-500 mr-2"></i>Telefon bilgileri
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <p class="text-blue-800 dark:text-blue-300 text-sm">
+              <i class="fas fa-info-circle mr-2"></i>
+              İOS ve Android işletim sistemleri, uygulamayı indirirken hangi izinlerin talep edildiğini gösterir. TarpoVizyon'un minimal izin listesini kontrol edebilirsiniz.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-child text-red-500 mr-3"></i>
+            9. Çocukların Gizliliği
+          </h2>
+          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
+            <p class="text-red-700 dark:text-red-300 leading-relaxed">
+              TarpoVizyon uygulaması 18 yaş altındaki kullanıcılara yönelik değildir. 18 yaş altında olduğunuzu tespit ettiğimiz takdirde hesabınız kapatılacak ve verileriniz silinecektir. Ebeveynler, çocuklarının uygulamayı kullandığını fark ederlerse derhal bizimle iletişime geçmelidir.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-edit text-green-500 mr-3"></i>
+            10. Politika Güncellemeleri
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+            Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişiklikler yapıldığında, uygulama içi bildirim veya e-posta yoluyla bilgilendirileceksiniz. Politikaya yapılan güncellemeler bu sayfada yayınlanacak ve "Son güncelleme" tarihi değiştirilecektir.
+          </p>
+          <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+            <p class="text-green-700 dark:text-green-300 text-sm">
+              <i class="fas fa-bell mr-2"></i>
+              En güncel gizlilik politikasını takip etmek için bu sayfayı düzenli olarak ziyaret etmenizi öneririz.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-primary to-secondary text-white rounded-xl shadow-lg p-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-envelope text-white mr-3"></i>
+            11. İletişim Bilgileri
+          </h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-4">TARPOL</h3>
+              <div class="space-y-3">
+                <div class="flex items-start">
+                  <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                  <span>Hacettepe Mahallesi Cingöz Sokak No:10<br>Altındağ/Ankara</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-3"></i>
+                  <a href="mailto:info@tarpol.org.tr" class="hover:underline">info@tarpol.org.tr</a>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-phone mr-3"></i>
+                  <span>+90 312 443 11 21</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Veri Koruma Sorumlusu</h3>
+              <div class="space-y-3">
+                <div class="flex items-center">
+                  <i class="fas fa-user mr-3"></i>
+                  <span>KVKK Sorumlusu</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-3"></i>
+                  <a href="mailto:kvkk@tarpol.org.tr" class="hover:underline">kvkk@tarpol.org.tr</a>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-globe mr-3"></i>
+                  <a href="https://www.tarpol.org.tr" class="hover:underline">www.tarpol.org.tr</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-6 border-t border-white/20">
+            <p class="text-sm opacity-90">
+              Gizlilik politikası ile ilgili sorularınız veya endişeleriniz için yukarıdaki iletişim bilgilerini kullanarak bizimle iletişime geçebilirsiniz. Talepleriniz en geç 30 gün içinde değerlendirilecek ve yanıtlanacaktır.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-3 mb-4">
+            <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+            <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+          </div>
+          <p class="text-gray-400 mb-6">TarpoVizyon uygulaması TEKNOVA tarafından TARPOL için geliştirilmiştir.</p>
+          <div class="flex justify-center gap-6 text-sm">
+            <a href="tarpovizyon-terms-of-service.html" class="text-gray-400 hover:text-white transition-colors">Kullanım Şartları</a>
+            <a href="tarpovizyon-support.html" class="text-gray-400 hover:text-white transition-colors">Destek</a>
+            <a href="https://www.tarpol.org.tr" class="text-gray-400 hover:text-white transition-colors">TARPOL</a>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-400 text-sm">
+          <p>&copy; 2025 TARPOL & TEKNOVA. Tüm hakları saklıdır.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      }
+      function openMobileMenu() {
+        mobileMenu.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      }
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (mobileMenu.classList.contains('hidden')) {
+            openMobileMenu();
+          } else {
+            closeMobileMenu();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!mobileMenu.classList.contains('hidden')) {
+          if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            closeMobileMenu();
+          }
+        }
+      });
+    </script>
+
+</body>
+</html>

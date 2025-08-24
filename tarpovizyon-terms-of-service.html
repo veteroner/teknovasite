@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanım Şartları - TarpoVizyon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
+              light: '#f8fafc'
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .neural-bg {
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+      }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+    <script>
+      function applyTheme() {
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      applyTheme();
+    </script>
+
+    <!-- Header -->
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto flex items-center justify-between py-4 px-6">
+        <div class="flex items-center gap-3">
+          <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+          <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+          <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+          <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+          <a href="game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+          <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-xl" aria-label="Mobil Menü Aç/Kapat" aria-expanded="false" aria-controls="mobile-menu"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+      <!-- Mobil Menü -->
+      <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto py-4 px-6">
+          <nav class="flex flex-col gap-4 text-sm font-medium">
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+            <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+            <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+            <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+            <a href="game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+            <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-16 pb-12 neural-bg relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mb-6">
+            <i class="fas fa-file-contract text-3xl text-white"></i>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">TarpoVizyon</span> Kullanım Şartları
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mb-6">
+            TarpoVizyon mobil uygulamasını kullanmadan önce lütfen bu kullanım şartlarını dikkatli bir şekilde okuyunuz. Uygulamayı kullanarak bu şartları kabul etmiş sayılırsınız.
+          </p>
+          <div class="text-sm text-gray-500 dark:text-gray-400">
+            Son güncelleme: 24 Ağustos 2025
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-900/50">
+      <div class="container mx-auto px-4 max-w-4xl">
+        
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-info-circle text-primary mr-3"></i>
+            1. Uygulama Tanımı ve Amaç
+          </h2>
+          <div class="space-y-4">
+            <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+              TarpoVizyon, TARPOL (Tarımsal Strateji ve Politika Geliştirme Merkezi) tarafından geliştirilen ve TEKNOVA tarafından tasarlanan bir mobil uygulamadır. Uygulama, tarım ve hayvancılık sektöründe faaliyet gösteren profesyoneller için aşağıdaki hizmetleri sunar:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300 ml-4">
+              <li>Tarımsal politika ve strateji gelişmelerine dair güncel bilgiler</li>
+              <li>Sektörel analiz raporları ve araştırma sonuçları</li>
+              <li>Uzman görüşleri ve değerlendirmeler</li>
+              <li>Tarım topluluğu ile bilgi paylaşım platformu</li>
+              <li>Etkinlik duyuruları ve eğitim içerikleri</li>
+              <li>Piyasa verileri ve trend analizi</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+            2. Kabul ve Onay
+          </h2>
+          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-6">
+            <div class="flex items-start">
+              <i class="fas fa-handshake text-blue-500 mt-1 mr-3"></i>
+              <div>
+                <h4 class="font-semibold text-blue-800 dark:text-blue-400 mb-2">Sözleşme Onayı</h4>
+                <p class="text-blue-700 dark:text-blue-300 text-sm">
+                  TarpoVizyon uygulamasını indirerek, hesap oluşturarak veya herhangi bir şekilde kullanarak bu kullanım şartlarını tamamen okuduğunuzu, anladığınızı ve kabul ettiğinizi beyan edersiniz.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <p class="text-gray-600 dark:text-gray-300">Bu şartları kabul etmek için:</p>
+            <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300 ml-4">
+              <li>18 yaşından büyük olmanız gerekmektedir</li>
+              <li>Türkiye Cumhuriyeti yasalarına uygun hareket etmeyi taahhüt edersiniz</li>
+              <li>Verdiğiniz bilgilerin doğru ve güncel olduğunu garanti edersiniz</li>
+              <li>Hesap güvenliğinizden tamamen sorumlu olduğunuzu kabul edersiniz</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-user-shield text-purple-500 mr-3"></i>
+            3. Hesap Oluşturma ve Güvenlik
+          </h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-4 text-purple-500">Hesap Gereksinimleri</h3>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Geçerli e-posta adresi</li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Güçlü şifre (min. 8 karakter)</li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Gerçek kimlik bilgileri</li>
+                <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Meslek/sektör bilgisi</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-4 text-purple-500">Güvenlik Sorumlulukları</h3>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                <li class="flex items-start"><i class="fas fa-shield-alt text-blue-500 mr-2 mt-1"></i>Şifrenizi kimseyle paylaşmayın</li>
+                <li class="flex items-start"><i class="fas fa-lock text-blue-500 mr-2 mt-1"></i>Düzenli şifre güncellemesi yapın</li>
+                <li class="flex items-start"><i class="fas fa-sign-out-alt text-blue-500 mr-2 mt-1"></i>Oturumu güvenli şekilde kapatın</li>
+                <li class="flex items-start"><i class="fas fa-exclamation-triangle text-red-500 mr-2 mt-1"></i>Şüpheli aktiviteleri bildirin</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-6 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+            <p class="text-red-700 dark:text-red-300 text-sm">
+              <i class="fas fa-warning mr-2"></i>
+              Hesabınızda gerçekleşen tüm aktivitelerden siz sorumlusunuz. Hesap bilgilerinizin çalınması veya kötüye kullanılması durumunda derhal bizimle iletişime geçin.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-gavel text-orange-500 mr-3"></i>
+            4. Kullanım Kuralları
+          </h2>
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-green-600">İzin Verilen Kullanımlar</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Tarımsal bilgi araştırması</li>
+                  <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Sektörel gelişmeleri takip etme</li>
+                  <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Uzmanlarla bilgi paylaşımı</li>
+                  <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Etkinliklere katılım</li>
+                </ul>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Raporları indirme ve paylaşma</li>
+                  <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Yapıcı tartışmalara katılım</li>
+                  <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Geri bildirim sağlama</li>
+                  <li class="flex items-start"><i class="fas fa-check text-green-500 mr-2 mt-1"></i>Eğitim içeriklerine erişim</li>
+                </ul>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-red-600">Yasak Aktiviteler</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start"><i class="fas fa-times text-red-500 mr-2 mt-1"></i>Spam ve istenmeyen içerik</li>
+                  <li class="flex items-start"><i class="fas fa-times text-red-500 mr-2 mt-1"></i>Yanıltıcı bilgi paylaşımı</li>
+                  <li class="flex items-start"><i class="fas fa-times text-red-500 mr-2 mt-1"></i>Hakaret ve saldırgan dil</li>
+                  <li class="flex items-start"><i class="fas fa-times text-red-500 mr-2 mt-1"></i>Telif hakkı ihlali</li>
+                </ul>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                  <li class="flex items-start"><i class="fas fa-times text-red-500 mr-2 mt-1"></i>Sistem güvenliğini tehdit etme</li>
+                  <li class="flex items-start"><i class="fas fa-times text-red-500 mr-2 mt-1"></i>Sahte hesap oluşturma</li>
+                  <li class="flex items-start"><i class="fas fa-times text-red-500 mr-2 mt-1"></i>Ticari spam ve reklam</li>
+                  <li class="flex items-start"><i class="fas fa-times text-red-500 mr-2 mt-1"></i>Kötü amaçlı yazılım paylaşımı</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-copyright text-indigo-500 mr-3"></i>
+            5. Fikri Mülkiyet Hakları
+          </h2>
+          <div class="space-y-6">
+            <div class="bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-lg">
+              <h3 class="text-lg font-semibold mb-3 text-indigo-800 dark:text-indigo-400">TARPOL ve TEKNOVA İçerikleri</h3>
+              <p class="text-indigo-700 dark:text-indigo-300 text-sm mb-3">
+                Uygulama içindeki tüm içerikler, tasarım, logo, metin, görsel ve ses materyalleri TARPOL ve TEKNOVA'nın fikri mülkiyetidir.
+              </p>
+              <ul class="space-y-1 text-indigo-700 dark:text-indigo-300 text-sm">
+                <li>• Araştırma raporları ve analiz dokümanları</li>
+                <li>• Uzman değerlendirmeleri ve makaleler</li>
+                <li>• Veri setleri ve istatistiksel analizler</li>
+                <li>• Eğitim materyalleri ve sunumlar</li>
+              </ul>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-lg">
+              <h3 class="text-lg font-semibold mb-3">Kullanım İzinleri</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 class="font-semibold text-green-600 mb-2">İzin Verilen</h4>
+                  <ul class="space-y-1 text-gray-600 dark:text-gray-300 text-sm">
+                    <li>• Kişisel araştırma amaçlı kullanım</li>
+                    <li>• Akademik çalışmalarda alıntı yapma</li>
+                    <li>• Kaynak göstererek paylaşım</li>
+                    <li>• Eğitim amaçlı kullanım</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-red-600 mb-2">İzin Verilmeyen</h4>
+                  <ul class="space-y-1 text-gray-600 dark:text-gray-300 text-sm">
+                    <li>• Ticari amaçlı yeniden satış</li>
+                    <li>• İçeriği değiştirerek paylaşma</li>
+                    <li>• Toplu veri indirme ve dağıtım</li>
+                    <li>• Kaynak belirtmeden kullanım</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-share-alt text-cyan-500 mr-3"></i>
+            6. Kullanıcı İçerikleri
+          </h2>
+          <div class="space-y-6">
+            <div class="bg-cyan-50 dark:bg-cyan-900/20 p-6 rounded-lg">
+              <h3 class="text-lg font-semibold mb-3 text-cyan-800 dark:text-cyan-400">İçerik Paylaşımı</h3>
+              <p class="text-cyan-700 dark:text-cyan-300 text-sm mb-3">
+                Uygulamaya yüklediğiniz veya paylaştığınız içerikler (yorumlar, görüntüler, dökümanlar) konusunda aşağıdaki kurallara uymalısınız:
+              </p>
+              <ul class="space-y-1 text-cyan-700 dark:text-cyan-300 text-sm">
+                <li>• İçeriğin sahipliği size ait olmalıdır</li>
+                <li>• Üçüncü taraf haklarını ihlal etmemelidir</li>
+                <li>• Yasal düzenlemelere uygun olmalıdır</li>
+                <li>• Topluluk kurallarına uygun olmalıdır</li>
+              </ul>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 class="text-lg font-semibold mb-3 text-green-600">Lisans Verdiğiniz Haklar</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">İçerik paylaştığınızda TARPOL'a şu hakları verirsiniz:</p>
+                <ul class="space-y-1 text-gray-600 dark:text-gray-300 text-sm">
+                  <li>• Platform içinde görüntüleme</li>
+                  <li>• Araştırma amaçlı kullanım</li>
+                  <li>• Topluluk ile paylaşım</li>
+                  <li>• Moderasyon ve düzenleme</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-3 text-orange-600">İçerik Sorumluluğu</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">Paylaştığınız içeriklerden tamamen siz sorumlusunuz:</p>
+                <ul class="space-y-1 text-gray-600 dark:text-gray-300 text-sm">
+                  <li>• Yasal sorumluluk size aittir</li>
+                  <li>• Telif hakkı ihlalleri</li>
+                  <li>• Yanıltıcı bilgiler</li>
+                  <li>• Zarar verici içerikler</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-ban text-red-500 mr-3"></i>
+            7. Hesap Askıya Alma ve Sonlandırma
+          </h2>
+          <div class="space-y-6">
+            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
+              <h3 class="text-lg font-semibold mb-3 text-red-800 dark:text-red-400">Sonlandırma Sebepleri</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-2 text-red-700 dark:text-red-300 text-sm">
+                  <li>• Kullanım şartlarını ihlal etme</li>
+                  <li>• Sahte bilgi veya kimlik kullanma</li>
+                  <li>• Spam ve rahatsız edici davranışlar</li>
+                  <li>• Telif hakkı ihlali</li>
+                </ul>
+                <ul class="space-y-2 text-red-700 dark:text-red-300 text-sm">
+                  <li>• Güvenlik tehdidi oluşturma</li>
+                  <li>• Yasal olmayan aktiviteler</li>
+                  <li>• Topluluk kurallarını sürekli ihlal</li>
+                  <li>• Diğer kullanıcılara zarar verme</li>
+                </ul>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold text-yellow-800 dark:text-yellow-400 mb-2">Uyarı</h4>
+                <p class="text-yellow-700 dark:text-yellow-300 text-xs">Hafif ihlaller için önce uyarı verilir</p>
+              </div>
+              <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold text-orange-800 dark:text-orange-400 mb-2">Geçici Askıya Alma</h4>
+                <p class="text-orange-700 dark:text-orange-300 text-xs">Ciddi ihlaller için geçici engelleme</p>
+              </div>
+              <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                <h4 class="font-semibold text-red-800 dark:text-red-400 mb-2">Kalıcı Kapatma</h4>
+                <p class="text-red-700 dark:text-red-300 text-xs">Ağır ihlaller için kalıcı engelleme</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-exclamation-triangle text-yellow-500 mr-3"></i>
+            8. Sorumluluk Reddi
+          </h2>
+          <div class="space-y-6">
+            <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6">
+              <h3 class="text-lg font-semibold mb-3 text-yellow-800 dark:text-yellow-400">Hizmet Garantisi</h3>
+              <p class="text-yellow-700 dark:text-yellow-300 text-sm">
+                TarpoVizyon uygulaması "olduğu gibi" sunulmaktadır. TARPOL ve TEKNOVA, uygulamanın kesintisiz, hatasız veya güvenli olacağını garanti etmez.
+              </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 class="text-lg font-semibold mb-3">Teknik Sorumluluklar</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                  <li>• Sistem kesintileri ve arızalar</li>
+                  <li>• Veri kaybı riskleri</li>
+                  <li>• Üçüncü taraf servis hataları</li>
+                  <li>• Mobil platform sorunları</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-3">İçerik Sorumlulukları</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                  <li>• Kullanıcı kaynaklı içerik hataları</li>
+                  <li>• Üçüncü taraf bağlantıları</li>
+                  <li>• Güncel olmayan bilgiler</li>
+                  <li>• Yorum ve değerlendirmeler</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-balance-scale text-purple-500 mr-3"></i>
+            9. Uygulanacak Hukuk ve Yargı
+          </h2>
+          <div class="space-y-4">
+            <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg">
+              <p class="text-purple-700 dark:text-purple-300 leading-relaxed">
+                Bu kullanım şartları Türkiye Cumhuriyeti yasalarına tabidir. Bu sözleşmeden doğabilecek uyuşmazlıkların çözümünde Ankara Mahkemeleri ve İcra Müdürlükleri yetkilidir.
+              </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 class="text-lg font-semibold mb-3">Uygulanacak Kanunlar</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                  <li>• 6698 Sayılı KVKK</li>
+                  <li>• 5651 Sayılı İnternet Kanunu</li>
+                  <li>• 6563 Sayılı Elektronik Ticaret Kanunu</li>
+                  <li>• Türk Borçlar Kanunu</li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-3">Uyuşmazlık Çözümü</h3>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                  <li>• Öncelikle dostane çözüm aranır</li>
+                  <li>• Arabuluculuk süreçleri desteklenir</li>
+                  <li>• Ankara mahkemeleri yetkilidir</li>
+                  <li>• Türkçe dil kullanımı zorunludur</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-sync-alt text-green-500 mr-3"></i>
+            10. Şart Değişiklikleri
+          </h2>
+          <div class="space-y-4">
+            <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
+              <h3 class="text-lg font-semibold mb-3 text-green-800 dark:text-green-400">Güncelleme Süreci</h3>
+              <p class="text-green-700 dark:text-green-300 text-sm mb-3">
+                TARPOL, bu kullanım şartlarını zaman zaman güncelleyebilir. Önemli değişiklikler yapıldığında kullanıcılar bilgilendirilecektir.
+              </p>
+              <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-1 text-green-700 dark:text-green-300 text-sm">
+                  <li>• Uygulama içi bildirim</li>
+                  <li>• E-posta bildirimi</li>
+                  <li>• Web sitesi duyurusu</li>
+                </ul>
+                <ul class="space-y-1 text-green-700 dark:text-green-300 text-sm">
+                  <li>• 30 gün önceden bildirim</li>
+                  <li>• Değişiklik detayları</li>
+                  <li>• Kabul etmeme seçeneği</li>
+                </ul>
+              </div>
+            </div>
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+              <p class="text-blue-700 dark:text-blue-300 text-sm">
+                <i class="fas fa-info-circle mr-2"></i>
+                Güncellemeler yayınlandıktan sonra uygulamayı kullanmaya devam etmeniz, yeni şartları kabul ettiğiniz anlamına gelir. Kabul etmiyorsanız hesabınızı kapatabilirsiniz.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-primary to-secondary text-white rounded-xl shadow-lg p-8">
+          <h2 class="text-2xl font-bold mb-6 flex items-center">
+            <i class="fas fa-envelope text-white mr-3"></i>
+            11. İletişim ve Destek
+          </h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-4">TARPOL İletişim</h3>
+              <div class="space-y-3">
+                <div class="flex items-start">
+                  <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                  <span>Hacettepe Mahallesi Cingöz Sokak No:10<br>Altındağ/Ankara</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-3"></i>
+                  <a href="mailto:info@tarpol.org.tr" class="hover:underline">info@tarpol.org.tr</a>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-phone mr-3"></i>
+                  <span>+90 312 443 11 21</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-globe mr-3"></i>
+                  <a href="https://www.tarpol.org.tr" class="hover:underline">www.tarpol.org.tr</a>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-4">Teknik Destek</h3>
+              <div class="space-y-3">
+                <div class="flex items-center">
+                  <i class="fas fa-headset mr-3"></i>
+                  <span>TarpoVizyon Destek Ekibi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-3"></i>
+                  <a href="mailto:destek@tarpol.org.tr" class="hover:underline">destek@tarpol.org.tr</a>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-mobile-alt mr-3"></i>
+                  <span>Uygulama içi destek sistemi</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-clock mr-3"></i>
+                  <span>Pazartesi-Cuma 09:00-17:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-6 pt-6 border-t border-white/20">
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+              <div>
+                <h4 class="font-semibold mb-2">Hukuki Sorular</h4>
+                <a href="mailto:hukuk@tarpol.org.tr" class="hover:underline opacity-90">hukuk@tarpol.org.tr</a>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">KVKK Başvuruları</h4>
+                <a href="mailto:kvkk@tarpol.org.tr" class="hover:underline opacity-90">kvkk@tarpol.org.tr</a>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Şikayet ve Öneriler</h4>
+                <a href="mailto:iletisim@tarpol.org.tr" class="hover:underline opacity-90">iletisim@tarpol.org.tr</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-3 mb-4">
+            <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+            <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+          </div>
+          <p class="text-gray-400 mb-6">TarpoVizyon uygulaması TEKNOVA tarafından TARPOL için geliştirilmiştir.</p>
+          <div class="flex justify-center gap-6 text-sm">
+            <a href="tarpovizyon-privacy-policy.html" class="text-gray-400 hover:text-white transition-colors">Gizlilik Politikası</a>
+            <a href="tarpovizyon-support.html" class="text-gray-400 hover:text-white transition-colors">Destek</a>
+            <a href="https://www.tarpol.org.tr" class="text-gray-400 hover:text-white transition-colors">TARPOL</a>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-400 text-sm">
+          <p>&copy; 2025 TARPOL & TEKNOVA. Tüm hakları saklıdır.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      }
+      function openMobileMenu() {
+        mobileMenu.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      }
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (mobileMenu.classList.contains('hidden')) {
+            openMobileMenu();
+          } else {
+            closeMobileMenu();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!mobileMenu.classList.contains('hidden')) {
+          if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            closeMobileMenu();
+          }
+        }
+      });
+    </script>
+
+</body>
+</html>

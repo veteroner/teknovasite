@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destek - TarpoVizyon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#6366f1',
+              secondary: '#8b5cf6',
+              accent: '#06b6d4',
+              dark: '#0f0f23',
+              light: '#f8fafc'
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      .gradient-text {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: gradient 3s ease infinite;
+      }
+      @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .neural-bg {
+        background-image: 
+          radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+      }
+    </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+    <script>
+      function applyTheme() {
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      applyTheme();
+    </script>
+
+    <!-- Header -->
+    <header class="bg-white/95 dark:bg-dark/95 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto flex items-center justify-between py-4 px-6">
+        <div class="flex items-center gap-3">
+          <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+          <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+        </div>
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+          <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+          <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+          <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+          <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+          <a href="game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+          <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="text-xl" aria-label="Mobil Menü Aç/Kapat" aria-expanded="false" aria-controls="mobile-menu"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+      <!-- Mobil Menü -->
+      <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-dark border-t border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto py-4 px-6">
+          <nav class="flex flex-col gap-4 text-sm font-medium">
+            <a href="index.html" class="hover:text-primary dark:hover:text-accent transition-colors">Ana Sayfa</a>
+            <a href="hakkimizda.html" class="hover:text-primary dark:hover:text-accent transition-colors">Hakkımızda</a>
+            <a href="cozumlerimiz.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Çözümlerimiz</a>
+            <a href="projeler.html" class="hover:text-primary dark:hover:text-accent transition-colors">Projeler</a>
+            <a href="ai-nova.html" class="hover:text-primary dark:hover:text-accent transition-colors">AI Nova</a>
+            <a href="game-labs.html" class="hover:text-primary dark:hover:text-accent transition-colors">Game Labs</a>
+            <a href="iletisim.html" class="hover:text-primary dark:hover:text-accent transition-colors">İletişim</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-16 pb-12 neural-bg relative overflow-hidden border-b border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
+            <i class="fas fa-headset text-3xl text-white"></i>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">TarpoVizyon</span> Destek Merkezi
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mb-6">
+            TarpoVizyon uygulaması ile ilgili tüm sorularınız, teknik problemleriniz ve önerileriniz için kapsamlı destek hizmeti sunuyoruz.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="#sss" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all">
+              <i class="fas fa-question-circle mr-2"></i>Sıkça Sorulan Sorular
+            </a>
+            <a href="#iletisim" class="px-6 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">
+              <i class="fas fa-envelope mr-2"></i>İletişime Geç
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Help Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-900/50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Hızlı Yardım</h2>
+          <p class="text-gray-600 dark:text-gray-300">En sık karşılaşılan sorunlar için hızlı çözümler</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all group">
+            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-download text-blue-600 text-xl"></i>
+            </div>
+            <h3 class="font-semibold mb-2">Uygulama İndirme</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">App Store ve Google Play'den nasıl indirebilirim?</p>
+            <a href="#indirme" class="text-blue-600 hover:text-blue-700 text-sm font-medium">Detayları Gör →</a>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all group">
+            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-user-plus text-green-600 text-xl"></i>
+            </div>
+            <h3 class="font-semibold mb-2">Hesap Oluşturma</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Yeni hesap nasıl oluşturabilirim?</p>
+            <a href="#hesap" class="text-green-600 hover:text-green-700 text-sm font-medium">Detayları Gör →</a>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all group">
+            <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-lock text-orange-600 text-xl"></i>
+            </div>
+            <h3 class="font-semibold mb-2">Şifre Sıfırlama</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Şifremi unuttum, nasıl sıfırlayabilirim?</p>
+            <a href="#sifre" class="text-orange-600 hover:text-orange-700 text-sm font-medium">Detayları Gör →</a>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all group">
+            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-cog text-purple-600 text-xl"></i>
+            </div>
+            <h3 class="font-semibold mb-2">Uygulama Ayarları</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Bildirimler ve diğer ayarları nasıl değiştirebilirim?</p>
+            <a href="#ayarlar" class="text-purple-600 hover:text-purple-700 text-sm font-medium">Detayları Gör →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="sss" class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Sıkça Sorulan Sorular</h2>
+          <p class="text-gray-600 dark:text-gray-300">TarpoVizyon hakkında merak edilen konular</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto space-y-6">
+          
+          <!-- Genel Sorular -->
+          <div id="indirme" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-4 text-blue-600">📱 Uygulama İndirme ve Kurulum</h3>
+              <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold mb-2">TarpoVizyon'u nereden indirebilirim?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">
+                    TarpoVizyon uygulaması hem iOS hem de Android cihazlar için mevcuttur:
+                  </p>
+                  <ul class="list-disc list-inside mt-2 text-gray-600 dark:text-gray-300 text-sm ml-4">
+                    <li><strong>iOS:</strong> App Store'da "TarpoVizyon" aratın</li>
+                    <li><strong>Android:</strong> Google Play Store'da "TarpoVizyon" aratın</li>
+                    <li><strong>Minimum gereksinimler:</strong> iOS 12.0+ veya Android 8.0+</li>
+                  </ul>
+                </div>
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold mb-2">Uygulama ücretsiz mi?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">
+                    Evet, TarpoVizyon tamamen ücretsizdir. Uygulama içi satın alma yoktur. TARPOL tarafından tarım sektörüne katkı amacıyla ücretsiz olarak sunulmaktadır.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hesap İşlemleri -->
+          <div id="hesap" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-4 text-green-600">👤 Hesap İşlemleri</h3>
+              <div class="space-y-4">
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold mb-2">Nasıl hesap oluşturabilirim?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">Hesap oluşturmak çok kolay:</p>
+                  <ol class="list-decimal list-inside text-gray-600 dark:text-gray-300 text-sm ml-4 space-y-1">
+                    <li>TarpoVizyon uygulamasını açın</li>
+                    <li>"Hesap Oluştur" butonuna tıklayın</li>
+                    <li>Ad, soyad ve e-posta adresinizi girin</li>
+                    <li>Güçlü bir şifre belirleyin</li>
+                    <li>Meslek/sektör bilgilerinizi ekleyin</li>
+                    <li>E-posta doğrulama linkine tıklayın</li>
+                  </ol>
+                </div>
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold mb-2">Hesabımı nasıl doğrulayabilirim?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">
+                    Kayıt olduktan sonra e-posta adresinize bir doğrulama linki gönderilir. Bu linke tıklayarak hesabınızı aktif hale getirebilirsiniz. E-posta gelmezse spam klasörünüzü kontrol edin.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Şifre İşlemleri -->
+          <div id="sifre" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-4 text-orange-600">🔒 Şifre ve Güvenlik</h3>
+              <div class="space-y-4">
+                <div class="border-l-4 border-orange-500 pl-4">
+                  <h4 class="font-semibold mb-2">Şifremi unuttum, nasıl sıfırlayabilirim?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">Şifre sıfırlama adımları:</p>
+                  <ol class="list-decimal list-inside text-gray-600 dark:text-gray-300 text-sm ml-4 space-y-1">
+                    <li>Giriş ekranında "Şifremi Unuttum" linkine tıklayın</li>
+                    <li>E-posta adresinizi girin</li>
+                    <li>E-postanıza gelen sıfırlama linkine tıklayın</li>
+                    <li>Yeni şifrenizi belirleyin</li>
+                    <li>Yeni şifrenizle giriş yapın</li>
+                  </ol>
+                </div>
+                <div class="border-l-4 border-orange-500 pl-4">
+                  <h4 class="font-semibold mb-2">Güçlü şifre nasıl oluştururum?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">Güvenli şifre önerileri:</p>
+                  <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 text-sm ml-4 space-y-1">
+                    <li>En az 8 karakter uzunluğunda olmalı</li>
+                    <li>Büyük ve küçük harf içermeli</li>
+                    <li>Rakam ve özel karakterler kullanın</li>
+                    <li>Kişisel bilgilerinizi kullanmayın</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Uygulama Özellikleri -->
+          <div id="ayarlar" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-4 text-purple-600">⚙️ Uygulama Özellikleri</h3>
+              <div class="space-y-4">
+                <div class="border-l-4 border-purple-500 pl-4">
+                  <h4 class="font-semibold mb-2">Bildirimleri nasıl ayarlayabilirim?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">Bildirim ayarları:</p>
+                  <ol class="list-decimal list-inside text-gray-600 dark:text-gray-300 text-sm ml-4 space-y-1">
+                    <li>Uygulama içinde Profil > Ayarlar'a gidin</li>
+                    <li>"Bildirimler" sekmesini seçin</li>
+                    <li>İstediğiniz bildirim türlerini açın/kapatın</li>
+                    <li>Bildirim saatlerini ayarlayın</li>
+                  </ol>
+                </div>
+                <div class="border-l-4 border-purple-500 pl-4">
+                  <h4 class="font-semibold mb-2">Hangi cihazlarda çalışır?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">
+                    TarpoVizyon şu cihazlarda sorunsuz çalışır:
+                  </p>
+                  <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 text-sm ml-4 mt-2">
+                    <li><strong>iPhone:</strong> iPhone 6s ve üzeri (iOS 12.0+)</li>
+                    <li><strong>iPad:</strong> iPad Air 2 ve üzeri</li>
+                    <li><strong>Android:</strong> Android 8.0+ (API level 26+)</li>
+                    <li><strong>RAM:</strong> Minimum 2GB önerilir</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Teknik Problemler -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-4 text-red-600">🔧 Teknik Problemler</h3>
+              <div class="space-y-4">
+                <div class="border-l-4 border-red-500 pl-4">
+                  <h4 class="font-semibold mb-2">Uygulama açılmıyor veya donuyor</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">Deneyebileceğiniz çözümler:</p>
+                  <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 text-sm ml-4 space-y-1">
+                    <li>Uygulamayı tamamen kapatıp yeniden açın</li>
+                    <li>Cihazınızı yeniden başlatın</li>
+                    <li>App Store/Play Store'dan güncelleme kontrolü yapın</li>
+                    <li>Uygulamayı silip yeniden yükleyin</li>
+                    <li>İnternet bağlantınızı kontrol edin</li>
+                  </ul>
+                </div>
+                <div class="border-l-4 border-red-500 pl-4">
+                  <h4 class="font-semibold mb-2">Giriş yapamıyorum</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">Giriş sorunları için:</p>
+                  <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 text-sm ml-4 space-y-1">
+                    <li>E-posta ve şifrenizi doğru yazdığınızdan emin olun</li>
+                    <li>Caps Lock açık olmadığını kontrol edin</li>
+                    <li>E-posta doğrulaması yaptığınızdan emin olun</li>
+                    <li>Şifre sıfırlama seçeneğini deneyin</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- İçerik ve Özellikler -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-4 text-cyan-600">📚 İçerik ve Özellikler</h3>
+              <div class="space-y-4">
+                <div class="border-l-4 border-cyan-500 pl-4">
+                  <h4 class="font-semibold mb-2">Uygulamada hangi içerikler var?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">TarpoVizyon'da bulabileceğiniz içerikler:</p>
+                  <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 text-sm ml-4 space-y-1">
+                    <li>Güncel tarım politikaları ve analizler</li>
+                    <li>Sektörel araştırma raporları</li>
+                    <li>Uzman görüşleri ve makaleler</li>
+                    <li>Piyasa verileri ve trendler</li>
+                    <li>Etkinlik duyuruları</li>
+                    <li>Eğitim içerikleri ve webinarlar</li>
+                  </ul>
+                </div>
+                <div class="border-l-4 border-cyan-500 pl-4">
+                  <h4 class="font-semibold mb-2">İçerikleri nasıl kaydedebilirim?</h4>
+                  <p class="text-gray-600 dark:text-gray-300 text-sm">
+                    Beğendiğiniz içerikleri "Favoriler" listenize ekleyebilir, daha sonra kolayca erişebilirsiniz. İçeriğin sağ üst köşesindeki yıldız simgesine tıklayın.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Support -->
+    <section id="iletisim" class="py-20 bg-gray-50 dark:bg-gray-900/50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Destek Ekibimizle İletişime Geçin</h2>
+          <p class="text-gray-600 dark:text-gray-300">Sorununuzu çözemediyseniz, uzman destek ekibimiz size yardımcı olmaktan mutluluk duyar</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          
+          <!-- E-posta Destek -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg text-center">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-envelope text-blue-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-4">E-posta Destek</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm">
+              Teknik problemler, öneriler ve genel sorular için e-posta gönderin.
+            </p>
+            <div class="space-y-3">
+              <a href="mailto:destek@tarpol.org.tr" class="block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
+                destek@tarpol.org.tr
+              </a>
+              <p class="text-xs text-gray-500">Yanıt süresi: 24 saat içinde</p>
+            </div>
+          </div>
+
+          <!-- Telefon Destek -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg text-center">
+            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-phone text-green-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-4">Telefon Destek</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm">
+              Acil durumlar ve karmaşık teknik problemler için telefon desteği.
+            </p>
+            <div class="space-y-3">
+              <a href="tel:+903124431121" class="block px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all">
+                +90 312 443 11 21
+              </a>
+              <p class="text-xs text-gray-500">Pazartesi-Cuma: 09:00-17:00</p>
+            </div>
+          </div>
+
+          <!-- Canlı Destek -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg text-center">
+            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+              <i class="fas fa-comments text-purple-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-4">Uygulama İçi Destek</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm">
+              TarpoVizyon uygulaması içinden direkt mesaj gönderebilirsiniz.
+            </p>
+            <div class="space-y-3">
+              <button class="w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all">
+                Uygulama Aç
+              </button>
+              <p class="text-xs text-gray-500">Anında yanıt</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Form Section -->
+        <div class="max-w-2xl mx-auto mt-16">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+            <h3 class="text-2xl font-semibold mb-6 text-center">Destek Talebi Gönder</h3>
+            <form class="space-y-6" id="support-form">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium mb-2">Ad Soyad</label>
+                  <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2">E-posta</label>
+                  <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">Konu</label>
+                <select name="subject" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+                  <option value="">Konu seçin</option>
+                  <option value="teknik">Teknik Problem</option>
+                  <option value="hesap">Hesap İşlemleri</option>
+                  <option value="icerik">İçerik Sorunu</option>
+                  <option value="oneri">Öneri/Geri Bildirim</option>
+                  <option value="diger">Diğer</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">Mesajınız</label>
+                <textarea name="message" rows="5" required placeholder="Lütfen sorununuzu detaylı bir şekilde açıklayın..." class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"></textarea>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">Cihaz Bilgileri (İsteğe bağlı)</label>
+                <input type="text" name="device" placeholder="Örn: iPhone 13, iOS 15.0" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white">
+              </div>
+              
+              <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:from-primary/90 hover:to-secondary/90 transition-all shadow-lg">
+                <i class="fas fa-paper-plane mr-2"></i>
+                Destek Talebi Gönder
+              </button>
+            </form>
+            <div id="form-message" class="mt-4 text-center hidden"></div>
+          </div>
+        </div>
+
+        <!-- Additional Resources -->
+        <div class="max-w-4xl mx-auto mt-16">
+          <h3 class="text-2xl font-semibold text-center mb-8">Ek Kaynaklar</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <a href="tarpovizyon-terms-of-service.html" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all group text-center">
+              <i class="fas fa-file-contract text-3xl text-blue-600 mb-4"></i>
+              <h4 class="font-semibold mb-2 group-hover:text-blue-600 transition-colors">Kullanım Şartları</h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Uygulamanın kullanım koşulları ve kuralları</p>
+            </a>
+            
+            <a href="tarpovizyon-privacy-policy.html" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all group text-center">
+              <i class="fas fa-shield-alt text-3xl text-green-600 mb-4"></i>
+              <h4 class="font-semibold mb-2 group-hover:text-green-600 transition-colors">Gizlilik Politikası</h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Kişisel verilerinizin korunması hakkında</p>
+            </a>
+            
+            <a href="https://www.tarpol.org.tr" class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all group text-center">
+              <i class="fas fa-seedling text-3xl text-orange-600 mb-4"></i>
+              <h4 class="font-semibold mb-2 group-hover:text-orange-600 transition-colors">TARPOL Hakkında</h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Kuruluşumuz ve misyonumuz hakkında bilgi</p>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 pt-16 pb-8">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <div class="flex items-center justify-center gap-3 mb-4">
+            <img src="teknova-logo.png" alt="TEKNOVA Logo" class="w-10 h-10 object-contain rounded-lg shadow" />
+            <span class="text-2xl font-bold gradient-text">TEKNOVA</span>
+          </div>
+          <p class="text-gray-400 mb-6">TarpoVizyon uygulaması TEKNOVA tarafından TARPOL için geliştirilmiştir.</p>
+          
+          <!-- Quick Contact -->
+          <div class="mb-8">
+            <h4 class="text-lg font-semibold mb-4">Hızlı İletişim</h4>
+            <div class="flex flex-wrap justify-center gap-6 text-sm">
+              <a href="mailto:destek@tarpol.org.tr" class="text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-envelope mr-2"></i>destek@tarpol.org.tr
+              </a>
+              <a href="tel:+903124431121" class="text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-phone mr-2"></i>+90 312 443 11 21
+              </a>
+            </div>
+          </div>
+          
+          <div class="flex justify-center gap-6 text-sm">
+            <a href="tarpovizyon-privacy-policy.html" class="text-gray-400 hover:text-white transition-colors">Gizlilik Politikası</a>
+            <a href="tarpovizyon-terms-of-service.html" class="text-gray-400 hover:text-white transition-colors">Kullanım Şartları</a>
+            <a href="https://www.tarpol.org.tr" class="text-gray-400 hover:text-white transition-colors">TARPOL</a>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-800 pt-8 mt-8 text-center text-gray-400 text-sm">
+          <p>&copy; 2025 TARPOL & TEKNOVA. Tüm hakları saklıdır.</p>
+          <p class="mt-2 text-xs">7/24 destek hattımız sizin için hizmet vermektedir.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      }
+      function openMobileMenu() {
+        mobileMenu.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      }
+
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (mobileMenu.classList.contains('hidden')) {
+            openMobileMenu();
+          } else {
+            closeMobileMenu();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!mobileMenu.classList.contains('hidden')) {
+          if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            closeMobileMenu();
+          }
+        }
+      });
+
+      // Support Form Handler
+      const supportForm = document.getElementById('support-form');
+      if (supportForm) {
+        supportForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const messageDiv = document.getElementById('form-message');
+          
+          // Simulate form submission
+          messageDiv.innerHTML = '<div class="p-4 bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg text-green-700 dark:text-green-300"><i class="fas fa-check-circle mr-2"></i>Destek talebiniz başarıyla gönderildi! 24 saat içinde size geri dönüş yapacağız.</div>';
+          messageDiv.classList.remove('hidden');
+          
+          // Reset form
+          supportForm.reset();
+          
+          // Scroll to message
+          messageDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>
